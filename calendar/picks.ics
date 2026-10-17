@@ -1,0 +1,1579 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//City Docket//Top picks//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:City Docket: top picks
+X-WR-CALDESC:Strongest-fit NYC talks\, hearings\, readings\, screenings and
+  actions\, plus civic deadlines. Updated every Sunday.
+X-WR-TIMEZONE:America/New_York
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VTIMEZONE
+TZID:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20261003-the-taking-of-pelham-one-two-three@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261003T143000
+DTEND;TZID=America/New_York:20261003T163000
+SUMMARY:The Taking of Pelham One Two Three
+LOCATION:Metrograph\, 7 Ludlow St\, Manhattan\, NY
+DESCRIPTION:The 1974 subway-hijacking thriller\, introduced by film scholar
+ s Genevieve Yue and Erika Balsom\, with a book signing.\n\nScreening · Me
+ trograph · See listing · Registration or tickets needed · Q&A or guest 
+ in person\n\nListing: https://metrograph.com/film/9999000918-the-taking-of
+ -pelham-one-two-three/\n\nFound via Metrograph
+URL:https://metrograph.com/film/9999000918-the-taking-of-pelham-one-two-thr
+ ee/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261003-free-leonard-peltier@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261003T183000
+DTEND;TZID=America/New_York:20261003T203000
+SUMMARY:Free Leonard Peltier
+LOCATION:IFC Center\, 323 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Jesse Short Bull and David France's documentary on the conteste
+ d conviction of Indian rights activist Leonard Peltier\; Q&A with the dire
+ ctors.\n\nScreening · IFC Center · See listing · Registration or ticket
+ s needed · Q&A or guest in person\n\nListing: https://www.ifccenter.com/f
+ ilms/free-leonard-peltier/\n\nFound via IFC Center
+URL:https://www.ifccenter.com/films/free-leonard-peltier/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261004-free-leonard-peltier@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261004T131500
+DTEND;TZID=America/New_York:20261004T151500
+SUMMARY:Free Leonard Peltier
+LOCATION:IFC Center\, 323 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Jesse Short Bull and David France's documentary on the conteste
+ d conviction of Indian rights activist Leonard Peltier\; Q&A with the dire
+ ctors.\n\nScreening · IFC Center · See listing · Registration or ticket
+ s needed · Q&A or guest in person\n\nListing: https://www.ifccenter.com/f
+ ilms/free-leonard-peltier/\n\nFound via IFC Center
+URL:https://www.ifccenter.com/films/free-leonard-peltier/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261004-capitalism-the-insatiable-machine-with-trevor-ja@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261004T140000
+DTEND;TZID=America/New_York:20261004T153000
+SUMMARY:Capitalism: The Insatiable Machine\, with Trevor Jackson
+LOCATION:Online (Zoom)
+DESCRIPTION:Online talk with historian Trevor Jackson on the history of cap
+ italism.\n\nTalk · Marxist Education Project · Free · Online\n\nListing
+ : https://marxedproject.org/event/insatiable-machine/\n\nFound via Marxist
+  Education Project
+URL:https://marxedproject.org/event/insatiable-machine/
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261004-the-banned-wagon@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261004
+DTEND;VALUE=DATE:20261008
+SUMMARY:The Banned Wagon
+LOCATION:Hunters Point Library\, then other library stops
+DESCRIPTION:Penguin Random House's banned-books bookmobile tours the boroug
+ hs handing out free challenged titles.\n\nDate to know · Penguin Random H
+ ouse · Free\n\nStops: Hunters Point Library 10/4\, BPL Bushwick 10/5\, NY
+ PL Schwarzman Building 10/6\, Charleston Library (Staten Island) 10/7.\n\n
+ Listing: https://sites.prh.com/banned-wagon\n\nFound via The Skint
+URL:https://sites.prh.com/banned-wagon
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261005-book-launch-kevin-t-morris-with-ari-berman@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261005T190000
+DTEND;TZID=America/New_York:20261005T201500
+SUMMARY:Book Launch: Kevin T. Morris with Ari Berman
+LOCATION:Lafayette Avenue Presbyterian Church\, 85 S Oxford St\, Brooklyn\,
+  NY
+DESCRIPTION:Kevin T. Morris launches An American Problem\, a book about vot
+ ing rights\, in conversation with Ari Berman.\n\nBook talk · Greenlight B
+ ookstore · Free\, RSVP · Registration or tickets needed\n\nOffsite Green
+ light event\n\nListing: https://greenlightbookstore.com/event/2026-10-05/b
+ ook-launch-kevin-t-morris-ari-berman-lapc\n\nFound via Greenlight Bookstor
+ e
+URL:https://greenlightbookstore.com/event/2026-10-05/book-launch-kevin-t-mo
+ rris-ari-berman-lapc
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261006-council-subcommittee-on-zoning-and-franchises@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261006T110000
+DTEND;TZID=America/New_York:20261006T140000
+SUMMARY:Council: Subcommittee on Zoning and Franchises
+LOCATION:250 Broadway\, 8th Floor\, Hearing Room 3\, 250 Broadway\, Manhatt
+ an\, NY
+DESCRIPTION:Land-use applications get their first Council hearing here. Age
+ nda posts on the Council calendar.\n\nPublic meeting · NYC Council · Fre
+ e\n\nOpen to the public\; bring ID for building entry. Hearings are livest
+ reamed on the Council's site.\n\nListing: https://legistar.council.nyc.gov
+ /Calendar.aspx\n\nFound via NYC Council hearing calendar
+URL:https://legistar.council.nyc.gov/Calendar.aspx
+CATEGORIES:Public meeting
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261006-met-council-walk-in-tenant-clinic-lower-manhatta@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261006T183000
+DTEND;TZID=America/New_York:20261006T203000
+SUMMARY:Met Council walk-in tenant clinic (Lower Manhattan)
+LOCATION:Met Council on Housing clinic\, 76 Trinity Place\, Manhattan\, NY
+DESCRIPTION:Free walk-in help with repairs\, rent and landlord problems. Th
+ e Inwood clinic runs on the other Tuesdays.\n\nOrganizing · Met Council o
+ n Housing · Free\n\nListing: https://www.metcouncilonhousing.org/\n\nFoun
+ d via Met Council on Housing
+URL:https://www.metcouncilonhousing.org/
+CATEGORIES:Organizing
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261006-surveillance-tech-and-the-fight-for-immigrant-ju@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261006T183000
+DTEND;TZID=America/New_York:20261006T200000
+SUMMARY:Surveillance Tech and the Fight for Immigrant Justice
+LOCATION:Event Oval\, Diana Center\, Barnard College\, 3009 Broadway\, Manh
+ attan\, NY
+DESCRIPTION:Mizue Aizeki\, Luba Cortés and Natalia Aristizábal on surveil
+ lance technology and immigrant organizing\; Miriam Ticktin moderates.\n\nP
+ anel · Barnard Center for Research on Women · See listing\n\nListing: ht
+ tps://bcrw.barnard.edu/event/surveillance-tech-and-the-fight-for-immigrant
+ -justice/\n\nFound via Barnard Center for Research on Women
+URL:https://bcrw.barnard.edu/event/surveillance-tech-and-the-fight-for-immi
+ grant-justice/
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261008-curator-s-tour-of-the-invention-of-park-avenue@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261008T150000
+DTEND;TZID=America/New_York:20261008T170000
+SUMMARY:Curator's Tour of The Invention of Park Avenue
+LOCATION:The Skyscraper Museum\, 39 Battery Pl\, New York\, NY 10280\, Manh
+ attan\, NY
+DESCRIPTION:Museum director Carol Willis walks visitors through the exhibit
+ ion on how Grand Central and rail real estate created Park Avenue.\n\nTour
+  · The Skyscraper Museum · Free\, timed ticket · Registration or ticket
+ s needed\n\nListing: https://www.skyscraper.org/programs/curators-tour-of-
+ the-invention-of-park-avenue-2/\n\nFound via The Skyscraper Museum
+URL:https://www.skyscraper.org/programs/curators-tour-of-the-invention-of-p
+ ark-avenue-2/
+CATEGORIES:Tour
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261010-refusal-of-work-the-writings-of-harry-cleaver@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261010T140000
+DTEND;TZID=America/New_York:20261010T153000
+SUMMARY:Refusal of Work: The Writings of Harry Cleaver
+LOCATION:Online (Zoom)
+DESCRIPTION:Online session on the autonomist Marxist's writing about work a
+ nd its refusal.\n\nTalk · Marxist Education Project · Free · Online\n\n
+ Listing: https://marxedproject.org/event/writings-of-harry-cleaver/\n\nFou
+ nd via Marxist Education Project
+URL:https://marxedproject.org/event/writings-of-harry-cleaver/
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261012-works-1-the-high-line@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261012T183000
+DTEND;TZID=America/New_York:20261012T200000
+SUMMARY:Works 1: The High Line
+LOCATION:Wood Auditorium\, Avery Hall\, 1172 Amsterdam Ave\, New York\, NY 
+ 10027\, Manhattan\, NY
+DESCRIPTION:James Corner and Elizabeth Diller open GSAPP's new WORKS lectur
+ e series with a look back at the High Line.\n\nTalk · Columbia GSAPP · F
+ ree\; advance registration required · Registration or tickets needed\n\nN
+ on-Columbia guests must register on Eventbrite at least two business days 
+ ahead for campus access\, so the window may already be closed.\n\nListing:
+  https://www.arch.columbia.edu/events/4223-works-1-the-high-line\n\nFound 
+ via Columbia GSAPP
+URL:https://www.arch.columbia.edu/events/4223-works-1-the-high-line
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261013-building-new-york-how-the-new-deal-transformed-t@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261013T180000
+DTEND;TZID=America/New_York:20261013T193000
+SUMMARY:Building New York: How the New Deal Transformed the City
+LOCATION:General Society of Mechanics & Tradesmen\, Midtown Manhattan (addr
+ ess on the listing)\, Manhattan\, NY
+DESCRIPTION:Architectural historian Matt Postal gives an illustrated talk o
+ n the public works FDR and LaGuardia built across the city.\n\nTalk · Art
+  Deco Society of New York · See listing · Hybrid · Registration or tick
+ ets needed\n\nHybrid with Zoom livestream\; register through the Art Deco 
+ Society of New York.\n\nListing: https://www.archtober.org/2026-events/bui
+ lding-new-york-how-the-new-deal-transformed-the-907889\n\nFound via Archto
+ ber
+URL:https://www.archtober.org/2026-events/building-new-york-how-the-new-dea
+ l-transformed-the-907889
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261013-met-council-walk-in-tenant-clinic-inwood@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261013T180000
+DTEND;TZID=America/New_York:20261013T200000
+SUMMARY:Met Council walk-in tenant clinic (Inwood)
+LOCATION:Met Council on Housing clinic\, 5030 Broadway\, Manhattan\, NY
+DESCRIPTION:Free walk-in help with repairs\, rent and landlord problems.\n\
+ nOrganizing · Met Council on Housing · Free\n\nListing: https://www.metc
+ ouncilonhousing.org/\n\nFound via Met Council on Housing
+URL:https://www.metcouncilonhousing.org/
+CATEGORIES:Organizing
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261013-nyc-event-organizers-meetup-with-unplatform@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261013T190000
+DTEND;TZID=America/New_York:20261013T210000
+SUMMARY:NYC Event Organizers Meetup with Unplatform
+LOCATION:Third Avenue public space (POPS)\, 875 Third Ave\, Manhattan\, NY
+DESCRIPTION:Organizers and venue hosts from art\, DIY\, music and community
+  scenes trade notes in a privately owned public space\, with an introducti
+ on from the Unplatform project.\n\nSocial · Unplatform · Free (contribut
+ ions welcome)\n\nListing: https://pools.events/t/cn00n8oz/\n\nFound via No
+ nsense NYC
+URL:https://pools.events/t/cn00n8oz/
+CATEGORIES:Social
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261013-topics-in-political-strategy-end-times-fascism@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261013T190000
+DTEND;TZID=America/New_York:20261013T203000
+SUMMARY:Topics in Political Strategy: End Times Fascism
+LOCATION:Online (Zoom)
+DESCRIPTION:The MEP's Political Strategy Study Group reads Naomi Klein and 
+ Astra Taylor's new work on currents of the contemporary right.\n\nWorkshop
+  · Marxist Education Project · Free · Online · Registration or tickets
+  needed\n\nFree with a suggested donation.\n\nListing: https://marxedproje
+ ct.org/event/topics-in-political-strategy-end-times-fascism/\n\nFound via 
+ Marxist Education Project
+URL:https://marxedproject.org/event/topics-in-political-strategy-end-times-
+ fascism/
+CATEGORIES:Workshop
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261014-how-states-are-designing-land-use-reforms-to-exp@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261014T143000
+DTEND;TZID=America/New_York:20261014T160000
+SUMMARY:How states are designing land-use reforms to expand housing supply 
+ (webinar)
+LOCATION:Online (Zoom webinar)
+DESCRIPTION:Findings from three new briefs on builder's remedies\, objectiv
+ e review standards and state housing targets\, with lessons from CA\, MA\,
+  NJ and WA. Vicki Been moderates.\n\nPanel · NYU Furman Center · Free (r
+ egister) · Online · Registration or tickets needed\n\nListing: https://w
+ ww.furmancenter.org/event/state-land-use-reforms-housing-supply-webinar/\n
+ \nFound via NYU Furman Center
+URL:https://www.furmancenter.org/event/state-land-use-reforms-housing-suppl
+ y-webinar/
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261014-downtown-and-uptown-how-the-tenements-of-lower-m@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261014T180000
+DTEND;TZID=America/New_York:20261014T193000
+SUMMARY:Downtown and Uptown: How the Tenements of Lower Manhattan and Yorkv
+ ille Redefined Affordable Housing in New York
+LOCATION:Online
+DESCRIPTION:Andrew Berman of Village Preservation and historian Lucie Levin
+ e give a virtual tour of notable East Village\, South Village and Yorkvill
+ e tenements and their place in today's housing debates.\n\nTalk · Village
+  Preservation and Friends of the Upper East Side · See listing (register 
+ via Village Preservation) · Online · Registration or tickets needed\n\nV
+ irtual\; the Archtober calendar shows both 6:00 and 6:15pm.\n\nListing: ht
+ tps://www.archtober.org/2026-events/downtown-and-uptown-how-the-tenements-
+ of-lower-man-569084\n\nFound via Archtober
+URL:https://www.archtober.org/2026-events/downtown-and-uptown-how-the-tenem
+ ents-of-lower-man-569084
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261014-raise-your-voice-curator-led-tour-latinx-food-wo@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261014T183000
+DTEND;TZID=America/New_York:20261014T193000
+SUMMARY:Raise Your Voice curator-led tour: Latinx Food Workers and Activism
+LOCATION:Museum of the City of New York\, 1220 Fifth Ave\, New York\, NY 10
+ 029\, Manhattan\, NY
+DESCRIPTION:Curator Sarah Seidman leads a one-hour tour of the activism exh
+ ibition with New School professor Alexandra Délano Alonso and La Morada a
+ ctivist-artist Marco Saavedra.\n\nTour · Museum of the City of New York 
+ · Free\; registration recommended · Registration or tickets needed\n\nLi
+ mited space. Part of Free Late-Night Wednesdays (museum free until 9pm).\n
+ \nListing: https://www.mcny.org/event/raise-your-voice-curator-led-tour\n\
+ nFound via Museum of the City of New York
+URL:https://www.mcny.org/event/raise-your-voice-curator-led-tour
+CATEGORIES:Tour
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261014-collections-management-working-group-meeting@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261014T190000
+DTEND;TZID=America/New_York:20261014T200000
+SUMMARY:Collections Management Working Group Meeting
+LOCATION:Interference Archive\, 314 7th St\, Brooklyn\, NY 11215\, Brooklyn
+ \, NY
+DESCRIPTION:The archive's volunteer collections group meets to review donat
+ ion requests and cataloging projects\; newcomers welcome.\n\nOrganizing ·
+  Interference Archive · Free · Hybrid\n\nHybrid: in person or Zoom\; ema
+ il the archive for the Zoom link. Price not stated\; volunteer meeting.\n\
+ nListing: https://interferencearchive.org/event/collections-management-wor
+ king-group-meeting-8/\n\nFound via Interference Archive
+URL:https://interferencearchive.org/event/collections-management-working-gr
+ oup-meeting-8/
+CATEGORIES:Organizing
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261014-natasha-lennard-presents-on-un-certainty-in-conv@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261014T190000
+DTEND;TZID=America/New_York:20261014T201500
+SUMMARY:Natasha Lennard Presents On Un/Certainty\, in Conversation with Aly
+ ssa Battistoni
+LOCATION:Community Bookstore\, 143 7th Ave\, Brooklyn\, NY
+DESCRIPTION:Natasha Lennard presents On Un/Certainty in conversation with A
+ lyssa Battistoni.\n\nBook talk · Community Bookstore · Free\n\nListing: 
+ https://bookevents.nyc/events/natasha-lennard-presents-on-uncertainty-in-o
+ ct-14\n\nFound via bookevents.nyc
+URL:https://bookevents.nyc/events/natasha-lennard-presents-on-uncertainty-i
+ n-oct-14
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261015-robeson-cinema-canoa-a-shameful-memory@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261015T180000
+DTEND;TZID=America/New_York:20261015T203000
+SUMMARY:Robeson Cinema: Canoa: A Shameful Memory
+LOCATION:Paul and Eslanda Robeson Cinema at The People's Forum\, 320 West 3
+ 7th Street\, New York\, NY 10018\, Manhattan\, NY
+DESCRIPTION:Screening of Felipe Cazals's 1975 Mexican film about the 1968 l
+ ynching in San Miguel Canoa.\n\nScreening · The People's Forum · Free\; 
+ $8 solidarity ticket to reserve · Registration or tickets needed\n\nListe
+ d for Oct 15\; the index had this screening on Oct 8.\n\nListing: https://
+ peoplesforum.org/events/film-screening-canoa-a-shameful-memory/\n\nFound v
+ ia The People's Forum
+URL:https://peoplesforum.org/events/film-screening-canoa-a-shameful-memory/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261015-through-the-mirror-homelessness-healthcare-and-i@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261015T180000
+DTEND;TZID=America/New_York:20261015T193000
+SUMMARY:Through the Mirror: Homelessness\, Healthcare\, and Innovation in t
+ he NYC Subways
+LOCATION:New York Transit Museum\, 99 Schermerhorn St\, Brooklyn\, NY 11201
+ \, Brooklyn\, NY
+DESCRIPTION:Author Anand Giridharadas joins Department of Homeless Services
+  officials and outreach nurses and an MTA advisor for a panel moderated by
+  Vital City's Elizabeth Glazer.\n\nPanel · New York Transit Museum · Fre
+ e with RSVP · Registration or tickets needed\n\nListing: https://www.nytr
+ ansitmuseum.org/program/through-the-mirror/\n\nFound via New York Transit 
+ Museum
+URL:https://www.nytransitmuseum.org/program/through-the-mirror/
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261016-curator-s-tour-of-the-invention-of-park-avenue@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261016T150000
+DTEND;TZID=America/New_York:20261016T170000
+SUMMARY:Curator's Tour of The Invention of Park Avenue
+LOCATION:The Skyscraper Museum\, 39 Battery Pl\, New York\, NY 10280\, Manh
+ attan\, NY
+DESCRIPTION:Museum director Carol Willis leads a gallery tour of the Park A
+ venue exhibition.\n\nTour · The Skyscraper Museum · Free\, timed ticket 
+ · Registration or tickets needed\n\nBook the 3pm timed ticket via the RSV
+ P button.\n\nListing: https://www.skyscraper.org/programs/curators-tour-of
+ -the-invention-of-park-avenue-2/\n\nFound via The Skyscraper Museum
+URL:https://www.skyscraper.org/programs/curators-tour-of-the-invention-of-p
+ ark-avenue-2/
+CATEGORIES:Tour
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261016-the-great-experiment@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261016T191500
+DTEND;TZID=America/New_York:20261016T211500
+SUMMARY:The Great Experiment
+LOCATION:IFC Center\, 323 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Co-director Stephen Maing discusses his black-and-white documen
+ tary on American democracy from 2017 to 2021 with filmmaker Laura Poitras.
+ \n\nScreening · IFC Center · See listing · Q&A or guest in person\n\nLi
+ sting: https://www.ifccenter.com/films/the-great-experiment-2/\n\nFound vi
+ a IFC Center
+URL:https://www.ifccenter.com/films/the-great-experiment-2/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261017-les-arts-culture-open-house-2026@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261017T110000
+DTEND;TZID=America/New_York:20261017T200000
+SUMMARY:LES Arts & Culture Open House 2026
+LOCATION:Various Lower East Side locations\, Location on the listing\, Manh
+ attan\, NY
+DESCRIPTION:FABnyc and 25 Lower East Side arts organizations open their doo
+ rs for a free neighborhood-wide day of programs.\n\nFestival · FABnyc · 
+ Free\n\nIndividual venues and schedule are on FABnyc's lineup\n\nListing: 
+ https://lamama.org/lesartsopenhouse2026/\n\nFound via La MaMa
+URL:https://lamama.org/lesartsopenhouse2026/
+CATEGORIES:Festival
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261017-van-alen-fall-fest-2026@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261017T120000
+DTEND;TZID=America/New_York:20261017T160000
+SUMMARY:Van Alen Fall Fest 2026
+LOCATION:Van Alen Institute\, 303 Bond St\, Brooklyn\, NY\, Brooklyn\, NY
+DESCRIPTION:Van Alen opens its Open Access archive exhibition with all-ages
+  mask and collage workshops\, run with Archtober and Gowanus Open Studios.
+ \n\nFestival · Van Alen Institute · Free (RSVP appreciated) · Registrat
+ ion or tickets needed\n\nListing: https://www.vanalen.org/events/van-alen-
+ fall-fest-2026/\n\nFound via Van Alen Institute
+URL:https://www.vanalen.org/events/van-alen-fall-fest-2026/
+CATEGORIES:Festival
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261017-the-future-of-revolution-with-jasper-bernes@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261017T140000
+DTEND;TZID=America/New_York:20261017T153000
+SUMMARY:'The Future of Revolution' with Jasper Bernes
+LOCATION:Online (Zoom)
+DESCRIPTION:Jasper Bernes presents his book on the future of revolution in 
+ an online MEP book talk.\n\nBook talk · Marxist Education Project · Free
+  · Online · Registration or tickets needed\n\nListing: https://marxedpro
+ ject.org/event/future-of-revolution/\n\nFound via Marxist Education Projec
+ t
+URL:https://marxedproject.org/event/future-of-revolution/
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261017-the-great-experiment@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261017T191500
+DTEND;TZID=America/New_York:20261017T211500
+SUMMARY:The Great Experiment
+LOCATION:IFC Center\, 323 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Co-director Stephen Maing takes questions after his documentary
+  on the fracturing of American democracy.\n\nScreening · IFC Center · Se
+ e listing · Q&A or guest in person\n\nQ&A with Steve Maing and Farihah Za
+ man at the 7:15pm show\n\nListing: https://www.ifccenter.com/films/the-gre
+ at-experiment-2/\n\nFound via IFC Center
+URL:https://www.ifccenter.com/films/the-great-experiment-2/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261018-house-the-future-lobby-training@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261018T120000
+DTEND;TZID=America/New_York:20261018T133000
+SUMMARY:House the Future Lobby Training
+LOCATION:NYC-DSA Manhattan office\, Manhattan\, NY
+DESCRIPTION:Training to prepare participants to lobby on the House the Futu
+ re campaign.\n\nWorkshop · NYC-DSA · See listing · Registration or tick
+ ets needed\n\nRSVP on Action Network.\n\nListing: https://actionnetwork.or
+ g/events/house-the-future-lobby-training-2\n\nFound via NYC-DSA calendar
+URL:https://actionnetwork.org/events/house-the-future-lobby-training-2
+CATEGORIES:Workshop
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261018-la-mama-s-65th-anniversary-block-party@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261018T130000
+DTEND;TZID=America/New_York:20261018T170000
+SUMMARY:La MaMa's 65th Anniversary Block Party
+LOCATION:Ellen Stewart Way (E 4th St between Bowery and 2nd Ave)\, 66 E 4th
+  St\, New York\, NY 10003\, Manhattan\, NY
+DESCRIPTION:A free street party for La MaMa's 65th birthday with performanc
+ es by Brooklyn United\, Yungchen Lhamo\, Great Jones Repertory Company\, N
+ ew York Theatre Workshop and others.\n\nFestival · La MaMa · Free\n\nRSV
+ P optional\; drop-ins welcome\n\nListing: https://lamama.org/la-mamas-65th
+ -anniversary-block-party/\n\nFound via La MaMa
+URL:https://lamama.org/la-mamas-65th-anniversary-block-party/
+CATEGORIES:Festival
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261018-understanding-community-safety-in-nyc@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261018T140000
+DTEND;TZID=America/New_York:20261018T160000
+SUMMARY:Understanding Community Safety in NYC
+LOCATION:NYC-DSA Manhattan office\, Manhattan\, NY
+DESCRIPTION:NYC-DSA political education session on community safety in New 
+ York City.\n\nTalk · NYC-DSA · See listing · Registration or tickets ne
+ eded\n\nRSVP on Action Network.\n\nListing: https://actionnetwork.org/even
+ ts/understanding-community-safety-in-nyc\n\nFound via NYC-DSA calendar
+URL:https://actionnetwork.org/events/understanding-community-safety-in-nyc
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261018-closing-alex-strada-public-address@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261018T180000
+DTEND;TZID=America/New_York:20261018T193000
+SUMMARY:Closing: Alex Strada\, Public Address
+LOCATION:Storefront for Art and Architecture\, 97 Kenmare St\, Manhattan\, 
+ NY
+DESCRIPTION:Closing at Storefront for a public artwork that turns reflectio
+ ns from shelter residents and staff into street signs installed in city pa
+ rks.\n\nExhibition · Storefront for Art and Architecture · Free\n\nThe p
+ ark installations keep rotating around the city after this closing.\n\nLis
+ ting: https://storefront.nyc/program/public-address-by-alex-strada/\n\nFou
+ nd via New York Review of Architecture listings
+URL:https://storefront.nyc/program/public-address-by-alex-strada/
+CATEGORIES:Exhibition
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261018-250th-commemoration-of-the-battle-of-pell-s-poin@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261018
+DTEND;VALUE=DATE:20261019
+SUMMARY:250th Commemoration of the Battle of Pell's Point
+LOCATION:Orchard Beach\, Orchard Beach\, Pelham Bay Park\, Bronx\, NY\, Bro
+ nx\, NY
+DESCRIPTION:A 250th-anniversary commemoration of the 1776 Revolutionary War
+  battle is held at Orchard Beach.\n\nDate to know · Location on the listi
+ ng · See listing\n\nTime and organizer not read on the listing.\n\nListin
+ g: https://dothisnyc.com/things-to-do-in-nyc-this-week/#e=250th-commemorat
+ ion-of-the-battle-of-pells\n\nFound via DoThisNYC
+URL:https://dothisnyc.com/things-to-do-in-nyc-this-week/#e=250th-commemorat
+ ion-of-the-battle-of-pells
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261019-shawn-gude-with-kim-phillips-fein@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261019T193000
+DTEND;TZID=America/New_York:20261019T203000
+SUMMARY:Shawn Gude with Kim Phillips-Fein
+LOCATION:Greenlight Bookstore (Fort Greene)\, 686 Fulton St\, Brooklyn\, NY
+DESCRIPTION:Local author and former Jacobin editor Shawn Gude presents Amer
+ ican Socialist\, on the life and legacy of Eugene Debs\, in conversation w
+ ith Kim Phillips-Fein.\n\nBook talk · Greenlight Bookstore · Free\, RSVP
+  · Registration or tickets needed\n\nListing: https://greenlightbookstore
+ .com/event/2026-10-19/shawn-gude-kim-phillips-fein\n\nFound via Greenlight
+  Bookstore
+URL:https://greenlightbookstore.com/event/2026-10-19/shawn-gude-kim-phillip
+ s-fein
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261019-change-of-address-deadline-for-the-nov-3-general@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261019
+DTEND;VALUE=DATE:20261020
+SUMMARY:Change of address deadline for the Nov 3 general election
+DESCRIPTION:Last day for registered voters to update their address with the
+  Board of Elections before the November 3 general election.\n\nDate to kno
+ w · NYC Votes · Free\n\nListing: https://www.nycvotes.org/how-to-vote/el
+ ection-calendar/\n\nFound via NYC Votes election calendar
+URL:https://www.nycvotes.org/how-to-vote/election-calendar/
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261020-council-subcommittee-on-zoning-and-franchises@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261020T110000
+DTEND;TZID=America/New_York:20261020T140000
+SUMMARY:Council: Subcommittee on Zoning and Franchises
+LOCATION:250 Broadway\, 8th Floor\, Hearing Room 3\, 250 Broadway\, Manhatt
+ an\, NY
+DESCRIPTION:Land-use applications get their first Council hearing here. Age
+ nda posts on the Council calendar.\n\nPublic meeting · NYC Council · Fre
+ e\n\nOpen to the public\; bring ID for building entry. Hearings are livest
+ reamed on the Council's site.\n\nListing: https://legistar.council.nyc.gov
+ /Calendar.aspx\n\nFound via NYC Council hearing calendar
+URL:https://legistar.council.nyc.gov/Calendar.aspx
+CATEGORIES:Public meeting
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261020-history-theory-panel-fascism-antifascism@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261020T183000
+DTEND;TZID=America/New_York:20261020T203000
+SUMMARY:History/Theory Panel: Fascism / Antifascism
+LOCATION:Frederick P. Rose Auditorium\, 41 Cooper Square\, Manhattan\, NY
+DESCRIPTION:Cooper Union History/Theory panel on fascism and antifascism wi
+ th María González Pendás\, Sarah Lopez and Daniel Jonas Roche\, in pers
+ on and on Zoom.\n\nPanel · The Cooper Union · Free\, registration requir
+ ed · Hybrid · Registration or tickets needed\n\nSeparate Eventbrite (in 
+ person) and Zoom registrations\n\nListing: https://cooper.edu/index.php/ev
+ ents-and-exhibitions/events/historytheory-panel-fascism-antifascism\n\nFou
+ nd via The Cooper Union public events
+URL:https://cooper.edu/index.php/events-and-exhibitions/events/historytheor
+ y-panel-fascism-antifascism
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261021-council-committee-on-land-use@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261021T130000
+DTEND;TZID=America/New_York:20261021T160000
+SUMMARY:Council oversight: the role of planning and development in the Bloc
+ k-by-Block housing plan (Land Use)
+LOCATION:250 Broadway\, 8th Floor\, Hearing Room 3\, 250 Broadway\, Manhatt
+ an\, NY
+DESCRIPTION:The Committee on Land Use holds an oversight hearing on how pla
+ nning and development fit into Mayor Mamdani's Block-by-Block housing plan
+ \, and votes on pending items.\n\nPublic meeting · NYC Council · Free\n\
+ nOpen to the public\; bring ID for building entry. Hearings are livestream
+ ed on the Council's site.\n\nListing: https://legistar.council.nyc.gov/Mee
+ tingDetail.aspx?ID=1440250&GUID=9943A2A2-23E5-4C9C-BA3A-54CA76E64574\n\nFo
+ und via NYC Council hearing calendar
+URL:https://legistar.council.nyc.gov/MeetingDetail.aspx?ID=1440250&GUID=994
+ 3A2A2-23E5-4C9C-BA3A-54CA76E64574
+CATEGORIES:Public meeting
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261021-julia-r-azari-backlash-presidents@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261021T173000
+DTEND;TZID=America/New_York:20261021T190000
+SUMMARY:Julia R. Azari: Backlash Presidents
+LOCATION:Institute for Public Knowledge\, 5th floor\, 20 Cooper Square\, Ma
+ nhattan\, NY
+DESCRIPTION:Marquette political scientist Julia R. Azari discusses Backlash
+  Presidents with Patrick J. Egan (NYU) and Joe Lowndes (Hunter College)\; 
+ moderated by IPK's Michael Koncewicz.\n\nBook talk · NYU Institute for Pu
+ blic Knowledge · Free\, RSVP · Registration or tickets needed\n\nListing
+ : https://ipk.nyu.edu/events/book-talk-julia-r-azari-backlash-presidents-t
+ ransformative-to-reactionary-leaders-in-american-history-2/\n\nFound via N
+ YU Institute for Public Knowledge
+URL:https://ipk.nyu.edu/events/book-talk-julia-r-azari-backlash-presidents-
+ transformative-to-reactionary-leaders-in-american-history-2/
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261021-faq-nyc-immigration-elections@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261021T183000
+DTEND;TZID=America/New_York:20261021T203000
+SUMMARY:FAQ NYC: Immigration & Elections
+LOCATION:Tenement Museum\, 103 Orchard St\, Manhattan\, NY
+DESCRIPTION:Live taping of the FAQ NYC podcast: hosts Christina Greer\, Har
+ ry Siegel and Katie Honan with guest Gwynne Hogan on how candidates are ad
+ dressing immigration ahead of Election Day.\n\nPanel · Tenement Museum ·
+  $25\; livestream free ($10 suggested) · Hybrid · Registration or ticket
+ s needed\n\nIn-person ticket includes mini tours and a reception with the 
+ hosts\n\nListing: https://www.tenement.org/programs/faq-nyc-immigration-el
+ ections/\n\nFound via Tenement Museum
+URL:https://www.tenement.org/programs/faq-nyc-immigration-elections/
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261022-rally-to-pass-the-delivery-protection-act@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261022T103000
+DTEND;TZID=America/New_York:20261022T123000
+SUMMARY:Rally to Pass the Delivery Protection Act
+LOCATION:City Hall steps\, Manhattan\, NY
+DESCRIPTION:Rally on the City Hall steps to push for passage of the Deliver
+ y Protection Act.\n\nOrganizing · NYC-DSA · See listing · Registration 
+ or tickets needed\n\nRSVP on Action Network.\n\nListing: https://actionnet
+ work.org/events/rally-to-pass-the-delivery-protection-act-3\n\nFound via N
+ YC-DSA calendar
+URL:https://actionnetwork.org/events/rally-to-pass-the-delivery-protection-
+ act-3
+CATEGORIES:Organizing
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261022-cracks-in-the-yimby-consensus-part-5-a-housing-s@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261022T180000
+DTEND;TZID=America/New_York:20261022T193000
+SUMMARY:Cracks in the YIMBY Consensus Part 5: A Housing Shortage? Evaluatin
+ g the Evidence
+LOCATION:Online
+DESCRIPTION:Fifth installment of Village Preservation's virtual series ques
+ tioning the YIMBY consensus\, this one weighing the evidence for a housing
+  shortage.\n\nTalk · Village Preservation · See listing (register via Vi
+ llage Preservation) · Online · Registration or tickets needed\n\nSpeaker
+ s not named on the Archtober listing.\n\nListing: https://www.archtober.or
+ g/2026-events/cracks-in-the-yimby-consensus-part-5-a-housing-sho-756047\n\
+ nFound via Archtober
+URL:https://www.archtober.org/2026-events/cracks-in-the-yimby-consensus-par
+ t-5-a-housing-sho-756047
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261022-robeson-cinema-la-llorona@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261022T180000
+DTEND;TZID=America/New_York:20261022T203000
+SUMMARY:Robeson Cinema: La Llorona
+LOCATION:Paul and Eslanda Robeson Cinema at The People's Forum\, 320 West 3
+ 7th Street\, New York\, NY 10018\, Manhattan\, NY
+DESCRIPTION:Screening of Jayro Bustamante's 2019 Guatemalan film that turns
+  the genocide trials into a ghost story.\n\nScreening · The People's Foru
+ m · Free\; $8 solidarity ticket to reserve · Registration or tickets nee
+ ded\n\nListing: https://peoplesforum.org/events/film-screening-la-llorona/
+ \n\nFound via The People's Forum
+URL:https://peoplesforum.org/events/film-screening-la-llorona/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261022-power-and-greed-monopolies-mergers-and-cartels-o@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261022T193000
+DTEND;TZID=America/New_York:20261022T204500
+SUMMARY:Power and Greed: Monopolies\, Mergers and Cartels on the American S
+ tage
+LOCATION:The Drama Book Shop\, 266 W 39th St\, Manhattan\, NY
+DESCRIPTION:Spencer Weber Waller talks about Power and Greed\, on how monop
+ olies\, mergers and cartels have been portrayed on the American stage.\n\n
+ Book talk · The Drama Book Shop · Free\n\nListing: https://bookevents.ny
+ c/events/power-and-greed-monopolies-mergers-and-cartels-on-oct-22\n\nFound
+  via The Drama Book Shop
+URL:https://bookevents.nyc/events/power-and-greed-monopolies-mergers-and-ca
+ rtels-on-oct-22
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261023-nationtime-william-greaves-100@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261023T140000
+DTEND;TZID=America/New_York:20261023T160000
+SUMMARY:NationTime (William Greaves 100)
+LOCATION:Film Forum\, 209 W Houston St\, Manhattan\, NY
+DESCRIPTION:Greaves's documentary of the 1972 National Black Political Conv
+ ention in Gary\, introduced by producer Liani Greaves and IndieCollect fou
+ nder Sandra Schulberg.\n\nScreening · Film Forum · $18 ($12 members) · 
+ Q&A or guest in person\n\nIntroduction by Liani Greaves and Sandra Schulbe
+ rg at the 2:00 show\n\nListing: https://filmforum.org/events/event/nationt
+ ime-october-23\n\nFound via Film Forum
+URL:https://filmforum.org/events/event/nationtime-october-23
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-archtober-building-of-the-day-marcus-garvey-vill@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261024T133000
+DTEND;TZID=America/New_York:20261024T153000
+SUMMARY:Archtober Building of the Day: Marcus Garvey Village and extension
+LOCATION:Marcus Garvey Village\, Thomas Boyland St\, Brooklyn\, NY
+DESCRIPTION:Tour of Brownsville's 1970s low-rise housing complex and its ne
+ w extension. Architect: Curtis + Ginsberg Architects.\n\nTour · Archtober
+  / AIA New York · $15 · Registration or tickets needed\n\nOfficial Archt
+ ober calendar lists 1:30 pm (the Untapped guide said 1 pm).\n\nListing: ht
+ tps://www.archtober.org/2026-events/building-of-the-day-marcus-garvey-vill
+ age-and-extension\n\nFound via Untapped New York Archtober guide
+URL:https://www.archtober.org/2026-events/building-of-the-day-marcus-garvey
+ -village-and-extension
+CATEGORIES:Tour
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-land-for-people-undoing-spatial-apartheid-in-sou@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261024T143000
+DTEND;TZID=America/New_York:20261024T160000
+SUMMARY:Land for People: Undoing Spatial Apartheid in South African Cities
+LOCATION:238 East 6th Street\, 238 E 6th St\, Manhattan\, NY
+DESCRIPTION:Bevil Lucas\, Wandile Mthiyane and Annie Nisenson discuss commu
+ nity-led responses to housing exclusion in South Africa\; Keller Easterlin
+ g moderates.\n\nPanel · Land Back in Cities Exhibition · See listing (Ev
+ entbrite registration) · Registration or tickets needed\n\nPart of Archto
+ ber\; price not stated on the listing.\n\nListing: https://www.archtober.o
+ rg/2026-events/land-for-people-undoing-spatial-apartheid-in-south-african-
+ cities\n\nFound via Archtober
+URL:https://www.archtober.org/2026-events/land-for-people-undoing-spatial-a
+ partheid-in-south-african-cities
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-nationtime-william-greaves-100@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261024T202000
+DTEND;TZID=America/New_York:20261024T222000
+SUMMARY:NationTime (William Greaves 100)
+LOCATION:Film Forum\, 209 W Houston St\, Manhattan\, NY
+DESCRIPTION:Greaves's documentary of the 1972 National Black Political Conv
+ ention\, introduced by Liani Greaves and Sandra Schulberg.\n\nScreening ·
+  Film Forum · $18 ($12 members) · Q&A or guest in person\n\nIntroduction
+  by Liani Greaves and Sandra Schulberg at the 8:20 show\n\nListing: https:
+ //filmforum.org/events/event/nationtime-october-24\n\nFound via Film Forum
+URL:https://filmforum.org/events/event/nationtime-october-24
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-early-voting-for-the-nov-3-general-election@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261102
+SUMMARY:Early voting for the Nov 3 general election
+LOCATION:Your early voting site
+DESCRIPTION:Nine days of early voting at your assigned site before Election
+  Day.\n\nDate to know · NYC Board of Elections · Free\n\nListing: https:
+ //www.nycvotes.org/how-to-vote/early-voting/\n\nFound via NYS Board of Ele
+ ctions deadlines
+URL:https://www.nycvotes.org/how-to-vote/early-voting/
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-mail-ballot-request-deadline-online-or-by-mail@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:Mail ballot request deadline (online or by mail)
+DESCRIPTION:Last day to request a mail ballot online or by mail for the Nov
+ ember 3 general election.\n\nDate to know · NYC Votes · Free\n\nListing:
+  https://www.nycvotes.org/how-to-vote/election-calendar/\n\nFound via NYC 
+ Votes election calendar
+URL:https://www.nycvotes.org/how-to-vote/election-calendar/
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-voter-registration-deadline@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:Voter registration deadline
+LOCATION:Online / by mail
+DESCRIPTION:Registrations must reach your county board of elections by toda
+ y to vote in the Nov 3 general election.\n\nDate to know · NYS Board of E
+ lections · Free · Online\n\nListing: https://elections.ny.gov/registrati
+ on-and-voting-deadlines\n\nFound via NYS Board of Elections deadlines
+URL:https://elections.ny.gov/registration-and-voting-deadlines
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025-beneath-the-wage-with-annie-mcclanahan@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261025T140000
+DTEND;TZID=America/New_York:20261025T153000
+SUMMARY:'Beneath the Wage' with Annie McClanahan
+LOCATION:Online (Zoom)
+DESCRIPTION:Annie McClanahan presents her book on tipped\, gig and other su
+ b-wage work in an online MEP book talk.\n\nBook talk · Marxist Education 
+ Project · Free · Online · Registration or tickets needed\n\nListing: ht
+ tps://marxedproject.org/event/beneath-the-wage-with-annie-mcclanahan/\n\nF
+ ound via Marxist Education Project
+URL:https://marxedproject.org/event/beneath-the-wage-with-annie-mcclanahan/
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025-nous-we-intro-by-genevieve-yue@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261025T143000
+DTEND;TZID=America/New_York:20261025T163000
+SUMMARY:Nous (We) (intro by Genevieve Yue)
+LOCATION:Metrograph\, 7 Ludlow St\, Manhattan\, NY
+DESCRIPTION:Screening of Nous (We) with an introduction by Genevieve Yue.\n
+ \nScreening · Metrograph · See listing · Q&A or guest in person\n\nIntr
+ oduction by Genevieve Yue at the 2:30 show\n\nListing: https://metrograph.
+ com/film/9999005056-nous-we/\n\nFound via Metrograph
+URL:https://metrograph.com/film/9999005056-nous-we/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025-on-the-relentless-destruction-of-beauty-short-ho@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261025T170000
+DTEND;TZID=America/New_York:20261025T190000
+SUMMARY:On the Relentless Destruction of Beauty: Short Housing Films
+LOCATION:Roxy Cinema\, 2 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Four films from 1967 to 2026 on housing and displacement\, incl
+ uding People's Park\, a Harlem rent strike and a Brooklyn eviction resista
+ nce\; Q&A with the filmmakers.\n\nScreening · Roxy Cinema · $19 · Regis
+ tration or tickets needed · Q&A or guest in person\n\nListing: https://ww
+ w.roxycinemanewyork.com/screenings/on-the-relentless-destruction-of-beauty
+ -short-housing-films-qa/\n\nFound via Roxy Cinema
+URL:https://www.roxycinemanewyork.com/screenings/on-the-relentless-destruct
+ ion-of-beauty-short-housing-films-qa/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261025-seat-at-the-table@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261025T173000
+DTEND;TZID=America/New_York:20261025T193000
+SUMMARY:Seat at the Table
+LOCATION:Museum of the Moving Image\, 36-01 35th Ave\, Astoria\, NY 11106\,
+  Queens\, NY
+DESCRIPTION:Documentary on South Asian Americans' growing role in U.S. poli
+ tics during the 2024 cycle\, with filmmakers Sarita Khurana and Yoav Attia
+ s in person.\n\nScreening · Museum of the Moving Image · Free with RSVP 
+ · Registration or tickets needed · Q&A or guest in person\n\nConversatio
+ n with the filmmakers and special guests follows\n\nListing: https://movin
+ gimage.org/event/seat-at-the-table/\n\nFound via Museum of the Moving Imag
+ e
+URL:https://movingimage.org/event/seat-at-the-table/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261027-radical-nonfiction-book-group-how-fascism-works@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261027T190000
+DTEND;TZID=America/New_York:20261027T200000
+SUMMARY:Radical Nonfiction Book Group: How Fascism Works
+LOCATION:Greenlight Bookstore (location TBA)\, Brooklyn\, NY
+DESCRIPTION:Greenlight's radical nonfiction reading group\, led by former b
+ ookseller Carlo\, discusses How Fascism Works by Jason Stanley.\n\nSocial 
+ · Greenlight Bookstore · Free\, RSVP · Registration or tickets needed\n
+ \nLocation TBA on event page\n\nListing: https://greenlightbookstore.com/e
+ vent/2026-10-27/radical-nonfiction-book-group\n\nFound via Greenlight Book
+ store
+URL:https://greenlightbookstore.com/event/2026-10-27/radical-nonfiction-boo
+ k-group
+CATEGORIES:Social
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261028-city-of-fortune-inequality-and-the-making-of-con@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261028T183000
+DTEND;TZID=America/New_York:20261028T200000
+SUMMARY:City of Fortune: Inequality and the Making of Contemporary New York
+LOCATION:Gotham Center talk (venue on listing)
+DESCRIPTION:Mason B. Williams\, with Kara Schlichting\, on how finance and 
+ real estate growth since the 1970s made New York's housing\, schools and p
+ olicing more exclusive and unequal.\n\nBook talk · Gotham Center for New 
+ York City History · See listing\n\nNew date for the talk postponed from O
+ ct 7. Venue\, format and registration not posted yet.\n\nListing: https://
+ www.gothamcenter.org/upcoming-events/city-of-fortune-inequality-and-the-ma
+ king-of-contemporary-new-york\n\nFound via Gotham Center for NYC History
+URL:https://www.gothamcenter.org/upcoming-events/city-of-fortune-inequality
+ -and-the-making-of-contemporary-new-york
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261028-workers-unite-against-the-wind-and-delivered-del@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261028T203000
+DTEND;TZID=America/New_York:20261028T223000
+SUMMARY:Workers Unite: 'Against the Wind' and 'Delivered' - Delivery App Dr
+ ivers
+LOCATION:Cinema Village\, 22 E 12th St\, New York\, NY 10003\, Manhattan\, 
+ NY
+DESCRIPTION:Two films on app-based delivery workers screen in the Workers U
+ nite Film Festival.\n\nScreening · Workers Unite Film Festival · See lis
+ ting · Registration or tickets needed · Q&A or guest in person\n\nQ&A li
+ sted (participants not named)\n\nListing: https://www.eventbrite.com/e/pro
+ gram-18-against-the-wind-and-delivered-delivery-app-drivers-qa-tickets-200
+ 3236179338\n\nFound via Cinema Village
+URL:https://www.eventbrite.com/e/program-18-against-the-wind-and-delivered-
+ delivery-app-drivers-qa-tickets-2003236179338
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261031-village-halloween-parade@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Village Halloween Parade
+LOCATION:Sixth Avenue\, 6th Ave\, Greenwich Village\, New York\, NY\, Manha
+ ttan\, NY
+DESCRIPTION:The annual Halloween parade runs up Sixth Avenue through Greenw
+ ich Village.\n\nDate to know · Village Halloween Parade · Free\n\nTime n
+ ot read on the listing.\n\nListing: https://dothisnyc.com/things-to-do-in-
+ nyc-this-week/#e=village-halloween-parade\n\nFound via DoThisNYC
+URL:https://dothisnyc.com/things-to-do-in-nyc-this-week/#e=village-hallowee
+ n-parade
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261101-news-from-home-interior-ny-subway-14th-street@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261101T174500
+DTEND;TZID=America/New_York:20261101T194500
+SUMMARY:News from Home + Interior NY Subway\, 14th Street
+LOCATION:Metrograph\, 7 Ludlow St\, Manhattan\, NY
+DESCRIPTION:Series curator Genevieve Yue introduces Chantal Akerman's New Y
+ ork film paired with an early subway short.\n\nScreening · Metrograph · 
+ See listing · Q&A or guest in person\n\nListing: https://metrograph.com/e
+ vents/\n\nFound via Metrograph
+URL:https://metrograph.com/events/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261102-mail-ballot-request-deadline-in-person@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;VALUE=DATE:20261102
+DTEND;VALUE=DATE:20261103
+SUMMARY:Mail ballot request deadline (in person)
+DESCRIPTION:Last day to request a mail ballot in person at a Board of Elect
+ ions office for the November 3 general election.\n\nDate to know · NYC Vo
+ tes · Free\n\nListing: https://www.nycvotes.org/how-to-vote/election-cale
+ ndar/\n\nFound via NYC Votes election calendar
+URL:https://www.nycvotes.org/how-to-vote/election-calendar/
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261103-election-day-new-york-general-election@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261103T060000
+DTEND;TZID=America/New_York:20261103T210000
+SUMMARY:Election Day: New York general election
+LOCATION:Your poll site
+DESCRIPTION:Polls are open 6 AM to 9 PM. The ballot also carries five propo
+ sed City Charter amendments. Look up your poll site with the NYC Board of 
+ Elections.\n\nDate to know · NYC Board of Elections · Free\n\nListing: h
+ ttps://www.vote.nyc/\n\nFound via NYS Board of Elections deadlines
+URL:https://www.vote.nyc/
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261104-new-york-state-job-fair-at-nypl@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261104T110000
+DTEND;TZID=America/New_York:20261104T140000
+SUMMARY:New York State Job Fair at NYPL
+LOCATION:Melrose Library\, Bronx\, NY
+DESCRIPTION:Meet representatives of New York City and New York State agenci
+ es\, get application instructions and have a resume reviewed by NYPL's Car
+ eer Services team.\n\nDate to know · New York Public Library · See listi
+ ng\n\nListing: https://www.nypl.org/events\n\nFound via NYPL Connect email
+URL:https://www.nypl.org/events
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261104-book-talk-a-right-to-housing-with-samuel-stein@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261104T180000
+DTEND;TZID=America/New_York:20261104T200000
+SUMMARY:Book Talk: A Right to Housing? with Samuel Stein
+LOCATION:Van Alen Institute (Urban Room)\, 303 Bond St\, Brooklyn\, NY
+DESCRIPTION:Samuel Stein discusses A Right to Housing? (Verso)\, on policy 
+ paths to housing as a right and the political obstacles in the way\, in co
+ nversation with Van Alen's Andrew Brown.\n\nBook talk · Van Alen Institut
+ e & AIA Brooklyn Housing Committee · Free\, RSVP · Registration or ticke
+ ts needed\n\nRSVP on Eventbrite (linked from event page)\n\nListing: https
+ ://www.vanalen.org/events/book-talk-a-right-to-housing-with-samuel-stein/\
+ n\nFound via Van Alen Institute
+URL:https://www.vanalen.org/events/book-talk-a-right-to-housing-with-samuel
+ -stein/
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261104-raise-your-voice-curator-led-tour@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261104T183000
+DTEND;TZID=America/New_York:20261104T193000
+SUMMARY:Raise Your Voice: Curator-led Tour
+LOCATION:Museum of the City of New York\, 1220 Fifth Ave\, New York\, NY 10
+ 029\, Manhattan\, NY
+DESCRIPTION:Curator Sarah Seidman leads a one-hour tour of the New York act
+ ivism exhibition focused on a single object or tool used by organizers.\n\
+ nTour · Museum of the City of New York · Free\; registration recommended
+  · Registration or tickets needed\n\nLed by curator Sarah Seidman\; limit
+ ed space. Part of Free Late-Night Wednesdays.\n\nListing: https://www.mcny
+ .org/event/raise-your-voice-curator-led-tour-0\n\nFound via Museum of the 
+ City of New York
+URL:https://www.mcny.org/event/raise-your-voice-curator-led-tour-0
+CATEGORIES:Tour
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261105-equitable-development-summit-who-benefits-from-g@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261105T170000
+DTEND;TZID=America/New_York:20261105T200000
+SUMMARY:Equitable Development Summit: Who Benefits from Growth? Building th
+ e Just City
+LOCATION:Hogan Lovells Cadwalader LLP\, 7th Floor\, 390 Madison Avenue\, Ma
+ nhattan\, NY
+DESCRIPTION:ULI New York's third annual summit: keynote by Toni L. Griffin 
+ (Just City Lab)\, then a panel with HPD deputy commissioner Lucy Joffe and
+  Nuveen's Pamela West\, moderated by Onay Payne.\n\nConference · ULI New 
+ York · $40–$115 (student $40 member / $55 non-member at early rate) · 
+ Registration or tickets needed\n\nReal estate industry group\; early prici
+ ng ends Oct 22\n\nListing: https://newyork.uli.org/events/detail/47E2FB3D-
+ 6302-4328-8A49-FCD70D20D567\n\nFound via ULI New York
+URL:https://newyork.uli.org/events/detail/47E2FB3D-6302-4328-8A49-FCD70D20D
+ 567
+CATEGORIES:Conference
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261109-new-york-a-documentary-film-episode-9-talkback@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261109T180000
+DTEND;TZID=America/New_York:20261109T210000
+SUMMARY:New York: A Documentary Film\, Episode 9 + talkback
+LOCATION:SVA Theatre\, Manhattan\, NY
+DESCRIPTION:Director Ric Burns and co-writer James Sanders take questions a
+ fter the first full public showing of the episode covering the city's late
+ -20th-century decline and rebirth.\n\nScreening · Open House New York · 
+ $15 ($10 members) · Registration or tickets needed · Q&A or guest in per
+ son\n\nDiscounted community tickets on request.\n\nListing: https://ohny.o
+ rg/calendar\n\nFound via Open House New York
+URL:https://ohny.org/calendar
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261109-book-launch-lina-mounzer-with-john-freeman@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261109T193000
+DTEND;TZID=America/New_York:20261109T203000
+SUMMARY:Book Launch: Lina Mounzer with John Freeman
+LOCATION:Greenlight Bookstore (Fort Greene)\, 686 Fulton St\, Brooklyn\, NY
+DESCRIPTION:Writer and translator Lina Mounzer launches Janus City: The Man
+ y Faces of Beirut\, in conversation with John Freeman.\n\nBook talk · Gre
+ enlight Bookstore · Free\, RSVP · Registration or tickets needed\n\nList
+ ing: https://greenlightbookstore.com/event/2026-11-09/book-launch-lina-mou
+ nzer-john-freeman\n\nFound via Greenlight Bookstore
+URL:https://greenlightbookstore.com/event/2026-11-09/book-launch-lina-mounz
+ er-john-freeman
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261110-urban-tech-summit-2026@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261110T090000
+DTEND;TZID=America/New_York:20261110T170000
+SUMMARY:Urban Tech Summit 2026
+LOCATION:Cornell Tech\, Verizon Executive Education Center\, 34 N Loop Rd\,
+  Manhattan\, NY
+DESCRIPTION:Daylong urban-tech summit at Cornell Tech on Roosevelt Island\;
+  BetaNYC executive director Noel Hidalgo joins a panel.\n\nConference · U
+ rban Tech Summit (listed by BetaNYC) · See listing · Registration or tic
+ kets needed\n\nPrice and registration details not on BetaNYC's listing\n\n
+ Listing: https://www.beta.nyc/event/urban-tech-summit-2026/\n\nFound via B
+ etaNYC
+URL:https://www.beta.nyc/event/urban-tech-summit-2026/
+CATEGORIES:Conference
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261110-council-subcommittee-on-zoning-and-franchises@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261110T110000
+DTEND;TZID=America/New_York:20261110T140000
+SUMMARY:Council: Subcommittee on Zoning and Franchises
+LOCATION:250 Broadway\, 8th Floor\, Hearing Room 3\, 250 Broadway\, Manhatt
+ an\, NY
+DESCRIPTION:Land-use applications get their first Council hearing here. Age
+ nda posts on the Council calendar.\n\nPublic meeting · NYC Council · Fre
+ e\n\nOpen to the public\; bring ID for building entry. Hearings are livest
+ reamed on the Council's site.\n\nListing: https://legistar.council.nyc.gov
+ /Calendar.aspx\n\nFound via NYC Council hearing calendar
+URL:https://legistar.council.nyc.gov/Calendar.aspx
+CATEGORIES:Public meeting
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261110-council-committee-on-land-use@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261110T120000
+DTEND;TZID=America/New_York:20261110T150000
+SUMMARY:Council: Committee on Land Use
+LOCATION:250 Broadway\, 8th Floor\, Hearing Room 3\, 250 Broadway\, New Yor
+ k\, NY\, Manhattan\, NY
+DESCRIPTION:The Committee on Land Use meets to act on pending land use appl
+ ications\; no agenda topics were posted yet.\n\nPublic meeting · New York
+  City Council · Free\n\nAgenda not yet posted on the Council calendar.\n\
+ nListing: https://legistar.council.nyc.gov/MeetingDetail.aspx?ID=1443476&G
+ UID=C0CBE808-1D3B-4A25-BE87-89C73AE97637\n\nFound via NYC Council hearing 
+ calendar
+URL:https://legistar.council.nyc.gov/MeetingDetail.aspx?ID=1443476&GUID=C0C
+ BE808-1D3B-4A25-BE87-89C73AE97637
+CATEGORIES:Public meeting
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261110-creating-high-opportunity-neighborhoods-evidence@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261110T133000
+DTEND;TZID=America/New_York:20261110T150000
+SUMMARY:Creating High-Opportunity Neighborhoods: Evidence from the HOPE VI 
+ Program
+LOCATION:Online (Zoom)
+DESCRIPTION:Matthew Staiger of Opportunity Insights at Harvard presents res
+ earch on whether HOPE VI's redevelopment of 262 distressed public housing 
+ sites created high-opportunity neighborhoods.\n\nTalk · NYU Furman Center
+  · See listing · Online · Registration or tickets needed\n\nSpeaker Ser
+ ies webinar\; Zoom registration required. No price listed.\n\nListing: htt
+ ps://www.furmancenter.org/event/creating-high-opportunity-neighborhoods-ev
+ idence-from-the-hope-vi-program/\n\nFound via NYU Furman Center
+URL:https://www.furmancenter.org/event/creating-high-opportunity-neighborho
+ ods-evidence-from-the-hope-vi-program/
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261110-phenomenal-world-ho-fung-hung-and-will-bateman-w@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261110T190000
+DTEND;TZID=America/New_York:20261110T200000
+SUMMARY:Phenomenal World: Ho-fung Hung and Will Bateman with Adam Tooze
+LOCATION:192 Books\, 192 10th Ave\, New York\, NY 10011\, Manhattan\, NY
+DESCRIPTION:Ho-fung Hung (Greenback Empire) and Will Bateman (The Fiscal Fe
+ d) talk dollar power and central banking with Adam Tooze.\n\nBook talk · 
+ 192 Books · See listing\n\nRegister via 192 Books' events page\; small ro
+ om.\n\nListing: https://bookevents.nyc/events/phenomenal-world-192-books-n
+ ov-10-2026\n\nFound via bookevents.nyc
+URL:https://bookevents.nyc/events/phenomenal-world-192-books-nov-10-2026
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261111-marching-with-the-kasama@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261111T190000
+DTEND;TZID=America/New_York:20261111T210000
+SUMMARY:Marching with the Kasama
+LOCATION:WSA (Swiss Institute offsite)\, 161 Water St\, 7th Fl\, Manhattan\
+ , NY
+DESCRIPTION:Documentary on the Philippine revolutionary struggle as seen by
+  peasants\, workers and guerrilla fighters\, shown with two related films 
+ in SI's Third Cinema-inspired series for Kino Drift.\n\nScreening · Swiss
+  Institute · See listing · Registration or tickets needed · Q&A or gues
+ t in person\n\nRSVP by email (see event page)\; collective viewing and dis
+ cussion\n\nListing: https://swissinstitute.net/programs/film-series-marchi
+ ng-with-the-kasama\n\nFound via Swiss Institute
+URL:https://swissinstitute.net/programs/film-series-marching-with-the-kasam
+ a
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261112-doc-nyc-14th@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261112T154500
+DTEND;TZID=America/New_York:20261112T174500
+SUMMARY:DOC NYC: 14th
+LOCATION:IFC Center\, 323 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Ava DuVernay's essay film on the legacy of the 14th Amendment\,
+  including birthright citizenship\, followed by a Q&A with DuVernay.\n\nSc
+ reening · DOC NYC · See listing · Q&A or guest in person\n\nOnly in-per
+ son screening listed\n\nListing: https://www.docnyc.net/film/14th/\n\nFoun
+ d via DOC NYC
+URL:https://www.docnyc.net/film/14th/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261112-living-routes-ideas-launch@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261112T183000
+DTEND;TZID=America/New_York:20261112T203000
+SUMMARY:Living Routes Ideas Launch
+LOCATION:Manny Cantor Center Rooftop\, 197 East Broadway\, New York\, NY\, 
+ Manhattan\, NY
+DESCRIPTION:The 2026 Forefront Fellows present their proposals for New York
+ 's streets and public spaces\, with NYC DOT Commissioner Mike Flynn.\n\nTa
+ lk · Urban Design Forum · Registration required (price not listed) · Re
+ gistration or tickets needed\n\nOpen to the public\, not members-only\; re
+ gistration required.\n\nListing: https://urbandesignforum.org/event/living
+ -routes-ideas-launch/\n\nFound via Urban Design Forum
+URL:https://urbandesignforum.org/event/living-routes-ideas-launch/
+CATEGORIES:Talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261113-uli-new-york-emerging-trends-2027@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261113T080000
+DTEND;TZID=America/New_York:20261113T123000
+SUMMARY:ULI New York Emerging Trends 2027
+LOCATION:Well& by Durst\, 151 W 42nd St\, Manhattan\, NY
+DESCRIPTION:PwC presents Emerging Trends in Real Estate 2027\, plus a grid-
+ capacity panel moderated by NYLCV's Julie Tighe and a fireside chat with N
+ YCEDC president Anthony Shorris.\n\nConference · ULI New York · $70–$1
+ 95 (student non-member $100 through Oct 30\, $110 after) · Registration o
+ r tickets needed\n\nReal estate industry group\; breakfast from 8am\; pric
+ es rise after Oct 30\n\nListing: https://newyork.uli.org/events/detail/737
+ 373C3-1CBA-4E25-9624-CF99F6920D6B\n\nFound via ULI New York
+URL:https://newyork.uli.org/events/detail/737373C3-1CBA-4E25-9624-CF99F6920
+ D6B
+CATEGORIES:Conference
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261114-doc-nyc-kenny-the-marxist-who-would-be-mayor@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261114T110000
+DTEND;TZID=America/New_York:20261114T130000
+SUMMARY:DOC NYC: Kenny: The Marxist Who Would Be Mayor
+LOCATION:Village East by Angelika\, 181 2nd Ave\, Manhattan\, NY
+DESCRIPTION:Christopher "Zoz" Gruse's portrait of Marxist lawyer Ken Cockre
+ l in 1970s Detroit\; Q&A with Gruse\, executive producers Sheila and Katy 
+ Cockrel and editor Cammeron Neely.\n\nScreening · DOC NYC · See listing 
+ · Q&A or guest in person\n\nStreams online Nov 15-29\n\nListing: https://
+ www.docnyc.net/film/kenny-the-marxist-who-would-be-mayor/\n\nFound via DOC
+  NYC
+URL:https://www.docnyc.net/film/kenny-the-marxist-who-would-be-mayor/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261114-doc-nyc-the-newsreel-characterization-of-subvers@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261114T161500
+DTEND;TZID=America/New_York:20261114T181500
+SUMMARY:DOC NYC: The Newsreel: Characterization of Subversive Organization
+LOCATION:Village East by Angelika\, 181 2nd Ave\, Manhattan\, NY
+DESCRIPTION:Ivora Cusack and James June Schneider's film on the Newsreel\, 
+ the 1960s activist collective that filmed protests to build its own archiv
+ e\; Q&A with Schneider and Newsreel members.\n\nScreening · DOC NYC · Se
+ e listing · Q&A or guest in person\n\nPage doesn't say which screening ha
+ s the Q&A\; second show Mon Nov 16\, 8:30 PM\n\nListing: https://www.docny
+ c.net/film/the-newsreel-characterization-of-subversive-organization/\n\nFo
+ und via DOC NYC
+URL:https://www.docnyc.net/film/the-newsreel-characterization-of-subversive
+ -organization/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261116-new-york-a-documentary-film-episode-10-talkback@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261116T180000
+DTEND;TZID=America/New_York:20261116T210000
+SUMMARY:New York: A Documentary Film\, Episode 10 + talkback
+LOCATION:SVA Theatre\, Manhattan\, NY
+DESCRIPTION:Director Ric Burns and co-writer James Sanders take questions a
+ fter the first full public showing of the episode covering post-9/11 rebui
+ lding and the last 25 years.\n\nScreening · Open House New York · $15 ($
+ 10 members) · Registration or tickets needed · Q&A or guest in person\n\
+ nDiscounted community tickets on request.\n\nListing: https://ohny.org/cal
+ endar\n\nFound via Open House New York
+URL:https://ohny.org/calendar
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261116-camila-kerwin@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261116T193000
+DTEND;TZID=America/New_York:20261116T203000
+SUMMARY:Camila Kerwin
+LOCATION:Greenlight Bookstore (Fort Greene)\, 686 Fulton St\, Brooklyn\, NY
+DESCRIPTION:Local author Camila Kerwin presents Soft Targets\, a graphic no
+ vel about guns in America and the kids caught in the crossfire.\n\nBook ta
+ lk · Greenlight Bookstore · Free\, RSVP · Registration or tickets neede
+ d\n\nListing: https://greenlightbookstore.com/event/2026-11-16/camila-kerw
+ in\n\nFound via Greenlight Bookstore
+URL:https://greenlightbookstore.com/event/2026-11-16/camila-kerwin
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261117-brooklyn-chats-jonathan-mahler-the-gods-of-new-y@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261117T190000
+DTEND;TZID=America/New_York:20261117T220000
+SUMMARY:Brooklyn Chats: Jonathan Mahler\, The Gods of New York
+LOCATION:Bar Heretic\, 270 Clermont Ave\, Brooklyn\, NY 11205\, Brooklyn\, 
+ NY
+DESCRIPTION:Patrick Sauer interviews Jonathan Mahler about The Gods of New 
+ York\, his history of the city from 1986 to 1990.\n\nBook talk · Greenlig
+ ht Bookstore · $10 (wine included)\n\nOffsite at Bar Heretic.\n\nListing:
+  https://greenlightbookstore.com/event/2026-11-17/brooklyn-chats-jonathan-
+ mahler\n\nFound via Greenlight Bookstore
+URL:https://greenlightbookstore.com/event/2026-11-17/brooklyn-chats-jonatha
+ n-mahler
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261117-radical-nonfiction-book-group-technofeudalism@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261117T190000
+DTEND;TZID=America/New_York:20261117T200000
+SUMMARY:Radical Nonfiction Book Group: Technofeudalism
+LOCATION:Greenlight Bookstore (location TBA)\, Brooklyn\, NY
+DESCRIPTION:Greenlight's radical nonfiction reading group\, led by former b
+ ookseller Carlo\, discusses Technofeudalism: What Killed Capitalism by Yan
+ is Varoufakis.\n\nSocial · Greenlight Bookstore · Free\, RSVP · Registr
+ ation or tickets needed\n\nLocation TBA on event page\n\nListing: https://
+ greenlightbookstore.com/event/2026-11-17/radical-nonfiction-book-group\n\n
+ Found via Greenlight Bookstore
+URL:https://greenlightbookstore.com/event/2026-11-17/radical-nonfiction-boo
+ k-group
+CATEGORIES:Social
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261118-doc-nyc-a-city-in-the-forest@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261118T213000
+DTEND;TZID=America/New_York:20261118T233000
+SUMMARY:DOC NYC: A City in the Forest
+LOCATION:IFC Center\, 323 Sixth Ave\, Manhattan\, NY
+DESCRIPTION:Lev Omelchenko and Nolan Huber's film on the movement against A
+ tlanta's "Cop City" police training site on city-owned forest land\; Q&A w
+ ith both directors\, producer Ike Rofé and editor Emily Yue.\n\nScreening
+  · DOC NYC · See listing · Q&A or guest in person\n\nNov 19 1:00 PM sho
+ w (Village East) has a Q&A with the directors and Priscilla Grim\n\nListin
+ g: https://www.docnyc.net/film/a-city-in-the-forest/\n\nFound via DOC NYC
+URL:https://www.docnyc.net/film/a-city-in-the-forest/
+CATEGORIES:Screening
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261201-chpc-annual-night-at-the-museum@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261201T183000
+DTEND;TZID=America/New_York:20261201T203000
+SUMMARY:CHPC Annual Night at the Museum
+LOCATION:Museum of the City of New York\, 1220 Fifth Avenue\, New York\, NY
+  10029\, Manhattan\, NY
+DESCRIPTION:CHPC's end-of-year reception honoring people who shape housing 
+ in New York City.\n\nSocial · Citizens Housing & Planning Council · Tick
+ ets (see listing) · Registration or tickets needed\n\nTicketed end-of-yea
+ r party\; price not on the listing\n\nListing: https://chpcny.org/event/20
+ 26-annual-night-at-the-museum/\n\nFound via Citizens Housing & Planning Co
+ uncil
+URL:https://chpcny.org/event/2026-annual-night-at-the-museum/
+CATEGORIES:Social
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261209-culture-and-representation-in-america-the-impact@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261209T183000
+DTEND;TZID=America/New_York:20261209T200000
+SUMMARY:Culture and Representation in America: The Impact of CETA
+LOCATION:Elebash Recital Hall\, CUNY Graduate Center\, 365 Fifth Ave\, Manh
+ attan\, NY
+DESCRIPTION:Curators Molly Garfinkel and Jodi Waynberg and visual historian
+  Drew Thompson on CETA\, the 1974-81 federal jobs program that employed 30
+ \,000+ artists\, and its legacy.\n\nPanel · Center for the Humanities\, C
+ UNY Graduate Center · Free\, RSVP · Hybrid · Registration or tickets ne
+ eded\n\nRegister on Eventbrite to attend in person\, or via the Zoom webin
+ ar link for the livestream.\n\nListing: https://centerforthehumanities.org
+ /event/culture-and-representation-in-america/\n\nFound via Center for the 
+ Humanities\, CUNY GC
+URL:https://centerforthehumanities.org/event/culture-and-representation-in-
+ america/
+CATEGORIES:Panel
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20261209-seneca-village-a-story-of-black-freedom-and-manh@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20261209T183000
+DTEND;TZID=America/New_York:20261209T200000
+SUMMARY:Seneca Village: A Story of Black Freedom and Manhattan Real Estate
+LOCATION:Gotham Center talk (venue on listing)
+DESCRIPTION:Alexander Manevitz on the Black-founded community razed to buil
+ d Central Park.\n\nBook talk · Gotham Center for NYC History · See listi
+ ng\n\nVenue not posted in the listing. Recent Gotham Center talks met at t
+ he CUNY Graduate Center (365 Fifth Ave) with a Zoom option\; confirm befor
+ e you go.\n\nListing: https://www.gothamcenter.org/upcoming-events/seneca-
+ village-a-story-of-black-freedom-and-manhattan-real-estate\n\nFound via Go
+ tham Center for NYC History
+URL:https://www.gothamcenter.org/upcoming-events/seneca-village-a-story-of-
+ black-freedom-and-manhattan-real-estate
+CATEGORIES:Book talk
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:20270111-nyc-urban-fellows-applications-due-2027-28-class@city-docket
+DTSTAMP:20261017T213614Z
+DTSTART;TZID=America/New_York:20270111T180000
+DTEND;TZID=America/New_York:20270111T193000
+SUMMARY:NYC Urban Fellows applications due (2027–28 class)
+LOCATION:Online application
+DESCRIPTION:Applications close at 6 PM for the city's nine-month Urban Fell
+ ows government fellowship (September 2027 to May 2028).\n\nDate to know ·
+  NYC Department of Citywide Administrative Services · Free · Online\n\nC
+ heck eligibility on the program page.\n\nListing: https://www.nyc.gov/site
+ /dcas/employment/urban-fellows-program-information.page\n\nFound via NYC U
+ rban Fellows Program
+URL:https://www.nyc.gov/site/dcas/employment/urban-fellows-program-informat
+ ion.page
+CATEGORIES:Date to know
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

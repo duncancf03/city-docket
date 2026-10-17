@@ -1,0 +1,1876 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Talks, hearings, readings, screenings and actions around New York, ranked by interest. Updated every Sunday.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='14' width='56' height='36' rx='6' fill='%230A6746'/%3E%3Crect x='9' y='19' width='46' height='26' rx='3' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+<title>City Docket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@600;800;900&family=Overpass+Mono:wght@400;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a municipal docket. Street-sign masthead, sticky tab bar, filter rail on the left,
+   a day-by-day agenda on the right; the rail folds into a panel under 980px. */
+:root {
+  --ground: #E9EDE8;      /* poured-concrete grey, a touch of green */
+  --surface: #F7F9F5;
+  --ink: #13201A;
+  --muted: #55625B;
+  --rule: #CBD4CC;
+  --sign: #0A6746;        /* street-name-sign green */
+  --sign-ink: #FFFFFF;
+  --accent: #0A6746;      /* links and fit bars */
+  --notice: #F2C12E;      /* public-notice yellow */
+  --notice-ink: #1C1600;
+  --alert: #A3302A;
+  --chip-on: #13201A;
+  --chip-on-ink: #F7F9F5;
+  --shadow: 0 1px 0 rgba(19, 32, 26, .10);
+  --font-display: "Overpass", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Overpass Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0D1310; --surface: #151D18; --ink: #E3EAE5; --muted: #9AA79F; --rule: #28332D;
+    --sign: #16734F; --sign-ink: #F4FBF7; --accent: #62C89C; --notice: #E6B82A; --notice-ink: #1C1600;
+    --alert: #E2857B; --chip-on: #E3EAE5; --chip-on-ink: #0D1310; --shadow: 0 1px 0 rgba(0, 0, 0, .4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0D1310; --surface: #151D18; --ink: #E3EAE5; --muted: #9AA79F; --rule: #28332D;
+  --sign: #16734F; --sign-ink: #F4FBF7; --accent: #62C89C; --notice: #E6B82A; --notice-ink: #1C1600;
+  --alert: #E2857B; --chip-on: #E3EAE5; --chip-on-ink: #0D1310; --shadow: 0 1px 0 rgba(0, 0, 0, .4);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+a { color: var(--accent); text-underline-offset: 2px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.app { max-width: 1200px; margin: 0 auto; padding-inline: 16px; padding-block: 18px 72px; }
+@media (min-width: 720px) { .app { padding-inline: 28px; } }
+
+/* ---------- masthead */
+.masthead { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; padding-block: 6px 16px; }
+.signpost { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0; font-size: inherit; font-weight: inherit; }
+.sign { display: block; background: var(--sign); color: var(--sign-ink); border-radius: 7px; padding: 4px; box-shadow: var(--shadow); }
+.sign > span { display: block; border: 2px solid var(--sign-ink); border-radius: 4px; }
+.sign-name { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.9rem, 5vw, 2.8rem); line-height: 1; padding: 9px 16px 4px; letter-spacing: .01em; }
+.sign-plate { font-family: var(--font-display); font-weight: 800; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px 3px; line-height: 1.15; text-align: center; }
+.sign.small { border-radius: 5px; padding: 3px; }
+.mast-copy { flex: 1 1 320px; min-width: 0; }
+.tagline { margin: 0; font-size: 1.02rem; max-width: 56ch; text-wrap: balance; }
+.status { margin: 4px 0 0; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); letter-spacing: .02em; }
+
+/* ---------- tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ground); display: flex; gap: 2px; overflow-x: auto; border-bottom: 2px solid var(--ink); margin-bottom: 18px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { font-family: var(--font-display); font-weight: 800; font-size: .98rem; letter-spacing: .04em; text-transform: uppercase; background: none; border: 0; color: var(--muted); padding: 12px 12px 7px; border-bottom: 5px solid transparent; margin-bottom: -2px; cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--notice); }
+.tab .count { font-family: var(--font-mono); font-weight: 600; font-size: .72rem; background: var(--ink); color: var(--ground); border-radius: 3px; padding: 1px 5px; margin-left: 4px; vertical-align: 2px; }
+
+/* ---------- shared controls */
+.btn { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: .86rem; padding: 10px 15px 7px; border-radius: var(--radius); border: 2px solid var(--ink); background: var(--surface); color: var(--ink); cursor: pointer; line-height: 1.2; white-space: nowrap; }
+.btn:hover { background: var(--ground); }
+a.btn { text-decoration: none; display: inline-block; }
+.btn.primary { background: var(--sign); border-color: var(--sign); color: var(--sign-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.quiet { border-color: var(--rule); font-size: .78rem; padding: 7px 11px 5px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.linkish { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; font-size: inherit; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-mono); font-size: .76rem; letter-spacing: .01em; padding: 5px 9px 4px; border-radius: 3px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); cursor: pointer; line-height: 1.25; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); border-color: var(--chip-on); }
+.field-label { display: block; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+input[type="text"], input[type="search"], input[type="url"], input[type="date"], select, textarea { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 8px 10px; min-width: 0; max-width: 100%; }
+input:focus, select:focus, textarea:focus { border-color: var(--ink); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--sign); }
+.fine { font-size: .84rem; color: var(--muted); margin: 8px 0 0; }
+.empty { padding: 28px 18px; border: 1px dashed var(--rule); border-radius: var(--radius); background: var(--surface); color: var(--muted); }
+.empty strong { display: block; color: var(--ink); font-size: 1.05rem; margin-bottom: 4px; }
+h2.section { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; line-height: 1.1; margin: 0 0 6px; text-wrap: balance; }
+h3.sub { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 8px; }
+
+/* ---------- search */
+.searchbar { display: flex; gap: 8px; }
+#q { flex: 1; font-size: 1.05rem; padding: 12px 14px; border: 2px solid var(--ink); }
+.when { margin-top: 12px; }
+.custom-range { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; font-size: .9rem; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 16px; }
+.rail { display: flex; flex-direction: column; gap: 18px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; }
+.rail.closed { display: none; }
+.rail fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.rail legend { padding: 0; }
+.rail select { width: 100%; }
+#filters-toggle .n { font-family: var(--font-mono); background: var(--notice); color: var(--notice-ink); border-radius: 3px; padding: 0 5px; margin-left: 4px; }
+@media (min-width: 980px) {
+  .layout { grid-template-columns: 272px minmax(0, 1fr); }
+  .rail, .rail.closed { display: flex; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 60px); max-height: calc(100vh - 80px); overflow: auto; align-self: start; }
+  #filters-toggle { display: none; }
+}
+.results-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; padding-bottom: 8px; }
+.summary { margin: 0; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+.summary b { color: var(--ink); font-weight: 600; }
+.sortbox { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: .76rem; color: var(--muted); }
+
+/* ---------- picks strip */
+.picks { border: 2px solid var(--ink); border-radius: var(--radius); background: var(--surface); padding: 12px 14px 4px; margin-bottom: 8px; }
+.picks-head { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
+.notice-tag { font-family: var(--font-display); font-weight: 900; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; background: var(--notice); color: var(--notice-ink); padding: 3px 7px 1px; border-radius: 2px; }
+.picks-head p { margin: 0; font-size: .86rem; color: var(--muted); }
+.picks .ev:last-child { border-bottom: 0; }
+
+/* ---------- agenda */
+.day { display: flex; align-items: flex-end; gap: 12px; margin: 26px 0 0; padding-bottom: 7px; border-bottom: 2px solid var(--ink); }
+.day:first-child { margin-top: 6px; }
+.dnum { font-family: var(--font-display); font-weight: 900; font-size: 2.3rem; line-height: .82; letter-spacing: -.01em; }
+.dmeta { font-family: var(--font-mono); font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); line-height: 1.25; }
+.dmeta b { display: block; color: var(--ink); font-weight: 600; }
+.rel { margin-left: auto; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.rel.hot { background: var(--notice); color: var(--notice-ink); padding: 2px 6px; border-radius: 2px; }
+.ev { display: grid; grid-template-columns: 5.6rem minmax(0, 1fr) auto; gap: 2px 14px; padding: 13px 0 12px; border-bottom: 1px solid var(--rule); }
+.ev-when { font-family: var(--font-mono); font-weight: 600; font-size: .88rem; line-height: 1.3; padding-top: 1px; }
+.ev-when small { display: block; font-weight: 400; color: var(--muted); font-size: .72rem; letter-spacing: .02em; }
+.ev-body { min-width: 0; }
+.kicker { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); overflow-wrap: anywhere; }
+.kicker .cat { color: var(--accent); font-weight: 600; }
+.ev-title { margin: 2px 0 2px; font-size: 1.06rem; font-weight: 650; line-height: 1.3; text-wrap: pretty; }
+.ev-title button { all: unset; cursor: pointer; }
+.ev-title button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ev-title button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.meta { margin: 0; color: var(--muted); font-size: .88rem; overflow-wrap: anywhere; }
+.flags { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-left: 2px; vertical-align: 1px; }
+.flag { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--rule); color: var(--muted); padding: 0 5px; border-radius: 2px; line-height: 1.5; }
+.flag.warn { border-color: var(--alert); color: var(--alert); }
+.flag.free, .flag.hi { border-color: var(--accent); color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 5px; font-family: var(--font-mono); font-size: .7rem; color: var(--muted); }
+.tags span::before { content: "#"; opacity: .55; }
+.why { margin: 7px 0 0; font-size: .92rem; }
+.why b { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; color: var(--accent); margin-right: 6px; }
+.ev-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.fit { display: inline-flex; align-items: flex-end; gap: 2px; height: 15px; }
+.fit i { display: block; width: 4px; background: var(--rule); border-radius: 1px; }
+.fit i:nth-child(1) { height: 5px; } .fit i:nth-child(2) { height: 7px; } .fit i:nth-child(3) { height: 10px; } .fit i:nth-child(4) { height: 12px; } .fit i:nth-child(5) { height: 15px; }
+.fit i.on { background: var(--accent); }
+.acts { display: flex; gap: 4px; }
+.icon { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--rule); background: var(--surface); border-radius: var(--radius); color: var(--muted); cursor: pointer; padding: 0; }
+.icon:hover { color: var(--ink); border-color: var(--ink); }
+.icon[aria-pressed="true"] { background: var(--notice); border-color: var(--notice); color: var(--notice-ink); }
+.icon svg { width: 16px; height: 16px; }
+.detail { grid-column: 2 / -1; margin-top: 8px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
+.detail p { margin: 0 0 8px; max-width: 68ch; }
+.detail dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 14px; margin: 8px 0 12px; font-size: .88rem; }
+.detail dt { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.detail dd { margin: 0; overflow-wrap: anywhere; }
+.detail .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.running { margin-top: 30px; }
+.running > summary { cursor: pointer; list-style: none; display: flex; align-items: flex-end; gap: 12px; padding-bottom: 7px; border-bottom: 2px solid var(--ink); }
+.running > summary::-webkit-details-marker { display: none; }
+.running > summary h3 { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; line-height: 1; }
+.running > summary .dmeta { margin-left: auto; }
+.running > summary::after { content: "Show"; font-family: var(--font-mono); font-size: .72rem; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+.running[open] > summary::after { content: "Hide"; }
+@media (max-width: 560px) {
+  .ev { grid-template-columns: 4.6rem minmax(0, 1fr); }
+  .ev-side { grid-column: 2; flex-direction: row; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .detail { grid-column: 1 / -1; }
+  .dnum { font-size: 2rem; }
+}
+
+/* ---------- ask */
+.ask-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+@media (min-width: 980px) { .ask-grid { grid-template-columns: minmax(0, 1fr) 300px; } }
+.ask-box textarea { width: 100%; font-size: 1.12rem; line-height: 1.4; padding: 14px; border: 2px solid var(--ink); resize: vertical; min-height: 96px; }
+.ask-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
+.ask-status { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+.ask-status.live::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--notice); margin-right: 7px; animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.ask-aside { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 14px; align-self: start; }
+.ask-aside .chips { flex-direction: column; align-items: stretch; }
+.ask-aside .chip { text-align: left; font-family: var(--font-body); font-size: .88rem; letter-spacing: 0; padding: 8px 10px; }
+.qa { margin-top: 26px; }
+.qa-q { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; line-height: 1.2; margin: 0; padding-bottom: 7px; border-bottom: 2px solid var(--ink); text-wrap: balance; }
+.qa-int { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); margin: 8px 0 0; }
+.qa-note { margin: 12px 0 0; padding: 10px 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); font-size: .92rem; }
+.qa-sub { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 18px 0 0; }
+.qa-err { color: var(--alert); margin: 10px 0 0; }
+
+/* ---------- saved */
+.saved-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+
+/* ---------- sources */
+.pipeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 14px 0 10px; }
+.pipe { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 14px 16px; }
+.pipe .n { font-family: var(--font-display); font-weight: 900; font-size: 2.2rem; line-height: 1; }
+.pipe .l { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: .86rem; margin-top: 4px; }
+.pipe p { margin: 6px 0 0; font-size: .86rem; color: var(--muted); }
+.refresh { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; font-size: .9rem; padding: 10px 0 18px; }
+.refresh code { font-family: var(--font-mono); font-size: .85rem; background: var(--surface); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 3px; }
+.panel { background: var(--surface); border: 2px solid var(--ink); border-radius: var(--radius); padding: 16px; margin: 8px 0 26px; }
+.panel textarea { width: 100%; min-height: 140px; resize: vertical; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+.form-grid label { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.review { margin-top: 14px; }
+.review-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; padding: 10px 0; border-top: 1px solid var(--rule); }
+.review-item input { margin-top: 4px; accent-color: var(--sign); width: 18px; height: 18px; }
+.review-item .meta { font-size: .84rem; }
+.dir-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: 8px; }
+.src { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.src-name { font-weight: 650; }
+.kind { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .07em; text-transform: uppercase; border: 1px solid var(--rule); padding: 1px 6px; border-radius: 2px; color: var(--muted); margin-left: 6px; vertical-align: 2px; white-space: nowrap; }
+.kind.news { border-color: var(--accent); color: var(--accent); }
+.kind.new { background: var(--notice); border-color: var(--notice); color: var(--notice-ink); }
+.src p { margin: 2px 0 0; font-size: .88rem; color: var(--muted); }
+.src-links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: .86rem; white-space: nowrap; }
+.confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+
+/* ---------- interests */
+.int-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; }
+@media (min-width: 980px) { .int-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.wrow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.wrow .lab { min-width: 0; }
+.seg { display: inline-flex; border: 1px solid var(--ink); border-radius: var(--radius); overflow: hidden; }
+.seg button { font-family: var(--font-mono); font-size: .72rem; padding: 6px 9px 5px; background: var(--surface); color: var(--ink); border: 0; border-left: 1px solid var(--rule); cursor: pointer; }
+.seg button:first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); }
+.prefs-box { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; }
+
+/* ---------- toast */
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 12px); background: var(--ink); color: var(--surface); padding: 10px 14px; border-radius: var(--radius); font-size: .9rem; display: flex; gap: 12px; align-items: center; opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s; max-width: calc(100vw - 32px); z-index: 30; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.toast button { background: none; border: 0; color: var(--notice); font-weight: 700; cursor: pointer; padding: 0; }
+@media (prefers-reduced-motion: reduce) { *, *::before { transition: none !important; animation: none !important; } }
+</style>
+<style>
+[hidden] { display: none !important; }
+.feed-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 10px; }
+.feed-url { width: 100%; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="masthead">
+    <h1 class="signpost">
+      <span class="sign"><span class="sign-name">City Docket</span></span>
+      <span class="sign small" aria-hidden="true"><span class="sign-plate" id="sign-plate">NYC<br>Events</span></span>
+    </h1>
+    <div class="mast-copy">
+      <p class="tagline">Talks, hearings, readings, screenings and actions around New York, ranked by what you care about.</p>
+      <p class="status" id="status-line">Loading events…</p>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="tab-search" data-tab="search" aria-controls="panel-search" aria-selected="true">Search</button>
+    <button class="tab" role="tab" id="tab-saved" data-tab="saved" aria-controls="panel-saved" aria-selected="false" tabindex="-1">Saved<span class="count" id="saved-count" hidden></span></button>
+    <button class="tab" role="tab" id="tab-sources" data-tab="sources" aria-controls="panel-sources" aria-selected="false" tabindex="-1">Sources</button>
+    <button class="tab" role="tab" id="tab-interests" data-tab="interests" aria-controls="panel-interests" aria-selected="false" tabindex="-1">Interests</button>
+  </nav>
+
+  <main>
+    <!-- SEARCH -->
+    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search">
+      <div class="searchbar">
+        <label class="sr" for="q">Search events</label>
+        <input id="q" type="search" placeholder="Search titles, venues, organizers, topics…" autocomplete="off">
+        <button class="btn" id="filters-toggle" aria-expanded="false" aria-controls="rail">Filters<span class="n" id="filter-n" hidden></span></button>
+      </div>
+      <div class="when chips" id="when" role="group" aria-label="When"></div>
+      <div class="custom-range" id="custom-range" hidden>
+        <label for="from">From</label><input type="date" id="from">
+        <label for="to">to</label><input type="date" id="to">
+      </div>
+      <div class="layout">
+        <aside class="rail closed" id="rail" aria-label="Filters">
+          <fieldset><legend class="field-label">Type of event</legend><div class="chips" id="f-cats"></div></fieldset>
+          <fieldset><legend class="field-label">Extras</legend><div class="chips" id="f-extras"></div></fieldset>
+          <fieldset><legend class="field-label">Topic</legend><div class="chips" id="f-themes"></div></fieldset>
+          <fieldset><legend class="field-label">Borough</legend><div class="chips" id="f-boroughs"></div></fieldset>
+          <fieldset><legend class="field-label">Time of day</legend><div class="chips" id="f-tod"></div></fieldset>
+          <fieldset><legend class="field-label">Length</legend><div class="chips" id="f-dur"></div></fieldset>
+          <fieldset><legend class="field-label">Price</legend><div class="chips" id="f-price"></div></fieldset>
+          <fieldset><legend class="field-label">Format</legend><div class="chips" id="f-format"></div></fieldset>
+          <label><span class="field-label">Organizer</span><select id="f-org"><option value="">Any organizer</option></select></label>
+          <fieldset><legend class="field-label">Found via</legend><div class="chips" id="f-stype"></div></fieldset>
+          <label class="check"><input type="checkbox" id="f-running" checked> Include exhibitions, festivals and film series</label>
+          <label class="check"><input type="checkbox" id="f-hidden"> Show events I've hidden</label>
+          <button class="btn quiet" id="clear-filters" type="button">Clear filters</button>
+        </aside>
+        <div class="results" aria-live="polite">
+          <div class="results-head">
+            <p class="summary" id="summary">Loading…</p>
+            <div class="sortbox" role="group" aria-label="Sort">Sort
+              <button class="chip" data-sort="soonest" aria-pressed="true">Soonest</button>
+              <button class="chip" data-sort="fit" aria-pressed="false">Best fit</button>
+            </div>
+          </div>
+          <div id="picks"></div>
+          <div id="results">
+            <div class="empty"><strong>Loading the docket</strong>One moment.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASK -->
+    <section id="panel-ask" role="tabpanel" aria-labelledby="tab-ask" hidden>
+      <div class="ask-grid">
+        <div>
+          <div class="ask-box">
+            <h2 class="section"><label for="ask-q">Ask the docket</label></h2>
+            <p class="fine" style="margin:0 0 10px">Describe what you're after in plain words. Claude reads the next three months of City Docket (your best fits first when it's busy) and picks the ones that fit.</p>
+            <textarea id="ask-q" placeholder="What's going on this Friday evening I might want to check out?"></textarea>
+            <div class="ask-actions">
+              <button class="btn primary" id="ask-go" type="button">Ask</button>
+              <button class="btn" id="ask-stop" type="button" hidden>Stop</button>
+              <button class="btn quiet" id="ask-reset" type="button" hidden>New question</button>
+              <span class="ask-status" id="ask-status" aria-live="polite"></span>
+            </div>
+            <p class="fine" id="ask-fine">Uses your Claude account; the first question asks for your permission. Follow-up questions keep the context.</p>
+          </div>
+          <div id="ask-thread"></div>
+        </div>
+        <aside class="ask-aside">
+          <h3 class="sub">Try asking</h3>
+          <div class="chips" id="ask-examples"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SAVED -->
+    <section id="panel-saved" role="tabpanel" aria-labelledby="tab-saved" hidden>
+      <div class="saved-head">
+        <div>
+          <h2 class="section">Saved</h2>
+          <p class="fine" style="margin:0">Star events anywhere in City Docket to keep them here.</p>
+        </div>
+        <button class="btn" id="export-csv" type="button">Export for Google Calendar (.csv)</button>
+      </div>
+      <div id="saved-list"></div>
+      <div class="panel" id="feed-panel">
+        <h3 class="sub">Top picks in your calendar</h3>
+        <p class="fine" style="margin-top:0">A calendar feed of the strongest fits plus civic deadlines, refreshed every Sunday. Subscribe once and new picks show up on their own. It follows the default interests, not the ones set on this device.</p>
+        <div class="feed-row">
+          <a class="btn primary" id="feed-google" href="calendar/picks.ics" target="_blank" rel="noopener">Google Calendar ↗</a>
+          <a class="btn" id="feed-apple" href="calendar/picks.ics">Apple Calendar</a>
+          <button class="btn quiet" id="feed-copy" type="button">Copy feed link</button>
+        </div>
+        <label class="sr" for="feed-url">Calendar feed link</label>
+        <input id="feed-url" class="feed-url" type="text" readonly value="calendar/picks.ics">
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" hidden>
+      <h2 class="section">Where events come from</h2>
+      <p class="fine" style="margin:0;max-width:70ch">City Docket pulls from three kinds of places. Every event links back to where it was listed.</p>
+      <div class="pipeline" id="pipeline"></div>
+      <div class="refresh" id="refresh-note"></div>
+
+      <div class="panel" id="intake">
+        <h3 class="sub">Add events from a newsletter</h3>
+        <p class="fine" style="margin-top:0">Paste a newsletter, mailing-list email or event page. Claude pulls out the events, you check them, then they're added to the docket.</p>
+        <label class="sr" for="intake-text">Newsletter text</label>
+        <textarea id="intake-text" placeholder="Paste the email or page text here…"></textarea>
+        <div class="form-grid">
+          <label><span class="field-label">Where it came from</span><input type="text" id="intake-source" list="intake-source-list" placeholder="e.g. Nonsense NYC, Oct 1 issue"></label>
+          <label><span class="field-label">Kind of source</span>
+            <select id="intake-type"><option value="newsletter">Newsletter</option><option value="mailing list">Mailing list</option><option value="website">Website</option><option value="you">Something else</option></select>
+          </label>
+        </div>
+        <datalist id="intake-source-list"></datalist>
+        <div class="ask-actions" style="margin-top:0">
+          <button class="btn primary" id="intake-go" type="button">Find events</button>
+          <button class="btn" id="intake-stop" type="button" hidden>Stop</button>
+          <span class="ask-status" id="intake-status" aria-live="polite"></span>
+        </div>
+        <div class="review" id="intake-review"></div>
+      </div>
+
+      <div class="dir-head">
+        <h3 class="sub" style="margin:0">Source directory</h3>
+        <div class="chips" id="dir-kinds" role="group" aria-label="Filter sources"></div>
+      </div>
+      <div id="directory"></div>
+
+      <div class="panel" id="add-source-panel">
+        <h3 class="sub">Track another source</h3>
+        <form id="add-source">
+          <div class="form-grid">
+            <label><span class="field-label">Name</span><input type="text" id="src-name" required placeholder="e.g. Woodbine"></label>
+            <label><span class="field-label">Link</span><input type="url" id="src-url" required placeholder="https://…"></label>
+            <label><span class="field-label">Kind</span>
+              <select id="src-kind"><option>Calendar</option><option>Newsletter</option><option>Mailing list</option><option>Listings</option><option>Government</option></select>
+            </label>
+            <label><span class="field-label">Venue type</span>
+              <select id="src-vtype"><option value="">Not a venue</option><option>Bookstore</option><option>Cinema</option><option>Theater</option><option>Indie space</option></select>
+            </label>
+          </div>
+          <label><span class="field-label">Notes</span><input type="text" id="src-notes" style="width:100%" placeholder="What it covers, how to subscribe"></label>
+          <div style="margin-top:12px"><button class="btn" type="submit" id="src-save">Add source</button></div>
+        </form>
+      </div>
+
+      <div id="maintenance" hidden>
+        <h3 class="sub">Housekeeping</h3>
+        <p class="fine" style="margin-top:0">Old events stay in the database until you clear them. Clearing them keeps searches quick and Ask focused.</p>
+        <div class="confirm" id="prune-box"></div>
+      </div>
+    </section>
+
+    <!-- INTERESTS -->
+    <section id="panel-interests" role="tabpanel" aria-labelledby="tab-interests" hidden>
+      <h2 class="section">What you care about</h2>
+      <p class="fine" style="margin:0 0 14px;max-width:70ch">These weights set the fit bars and the order of “Best fit”. Topics set to Off drop out of results unless you search for them.</p>
+      <div class="int-grid">
+        <div>
+          <h3 class="sub">Topics</h3>
+          <div id="weights"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div class="prefs-box">
+            <label><span class="field-label">Home base</span><select id="p-home"></select></label>
+            <label class="check"><input type="checkbox" id="p-free"> Favor free and cheap events</label>
+            <label class="check"><input type="checkbox" id="p-muted"> Hide topics and event types I've turned off</label>
+            <label class="check"><input type="checkbox" id="p-members"> Hide members-only events</label>
+            <label class="check"><input type="checkbox" id="p-qa"> Favor screenings and shows with a Q&amp;A or talkback</label>
+            <label class="check"><input type="checkbox" id="p-indie"> Favor independent bookstores, cinemas and spaces</label>
+            <p class="fine" id="prefs-where" style="margin:0"></p>
+          </div>
+          <div>
+            <h3 class="sub">Event types</h3>
+            <div id="catweights"></div>
+          </div>
+          <div><button class="btn quiet" id="reset-prefs" type="button">Reset to my defaults</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* City Docket, public copy. Stands in for the Claude runtime that the page normally runs in:
+   events, sources and the refresh status come from the data/ files the Sunday refresh publishes,
+   interests and saved events stay in this browser, and Ask (which needs Claude) is left out. */
+(function () {
+  "use strict";
+  const fail = (code, msg) => Object.assign(new Error(msg || code), { code });
+  const load = path => fetch(path, { cache: "no-cache" }).then(r => {
+    if (!r.ok) throw fail("unavailable", `${path} returned ${r.status}`);
+    return r.json();
+  });
+  const files = Promise.all([load("data/events.json"), load("data/sources.json"), load("data/meta.json").catch(() => null)])
+    .then(([ev, src, meta]) => ({
+      events: Array.isArray(ev && ev.events) ? ev.events : [],
+      sources: Array.isArray(src && src.sources) ? src.sources : [],
+      meta: meta && typeof meta === "object" ? meta : null,
+    }));
+  files.catch(() => {}); // each reader reports its own failure
+
+  const docOf = o => {
+    const body = Object.assign({}, o), id = String(body.id || "");
+    delete body.id;
+    return { id, exists: true, data: () => Object.assign({}, body) };
+  };
+  const snapOf = list => {
+    const docs = list.filter(o => o && typeof o === "object" && o.id).map(docOf);
+    return { docs, size: docs.length, empty: !docs.length };
+  };
+  const readOnly = () => Promise.reject(fail("invalid_argument", "This copy of City Docket is read-only."));
+  const db = {
+    collection(name) {
+      const pick = f => (name === "events" ? f.events : name === "sources" ? f.sources : []);
+      return {
+        onSnapshot(next, onError) {
+          files.then(f => next(snapOf(pick(f))), e => { if (onError) onError(e); });
+          return () => {};
+        },
+        get() { return files.then(f => snapOf(pick(f))); },
+      };
+    },
+    doc(path) {
+      const read = f => (path === "meta/status" && f.meta
+        ? { id: "status", exists: true, data: () => Object.assign({}, f.meta) }
+        : { id: String(path).split("/").pop(), exists: false, data: () => undefined });
+      return {
+        onSnapshot(next, onError) {
+          files.then(f => next(read(f)), e => { if (onError) onError(e); });
+          return () => {};
+        },
+        get() { return files.then(read); },
+        set: readOnly, update: readOnly, delete: readOnly,
+      };
+    },
+  };
+  // No account here: interests and saved events fall back to this browser's storage.
+  const user = { id: () => Promise.resolve(null), isOwner: () => Promise.resolve(false), can: () => Promise.resolve(false) };
+  const downloads = {
+    save(o) {
+      try {
+        const name = String((o && o.filename) || "city-docket.txt");
+        const type = /\.csv$/i.test(name) ? "text/csv;charset=utf-8"
+          : /\.ics$/i.test(name) ? "text/calendar;charset=utf-8" : "application/octet-stream";
+        const href = URL.createObjectURL(new Blob([o && o.data != null ? o.data : ""], { type }));
+        const a = document.createElement("a");
+        a.href = href; a.download = name; a.style.display = "none";
+        document.body.appendChild(a); a.click();
+        setTimeout(() => { URL.revokeObjectURL(href); a.remove(); }, 1500);
+        return Promise.resolve();
+      } catch (e) { return Promise.reject(fail("failed")); }
+    },
+  };
+  const caps = { db, user, downloads };
+  window.claude = {
+    use: name => (caps[name] ? Promise.resolve(caps[name]) : Promise.reject(fail("not_declared", `${name} isn't part of the public copy`))),
+  };
+
+  // Calendar feed panel on the Saved tab.
+  const feed = new URL("calendar/picks.ics", location.href).href;
+  const webcal = feed.replace(/^https?:/, "webcal:");
+  const $ = id => document.getElementById(id);
+  if ($("feed-url")) $("feed-url").value = feed;
+  if ($("feed-apple")) $("feed-apple").href = webcal;
+  if ($("feed-google")) $("feed-google").href = "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcal);
+  if ($("feed-copy")) {
+    $("feed-copy").addEventListener("click", () => {
+      const btn = $("feed-copy"), label = btn.textContent;
+      const done = ok => { btn.textContent = ok ? "Copied" : "Select the link and copy it"; setTimeout(() => { btn.textContent = label; }, 2200); };
+      const fallback = () => {
+        const f = $("feed-url"); f.focus(); f.select();
+        let ok = false; try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+        done(ok);
+      };
+      try { navigator.clipboard.writeText(feed).then(() => done(true), fallback); } catch (e) { fallback(); }
+    });
+  }
+})();
+
+/* City Docket: pure logic (no DOM). Inlined into the page at build time; also loaded by the Node tests. */
+"use strict";
+
+const TZ = "America/New_York";
+
+const THEMES = [
+  ["urban", "Urbanism & public space"],
+  ["housing", "Housing & tenants"],
+  ["policy", "Policy & government"],
+  ["civic", "Elections & civic life"],
+  ["left", "Left politics & organizing"],
+  ["labor", "Labor & work"],
+  ["solidarity", "International solidarity"],
+  ["rights", "Justice & rights"],
+  ["academic", "Academic & ideas"],
+  ["history", "NYC history"],
+  ["architecture", "Architecture & design"],
+  ["transit", "Transit & streets"],
+  ["environment", "Climate & environment"],
+  ["art", "Art & museums"],
+  ["literature", "Books & poetry"],
+  ["film", "Film"],
+  ["performance", "Music & performance"],
+];
+const THEME_LABEL = Object.fromEntries(THEMES);
+const THEME_SHORT = {
+  urban: "Urbanism", housing: "Housing", policy: "Policy", civic: "Civic", left: "Left", labor: "Labor",
+  solidarity: "Solidarity", rights: "Rights", academic: "Ideas", history: "NYC history", architecture: "Architecture",
+  transit: "Transit", environment: "Climate", art: "Art", literature: "Books", film: "Film", performance: "Music & stage",
+};
+const CATEGORIES = ["Talk", "Panel", "Reading", "Book talk", "Workshop", "Screening", "Film series", "Exhibition", "Performance",
+  "Tour", "Public meeting", "Organizing", "Festival", "Social", "Conference", "Date to know"];
+const BOROUGHS = ["Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island", "Online", "Citywide"];
+const SOURCE_TYPES = [["website", "Websites"], ["newsletter", "Newsletters"], ["mailing list", "Mailing lists"],
+  ["listings", "Listings"], ["government", "Government"], ["you", "Added by you"]];
+const FORMATS = ["In person", "Online", "Hybrid"];
+// Yes/no features an event can carry. qa: a screening or show with a Q&A, talkback, intro or guest in person.
+// indie: an independent venue or organizer (indie bookstore, arthouse cinema, artist-run or community space).
+const EXTRAS = [["qa", "Q&A or talkback"], ["indie", "Independent venue"]];
+
+const DEFAULT_WEIGHTS = {
+  urban: 3, housing: 3, policy: 3, left: 3, civic: 2, labor: 2, solidarity: 2, rights: 2, academic: 2, history: 2,
+  architecture: 2, transit: 2, art: 2, literature: 2, film: 2, performance: 1, environment: 1,
+};
+function defaultPrefs() {
+  return { v: 1, weights: Object.assign({}, DEFAULT_WEIGHTS), cats: {}, home: "Manhattan", preferFree: true,
+    hideMuted: true, hideMembers: false, favorQA: true, favorIndie: true, saved: {}, hidden: [] };
+}
+function mergePrefs(raw) {
+  const p = defaultPrefs();
+  if (!raw || typeof raw !== "object") return p;
+  if (raw.weights && typeof raw.weights === "object") {
+    for (const [k] of THEMES) {
+      const w = Number(raw.weights[k]);
+      if (w >= 0 && w <= 3) p.weights[k] = Math.round(w);
+    }
+  }
+  if (raw.cats && typeof raw.cats === "object") {
+    for (const c of CATEGORIES) { const v = Number(raw.cats[c]); if (v === 1 || v === -1) p.cats[c] = v; }
+  }
+  if (typeof raw.home === "string" && (raw.home === "" || BOROUGHS.includes(raw.home))) p.home = raw.home;
+  for (const k of ["preferFree", "hideMuted", "hideMembers", "favorQA", "favorIndie"]) if (typeof raw[k] === "boolean") p[k] = raw[k];
+  if (raw.saved && typeof raw.saved === "object" && !Array.isArray(raw.saved)) p.saved = Object.assign({}, raw.saved);
+  if (Array.isArray(raw.hidden)) p.hidden = raw.hidden.filter(x => typeof x === "string").slice(-500);
+  return p;
+}
+
+// Typical length in minutes when a listing gives no end time; 0 = not meaningful.
+const EST_MIN = { Talk: 90, Panel: 90, Reading: 90, "Book talk": 75, Workshop: 150, Screening: 120, Performance: 120, Tour: 120,
+  "Public meeting": 180, Organizing: 120, Social: 180, Conference: 360, "Date to know": 0, Exhibition: 0,
+  Festival: 0, "Film series": 0 };
+
+const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DOW_LONG = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MON_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+  "November", "December"];
+
+function pad(n) { return String(n).padStart(2, "0"); }
+
+/** Current New York wall-clock time as "YYYY-MM-DDTHH:MM". */
+function nowNY(date) {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(date || new Date());
+  const g = t => (parts.find(p => p.type === t) || {}).value;
+  let h = g("hour"); if (h === "24") h = "00";
+  return `${g("year")}-${g("month")}-${g("day")}T${h}:${g("minute")}`;
+}
+function toUTC(d) { const [y, m, dd] = d.split("-").map(Number); return new Date(Date.UTC(y, m - 1, dd)); }
+function addDays(d, n) { const t = toUTC(d); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); }
+function dow(d) { return toUTC(d).getUTCDay(); }
+function daysBetween(a, b) { return Math.round((toUTC(b) - toUTC(a)) / 86400000); }
+function toMin(hm) { const [h, m] = hm.split(":").map(Number); return h * 60 + m; }
+function addMinutes(date, hm, mins) {
+  let total = toMin(hm) + mins, d = date;
+  while (total >= 1440) { total -= 1440; d = addDays(d, 1); }
+  return `${d}T${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
+}
+function fmtDate(d, withDow) {
+  const [, m, dd] = d.split("-").map(Number);
+  return `${withDow === false ? "" : DOW[dow(d)] + " "}${MON[m - 1]} ${dd}`;
+}
+function fmtTime(hm) {
+  if (!hm) return "";
+  let [h, m] = hm.split(":").map(Number);
+  const ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12;
+  return m ? `${h}:${pad(m)} ${ap}` : `${h} ${ap}`;
+}
+function nowPhrase(now) {
+  const d = now.slice(0, 10), [y, m, dd] = d.split("-").map(Number);
+  return `${DOW_LONG[dow(d)]}, ${MON_LONG[m - 1]} ${dd}, ${y}, ${fmtTime(now.slice(11, 16))}`;
+}
+function fold(s) { return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+function clean(s, n) { return String(s == null ? "" : s).replace(/\s+/g, " ").trim().slice(0, n || 200); }
+function slugify(s, n) {
+  return fold(s).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, n || 48).replace(/-+$/, "");
+}
+
+/** Adds derived fields used for filtering and display. Never mutates the stored body. */
+function normEvent(id, raw) {
+  const e = Object.assign({}, raw, { id });
+  e.title = clean(e.title, 200) || "Untitled event";
+  e.themes = Array.isArray(e.themes) ? e.themes.filter(t => THEME_LABEL[t]) : [];
+  if (!CATEGORIES.includes(e.category)) e.category = "Talk";
+  if (!FORMATS.includes(e.format)) e.format = "In person";
+  const start = String(e.start || ""), end = String(e.end || "");
+  e.sd = /^\d{4}-\d{2}-\d{2}/.test(start) ? start.slice(0, 10) : "1970-01-01";
+  e.multi = !!e.multi_day;
+  e.st = /T\d\d:\d\d/.test(start) && !e.time_tba ? start.slice(11, 16) : "";
+  e.ed = /^\d{4}-\d{2}-\d{2}/.test(end) ? end.slice(0, 10) : (e.multi ? "" : e.sd);
+  e.et = /T\d\d:\d\d/.test(end) ? end.slice(11, 16) : "";
+  if (e.multi) { e.dur = null; e.durEst = false; }
+  else if (e.st && e.et) { e.dur = daysBetween(e.sd, e.ed) * 1440 + toMin(e.et) - toMin(e.st); e.durEst = false; }
+  else { e.dur = EST_MIN[e.category] || null; e.durEst = !!e.dur; }
+  if (e.multi) e.overKey = e.ed ? e.ed + "T23:59" : "9999-12-31T23:59";
+  else if (e.st && e.et) e.overKey = `${e.ed}T${e.et}`;
+  else if (e.st) e.overKey = addMinutes(e.sd, e.st, e.dur || 90);
+  else e.overKey = e.sd + "T23:59";
+  e.startKey = e.st ? `${e.sd}T${e.st}` : `${e.sd}T99:99`;
+  e.cost = (typeof e.cost === "number" && isFinite(e.cost)) ? e.cost : null;
+  e.qa = e.qa === true; e.indie = e.indie === true;
+  e.hay = fold([e.title, e.org, e.venue, e.address, e.neighborhood, e.borough, e.desc, e.category, e.source, e.note,
+    e.price, e.qa ? "q&a qa talkback" : "", e.indie ? "indie independent" : ""]
+    .concat(e.themes.map(t => THEME_LABEL[t])).join(" "));
+  return e;
+}
+
+/** Date window for a quick range. Returns {from, to, minTime?, friEvening?}. */
+function rangeFor(key, now, from, to) {
+  const today = now.slice(0, 10), d = dow(today);
+  switch (key) {
+    case "today": return { from: today, to: today };
+    case "tonight": return { from: today, to: today, minTime: "17:00" };
+    case "tomorrow": { const t = addDays(today, 1); return { from: t, to: t }; }
+    case "weekend": {
+      if (d === 6) return { from: today, to: addDays(today, 1) };
+      if (d === 0) return { from: today, to: today };
+      const fri = addDays(today, (5 - d + 7) % 7);
+      return { from: fri, to: addDays(fri, 2), friEvening: fri };
+    }
+    case "next7": return { from: today, to: addDays(today, 6) };
+    case "next30": return { from: today, to: addDays(today, 29) };
+    case "all": return { from: today, to: "9999-12-31" };
+    case "custom": {
+      const f = /^\d{4}-\d{2}-\d{2}$/.test(from || "") ? from : today;
+      const t = /^\d{4}-\d{2}-\d{2}$/.test(to || "") && to >= f ? to : addDays(f, 13);
+      return { from: f, to: t };
+    }
+    default: return { from: today, to: addDays(today, 13) };
+  }
+}
+function inRange(e, r, now) {
+  if (e.overKey < now) return false;
+  if (e.multi) return e.sd <= r.to && (e.ed === "" || e.ed >= r.from);
+  if (e.sd < r.from || e.sd > r.to) return false;
+  if (r.minTime && (!e.st || e.st < r.minTime)) return false;
+  if (r.friEvening && e.sd === r.friEvening && (!e.st || e.st < "17:00")) return false;
+  return true;
+}
+function todBucket(st) {
+  if (!st) return "";
+  const h = +st.slice(0, 2);
+  return h < 12 ? "morning" : h < 17 ? "afternoon" : h < 21 ? "evening" : "late";
+}
+function durBucket(e) {
+  if (e.multi) return "multi";
+  const m = e.dur;
+  if (m == null || m <= 0) return "";
+  return m <= 90 ? "short" : m <= 180 ? "mid" : "long";
+}
+function defaultFilters() {
+  return { q: "", range: "next14", from: "", to: "", cats: [], themes: [], boroughs: [], tod: [], dur: [],
+    price: "any", format: [], org: "", stype: [], extras: [], includeRunning: true, showHidden: false, sort: "soonest" };
+}
+function facetCount(f) {
+  return f.cats.length + f.themes.length + f.boroughs.length + f.tod.length + f.dur.length + f.format.length +
+    f.stype.length + f.extras.length + (f.price !== "any" ? 1 : 0) + (f.org ? 1 : 0) + (f.includeRunning ? 0 : 1) + (f.showHidden ? 1 : 0);
+}
+function isMuted(e, prefs, f) {
+  const w = prefs.weights || DEFAULT_WEIGHTS;
+  if ((prefs.cats || {})[e.category] === -1 && !(f && f.cats.includes(e.category))) return true;
+  if (f && f.themes.length) return false;
+  const ws = e.themes.map(t => (t in w ? w[t] : 1));
+  return ws.length > 0 && Math.max.apply(null, ws) === 0;
+}
+function matches(e, f, prefs, now, r) {
+  if (!inRange(e, r, now)) return false;
+  if (!f.includeRunning && e.multi) return false;
+  if (!f.showHidden && (prefs.hidden || []).includes(e.id)) return false;
+  if (e.status && e.status !== "active") return false;
+  if (f.q) {
+    const terms = fold(f.q).split(/\s+/).filter(Boolean);
+    if (!terms.every(t => e.hay.includes(t))) return false;
+  }
+  if (f.cats.length && !f.cats.includes(e.category)) return false;
+  if (f.themes.length && !e.themes.some(t => f.themes.includes(t))) return false;
+  if (f.boroughs.length && !f.boroughs.includes(e.borough)) return false;
+  if (f.tod.length && !f.tod.includes(todBucket(e.st))) return false;
+  if (f.dur.length && !f.dur.includes(durBucket(e))) return false;
+  if (f.price === "free" && e.cost !== 0) return false;
+  if (f.price === "u15" && !(e.cost !== null && e.cost <= 15)) return false;
+  if (f.format.length && !f.format.includes(e.format)) return false;
+  if (f.org && e.org !== f.org) return false;
+  if (f.stype.length && !f.stype.includes(e.source_type)) return false;
+  if (f.extras.length && !f.extras.every(x => e[x] === true)) return false;
+  if (prefs.hideMembers && e.members_only) return false;
+  if (prefs.hideMuted && !f.q && isMuted(e, prefs, f)) return false;
+  return true;
+}
+
+/** Interest fit, roughly 0-5. Hearings and deadlines start a little lower because they are frequent and routine. */
+const CATEGORY_PRIOR = { "Public meeting": -0.5, "Date to know": -0.3 };
+function fitScore(e, prefs) {
+  const w = prefs.weights || DEFAULT_WEIGHTS;
+  const ws = e.themes.map(t => (t in w ? w[t] : 1)).sort((a, b) => b - a);
+  let s = ws.length ? ws[0] + 0.35 * (ws[1] || 0) + 0.15 * (ws[2] || 0) : 0.5;
+  s += (CATEGORY_PRIOR[e.category] || 0) + ((prefs.cats || {})[e.category] || 0) * 0.8;
+  if (e.cost === 0) s += prefs.preferFree ? 0.25 : 0.05;
+  else if (prefs.preferFree && e.cost != null && e.cost > 20) s -= 0.3;
+  if (e.members_only) s -= 0.8;
+  if (e.waitlist) s -= 0.4;
+  if (prefs.home && e.borough === prefs.home) s += 0.15;
+  if (e.qa && prefs.favorQA) s += 0.2;
+  if (e.indie && prefs.favorIndie) s += 0.15;
+  return Math.round(s * 100) / 100;
+}
+function fitLevel(s) { return s >= 4.35 ? 5 : s >= 3.8 ? 4 : s >= 3.0 ? 3 : s >= 2.0 ? 2 : s > 0.8 ? 1 : 0; }
+const FIT_WORDS = ["Muted topic", "Slight fit", "Some fit", "Good fit", "Strong fit", "Top fit"];
+function fitReasons(e, prefs) {
+  const w = prefs.weights || DEFAULT_WEIGHTS;
+  return e.themes.filter(t => (t in w ? w[t] : 1) >= 2).sort((a, b) => w[b] - w[a]).map(t => THEME_SHORT[t]);
+}
+
+function compareSoonest(a, b) {
+  if (a.startKey !== b.startKey) return a.startKey < b.startKey ? -1 : 1;
+  return a.title < b.title ? -1 : 1;
+}
+function search(events, f, prefs, now) {
+  const r = rangeFor(f.range, now, f.from, f.to);
+  const list = events.filter(e => matches(e, f, prefs, now, r));
+  for (const e of list) { e.score = fitScore(e, prefs); e.level = fitLevel(e.score); }
+  const single = list.filter(e => !e.multi), running = list.filter(e => e.multi);
+  if (f.sort === "fit") single.sort((a, b) => (b.score - a.score) || compareSoonest(a, b));
+  else single.sort(compareSoonest);
+  running.sort((a, b) => (b.score - a.score) || ((a.ed || "9999") < (b.ed || "9999") ? -1 : 1));
+  return { range: r, single, running, total: list.length };
+}
+function groupByDay(list) {
+  const out = [];
+  for (const e of list) {
+    const last = out[out.length - 1];
+    if (last && last.day === e.sd) last.items.push(e); else out.push({ day: e.sd, items: [e] });
+  }
+  return out;
+}
+function relDay(d, today) {
+  const n = daysBetween(today, d);
+  if (n === 0) return "Today";
+  if (n === 1) return "Tomorrow";
+  if (n > 1 && n < 7) return "This " + DOW_LONG[dow(d)];
+  return "";
+}
+
+// ---------------------------------------------------------------- Ask (prompt search)
+function eventLine(ref, e) {
+  const when = e.multi
+    ? `RUNS ${e.sd}${e.ed ? " to " + e.ed : " (no end date)"}`
+    : `${DOW[dow(e.sd)]} ${e.sd} ${e.st ? e.st + (e.et && e.ed === e.sd ? "-" + e.et : "") : "time TBA"}`;
+  const where = [e.venue, e.neighborhood, e.borough].filter(Boolean).join(", ").slice(0, 90);
+  const flags = [e.qa && "Q&A/talkback", e.indie && "independent venue", e.rsvp && "RSVP",
+    e.members_only && "members only", e.waitlist && "waitlist",
+    e.format !== "In person" && e.format.toLowerCase()].filter(Boolean).join("; ");
+  return [ref, when, e.title.slice(0, 110), where, e.category, e.themes.join(","), clean(e.price, 40), flags].join(" | ");
+}
+function dateHelpers(now) {
+  const today = now.slice(0, 10), d = dow(today);
+  const fri = addDays(today, (5 - d + 7) % 7);
+  const sat = d === 0 ? addDays(today, -1) : addDays(today, (6 - d + 7) % 7);
+  const nextMon = addDays(today, ((1 - d + 7) % 7) || 7);
+  return `today = ${today} (${DOW[d]}); tomorrow = ${addDays(today, 1)}; this Friday = ${fri}; ` +
+    `this weekend = ${sat} to ${addDays(sat, 1)}; next week = ${nextMon} to ${addDays(nextMon, 6)}`;
+}
+function interestsLine(prefs) {
+  const w = prefs.weights || DEFAULT_WEIGHTS;
+  const parts = THEMES.map(([k, l]) => `${l} ${w[k]}`);
+  const boosted = CATEGORIES.filter(c => (prefs.cats || {})[c] === 1);
+  const muted = CATEGORIES.filter(c => (prefs.cats || {})[c] === -1);
+  let s = parts.join("; ");
+  if (boosted.length) s += `\nEvent types they like most: ${boosted.join(", ")}.`;
+  if (muted.length) s += `\nEvent types they don't want: ${muted.join(", ")}.`;
+  const likes = [prefs.favorQA && "screenings and shows with a Q&A, talkback or guest in person",
+    prefs.favorIndie && "independent bookstores, arthouse cinemas and community or artist-run spaces"].filter(Boolean);
+  if (likes.length) s += `\nThey especially like ${likes.join(", and ")}.`;
+  return s;
+}
+function askPool(events, prefs, now) {
+  const today = now.slice(0, 10), horizon = addDays(today, 90);
+  const hidden = new Set(prefs.hidden || []);
+  return events.filter(e => e.overKey >= now && !hidden.has(e.id) && (!e.status || e.status === "active") &&
+    (e.multi ? e.sd <= horizon : e.sd <= horizon)).sort(compareSoonest);
+}
+const ASK_BYTES = 80000;
+function buildAskPrompt(q, pool, prefs, now) {
+  const head =
+`You help one person in New York City pick events from their personal events database, City Docket.
+
+Right now it is ${nowPhrase(now)} in New York.
+Date helpers: ${dateHelpers(now)}.
+
+What they care about (0 = not interested, 3 = very interested):
+${interestsLine(prefs)}
+Home base: ${prefs.home || "anywhere in NYC"}.${prefs.preferFree ? " They prefer free or cheap events." : ""}
+
+Events, one per line: ref | when | title | where | type | topics | price | notes
+`;
+  const rules =
+`
+Rules:
+- Use only events from this list and refer to them by ref.
+- Read dates against "right now". "Evening" means starting at 5 PM or later; "tonight" means today from 5 PM.
+- A line marked RUNS is open across a date range (festival, film series, exhibition, play). Suggest it only when it fits the ask.
+- Rank by how well each event answers the question, then by their interests. Skip anything already over.
+
+Reply with only JSON in this shape:
+{"interpretation": "one short line restating what you looked for, with actual dates", "picks": [{"ref": "r12", "why": "one concrete sentence, 22 words max"}], "also": [{"ref": "r40", "why": "..."}], "note": "optional one-line tip, or empty string"}
+Give up to 6 picks and up to 6 in "also". If nothing fits, return empty lists and use "note" to say what comes closest.
+
+Question: ${q}`;
+  const enc = s => (typeof TextEncoder !== "undefined" ? new TextEncoder().encode(s).length : s.length);
+  // Everything in the pool goes in when it fits. When it doesn't, the weakest fits are left out first
+  // (later dates before sooner ones), so the whole date range stays covered.
+  const items = pool.map(e => ({ e, score: fitScore(e, prefs), b: enc(eventLine("r0000", e)) + 1 }));
+  let total = items.reduce((n, x) => n + x.b, 0);
+  const room = ASK_BYTES - enc(head) - enc(rules);
+  const drop = new Set();
+  if (total > room) {
+    const weakest = items.slice().sort((a, b) => (a.score - b.score) || (a.e.sd < b.e.sd ? 1 : a.e.sd > b.e.sd ? -1 : 0));
+    for (const x of weakest) { if (total <= room) break; drop.add(x); total -= x.b; }
+  }
+  const refs = new Map(), lines = [];
+  for (const x of items) {
+    if (drop.has(x)) continue;
+    const ref = "r" + (lines.length + 1);
+    lines.push(eventLine(ref, x.e)); refs.set(ref, x.e.id);
+  }
+  return { text: head + lines.join("\n") + "\n" + rules, refs, count: lines.length, left: drop.size };
+}
+function cleanAsk(data, refs) {
+  const d = data && typeof data === "object" ? data : {};
+  const pick = arr => (Array.isArray(arr) ? arr : []).map(p => ({
+    id: refs.get(String(p && p.ref || "").trim()), why: clean(p && p.why, 240),
+  })).filter(p => p.id);
+  const seen = new Set();
+  const dedupe = arr => arr.filter(p => (seen.has(p.id) ? false : (seen.add(p.id), true)));
+  return { interpretation: clean(d.interpretation, 240), picks: dedupe(pick(d.picks)).slice(0, 8),
+    also: dedupe(pick(d.also)).slice(0, 8), note: clean(d.note, 300) };
+}
+
+// ---------------------------------------------------------------- newsletter intake
+function buildExtractPrompt(text, sourceName, now) {
+  const year = now.slice(0, 4);
+  return `Extract the events from the text below for City Docket, a personal database of New York City events.
+Right now it is ${nowPhrase(now)} in New York. Dates without a year are in ${year}, unless that date has already passed this year by more than a month, in which case use the next year. Skip events that are already over, ads, fundraising appeals and anything without a date.
+
+Return only a JSON array. Each item:
+{"title": "event name", "org": "who is hosting", "venue": "place name", "address": "street address or empty",
+ "borough": "one of Manhattan, Brooklyn, Queens, Bronx, Staten Island, Online, Citywide, or empty if unclear",
+ "neighborhood": "or empty", "start": "YYYY-MM-DDTHH:MM (24-hour New York time), or YYYY-MM-DD if no time is given",
+ "end": "same formats, or empty", "multi_day": true only for things open across several days (exhibition, festival, series, run of a play),
+ "time_tba": true if no start time is given,
+ "category": "one of ${CATEGORIES.join(", ")}",
+ "themes": ["1 to 4 of: ${THEMES.map(([k, l]) => `${k} (${l})`).join(", ")}"],
+ "price": "short text such as Free, $10, Sliding scale, or empty", "cost": general admission as a number (0 if free, null if unknown),
+ "rsvp": true if registration or tickets are needed, "format": "In person, Online or Hybrid",
+ "qa": true only for a screening, performance or show that includes a Q&A, talkback, intro or filmmaker/artist in person,
+ "indie": true if the venue or organizer is independent (indie bookstore, arthouse cinema, artist-run or community space, small press or small nonprofit), false for major institutions and chains,
+ "url": "the event's own link from the text, or empty", "desc": "one sentence in your own words, 30 words max"}
+If there are no events, return [].
+
+Source: ${clean(sourceName, 120) || "pasted text"}
+Text:
+"""
+${text}
+"""`;
+}
+const DATE_RE = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/;
+function normalizeExtracted(arr, now) {
+  const out = [];
+  for (const r of Array.isArray(arr) ? arr : []) {
+    if (!r || typeof r !== "object") continue;
+    const title = clean(r.title, 160);
+    let start = clean(r.start, 16);
+    if (!title || !DATE_RE.test(start)) continue;
+    let end = clean(r.end, 16);
+    if (end && (!DATE_RE.test(end) || end < start)) end = "";
+    const multi = r.multi_day === true;
+    const themes = (Array.isArray(r.themes) ? r.themes : []).map(t => String(t).trim().toLowerCase())
+      .filter(t => THEME_LABEL[t]).slice(0, 4);
+    const ev = {
+      title, org: clean(r.org, 120), venue: clean(r.venue, 140), address: clean(r.address, 160),
+      borough: BOROUGHS.includes(r.borough) ? r.borough : "", neighborhood: clean(r.neighborhood, 60),
+      start, end, time_tba: !multi && (!start.includes("T") || r.time_tba === true), multi_day: multi,
+      category: CATEGORIES.includes(r.category) ? r.category : "Talk", themes,
+      price: clean(r.price, 80), cost: typeof r.cost === "number" && isFinite(r.cost) && r.cost >= 0 ? r.cost : null,
+      format: FORMATS.includes(r.format) ? r.format : "In person", rsvp: r.rsvp === true,
+      members_only: false, waitlist: false, qa: r.qa === true, indie: r.indie === true,
+      url: /^https?:\/\/\S+$/i.test(String(r.url || "").trim()) ? String(r.url).trim().slice(0, 600) : "",
+      desc: clean(r.desc, 300), note: "", recurring: "",
+    };
+    if (normEvent("probe", ev).overKey < now) continue;
+    out.push(ev);
+  }
+  return out;
+}
+function eventKey(title, sd) { return fold(title).replace(/[^a-z0-9]/g, "").slice(0, 40) + "|" + sd; }
+function makeId(e, taken) {
+  const base = e.start.slice(0, 10).replace(/-/g, "") + "-" + (slugify(e.title) || "event");
+  let id = base, i = 2;
+  while (taken.has(id)) id = `${base}-${i++}`;
+  return id;
+}
+
+// ---------------------------------------------------------------- calendar export
+function place(e) {
+  const b = e.borough && !["Online", "Citywide"].includes(e.borough) ? e.borough + ", NY" : "";
+  return [e.venue, e.address, b].filter(Boolean).join(", ");
+}
+function endKeyOf(e) { return e.et ? `${e.ed}T${e.et}` : addMinutes(e.sd, e.st, e.dur || 90); }
+function compactKey(k) { return k.replace(/-/g, "").replace(":", "") + "00"; }
+function gcalUrl(e) {
+  let dates;
+  if (e.multi || !e.st) {
+    const last = e.multi ? (e.ed || e.sd) : e.sd;
+    dates = e.sd.replace(/-/g, "") + "/" + addDays(last, 1).replace(/-/g, "");
+  } else {
+    dates = compactKey(`${e.sd}T${e.st}`) + "/" + compactKey(endKeyOf(e));
+  }
+  const p = new URLSearchParams({ action: "TEMPLATE", text: e.title, dates,
+    details: [e.desc, e.url].filter(Boolean).join("\n\n"), location: place(e), ctz: TZ });
+  return "https://calendar.google.com/calendar/render?" + p.toString();
+}
+function csvCell(v) { const s = String(v == null ? "" : v); return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }
+function mdy(d) { const [y, m, dd] = d.split("-"); return `${m}/${dd}/${y}`; }
+function ampm(hm) { let [h, m] = hm.split(":").map(Number); const ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return `${pad(h)}:${pad(m)} ${ap}`; }
+function buildCSV(list) {
+  const head = ["Subject", "Start Date", "Start Time", "End Date", "End Time", "All Day Event", "Description", "Location", "Private"];
+  const rows = list.map(e => {
+    const allDay = e.multi || !e.st;
+    const end = allDay ? (e.multi ? (e.ed || e.sd) : e.sd) : endKeyOf(e).slice(0, 10);
+    return [e.title, mdy(e.sd), allDay ? "" : ampm(e.st), mdy(end), allDay ? "" : ampm(endKeyOf(e).slice(11, 16)),
+      allDay ? "True" : "False", [e.desc, e.url].filter(Boolean).join(" "), place(e), "False"];
+  });
+  return [head].concat(rows).map(r => r.map(csvCell).join(",")).join("\r\n");
+}
+function snapshotOf(e) {
+  const keep = ["title", "org", "venue", "address", "borough", "neighborhood", "start", "end", "time_tba", "multi_day",
+    "category", "themes", "price", "cost", "format", "url", "desc", "qa", "indie"];
+  const o = {}; for (const k of keep) if (e[k] !== undefined) o[k] = e[k];
+  return o;
+}
+
+if (typeof module !== "undefined") {
+  module.exports = { TZ, THEMES, THEME_LABEL, THEME_SHORT, CATEGORIES, BOROUGHS, SOURCE_TYPES, FORMATS, EXTRAS, DEFAULT_WEIGHTS,
+    defaultPrefs, mergePrefs, nowNY, addDays, dow, daysBetween, addMinutes, fmtDate, fmtTime, nowPhrase, fold, clean,
+    slugify, normEvent, rangeFor, inRange, todBucket, durBucket, defaultFilters, facetCount, isMuted, matches, fitScore,
+    fitLevel, FIT_WORDS, fitReasons, search, groupByDay, relDay, eventLine, dateHelpers, askPool, buildAskPrompt,
+    cleanAsk, buildExtractPrompt, normalizeExtracted, eventKey, makeId, gcalUrl, buildCSV, snapshotOf };
+}
+
+/* City Docket: page app. Uses the db, user, sample and downloads capabilities when the viewer provides them. */
+(function () {
+  "use strict";
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const safeUrl = u => (/^https?:\/\/\S+$/i.test(String(u || "").trim()) ? String(u).trim() : "");
+  const use = name => {
+    try {
+      return window.claude && typeof window.claude.use === "function" ? window.claude.use(name).catch(() => null) : Promise.resolve(null);
+    } catch (e) { return Promise.resolve(null); }
+  };
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } },
+  };
+  const TABS = ["search", "saved", "sources", "interests"];
+  const WHEN = [["today", "Today"], ["tonight", "Tonight"], ["tomorrow", "Tomorrow"], ["weekend", "This weekend"],
+    ["next7", "Next 7 days"], ["next14", "Next 14 days"], ["next30", "Next 30 days"], ["all", "All upcoming"], ["custom", "Pick dates"]];
+  const TOD = [["morning", "Morning"], ["afternoon", "Afternoon"], ["evening", "Evening (5–9)"], ["late", "Late (9+)"]];
+  const DUR = [["short", "Up to 1½ hrs"], ["mid", "1½–3 hrs"], ["long", "3+ hrs"], ["multi", "Multi-day"]];
+  const PRICE = [["any", "Any price"], ["free", "Free"], ["u15", "$15 or less"]];
+  const STYPE_LABEL = Object.fromEntries(SOURCE_TYPES);
+  STYPE_LABEL.website = "Website"; STYPE_LABEL.newsletter = "Newsletter"; STYPE_LABEL["mailing list"] = "Mailing list";
+  STYPE_LABEL.listings = "Listings"; STYPE_LABEL.government = "Government"; STYPE_LABEL.you = "Added by you";
+  const EXAMPLES = [
+    "What's going on this Friday evening I might want to check out?",
+    "Free housing or tenant events in the next two weeks",
+    "City Council hearings worth sitting in on this month",
+    "A reading or screening on the Upper East Side or Midtown this week",
+    "Something on the left that isn't a panel, this weekend",
+    "Architecture tours I can still get into during Archtober",
+    "Film screenings with a director Q&A this week",
+    "Book talks at indie bookstores about cities, housing or the left",
+  ];
+  const ICON_STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.6l-5.1 2.7 1-5.7-4.1-4 5.7-.8z" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+  const ICON_STAR_O = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.6l-5.1 2.7 1-5.7-4.1-4 5.7-.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  const ICON_HIDE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.4-6 9-6c1.7 0 3.2.5 4.4 1.2M21 12s-3.4 6-9 6c-1.7 0-3.2-.5-4.4-1.2M4 20L20 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  const ICON_SHOW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.4-6 9-6 9 6 9 6-3.4 6-9 6-9-6-9-6z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/></svg>';
+
+  const S = {
+    events: [], byId: new Map(), sources: [], meta: null,
+    prefs: defaultPrefs(), prefsMode: "local", uid: null,
+    f: defaultFilters(), tab: "search", runOpen: null, dirKind: "All",
+    db: null, sample: undefined, downloads: null, user: null,
+    dbState: "loading", canWrite: null, isOwner: false,
+    open: new Set(),
+    ask: { turns: [], blocks: [], refs: null, ctl: null, busy: false, n: 0 },
+    intake: { items: [], busy: false, ctl: null, source: "", type: "newsletter" },
+    pruneAsk: false, pruning: false,
+  };
+
+  // ------------------------------------------------------------ restore per-browser conveniences
+  (function restore() {
+    const ui = store.get("cityDocket.ui");
+    if (ui && typeof ui === "object") {
+      const d = defaultFilters();
+      if (ui.f && typeof ui.f === "object") {
+        for (const k of Object.keys(d)) {
+          if (k === "q") continue;
+          if (Array.isArray(d[k]) && Array.isArray(ui.f[k])) d[k] = ui.f[k].filter(x => typeof x === "string");
+          else if (typeof d[k] === typeof ui.f[k] && !Array.isArray(d[k])) d[k] = ui.f[k];
+        }
+      }
+      S.f = d;
+      if (TABS.includes(ui.tab)) S.tab = ui.tab;
+    }
+    const h = (location.hash || "").replace(/^#/, "");
+    if (TABS.includes(h)) S.tab = h;
+    const lp = store.get("cityDocket.prefs");
+    if (lp) S.prefs = mergePrefs(lp);
+  })();
+  function persistUI() { store.set("cityDocket.ui", { tab: S.tab, f: Object.assign({}, S.f, { q: "" }) }); }
+
+  // ------------------------------------------------------------ toast
+  let toastTimer = null;
+  function toast(msg, action) {
+    const t = $("#toast");
+    t.innerHTML = `<span>${esc(msg)}</span>${action ? `<button type="button">${esc(action.label)}</button>` : ""}`;
+    if (action) t.querySelector("button").onclick = () => { action.run(); t.classList.remove("show"); };
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("show"), action ? 6000 : 3200);
+  }
+
+  // ------------------------------------------------------------ prefs
+  let saveTimer = null, saving = false, dirty = false;
+  function prefsChanged() {
+    store.set("cityDocket.prefs", S.prefs);
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(savePrefs, 700);
+  }
+  async function savePrefs() {
+    if (S.prefsMode !== "db" || !S.db || !S.uid) return;
+    if (saving) { dirty = true; return; }
+    saving = true;
+    try { await S.db.doc(`data/users/${S.uid}/prefs`).set(JSON.parse(JSON.stringify(S.prefs))); }
+    catch (e) { S.prefsMode = "local"; renderPrefsWhere(); }
+    saving = false;
+    if (dirty) { dirty = false; savePrefs(); }
+  }
+  async function loadPrefs() {
+    if (!S.db || !S.uid) { renderPrefsWhere(); return; }
+    try {
+      const snap = await S.db.doc(`data/users/${S.uid}/prefs`).get();
+      S.prefsMode = "db";
+      if (snap.exists) S.prefs = mergePrefs(snap.data());
+      store.set("cityDocket.prefs", S.prefs);
+    } catch (e) { S.prefsMode = "local"; }
+    renderPrefsWhere(); syncInterests(); renderTab(); renderSavedCount();
+  }
+  function renderPrefsWhere() {
+    $("#prefs-where").textContent = S.prefsMode === "db"
+      ? "Your interests, saved and hidden events are stored with your account in this page, so they follow you across devices."
+      : "Your interests, saved and hidden events are stored in this browser.";
+  }
+
+  // ------------------------------------------------------------ helpers for rows
+  function shortDate(d) { return fmtDate(d, false); }
+  function whenHTML(e, o) {
+    const today = nowNY().slice(0, 10);
+    if (e.multi) {
+      return `<small>${e.sd > today ? "Opens " + esc(shortDate(e.sd)) : "Through"}</small>${e.ed ? esc(shortDate(e.ed)) : "Ongoing"}`;
+    }
+    const t = e.st ? esc(fmtTime(e.st)) : (e.category === "Date to know" ? "All day" : "TBA");
+    if (o.flat) return `${esc(shortDate(e.sd))}<small>${esc(DOW[dow(e.sd)])} · ${t}</small>`;
+    let sub = "";
+    if (e.st && e.et && e.ed === e.sd) sub = `to ${esc(fmtTime(e.et))}`;
+    else if (e.st && e.dur && e.durEst) sub = `about ${Math.round(e.dur / 30) / 2} hr`;
+    return `${t}${sub ? `<small>${sub}</small>` : ""}`;
+  }
+  function whenLong(e) {
+    if (e.multi) return `${fmtDate(e.sd)} – ${e.ed ? fmtDate(e.ed) : "ongoing"}`;
+    const [, m, d] = e.sd.split("-").map(Number);
+    const day = `${DOW_LONG[dow(e.sd)]}, ${MON[m - 1]} ${d}`;
+    if (!e.st) return `${day} (time not announced)`;
+    return `${day}, ${fmtTime(e.st)}${e.et && e.ed === e.sd ? " – " + fmtTime(e.et) : ""}`;
+  }
+  function whereText(e) {
+    const parts = [e.venue];
+    if (e.neighborhood && !String(e.venue || "").includes(e.neighborhood)) parts.push(e.neighborhood);
+    if (e.borough && e.borough !== "Citywide" && e.borough !== e.venue && !String(e.venue || "").startsWith("Online")) parts.push(e.borough);
+    return parts.filter(Boolean).join(", ");
+  }
+  function flagsHTML(e) {
+    const f = [];
+    if (e.qa) f.push('<span class="flag hi">Q&amp;A</span>');
+    if (e.indie) f.push('<span class="flag">Indie</span>');
+    if (e.members_only) f.push('<span class="flag warn">Members</span>');
+    if (e.waitlist) f.push('<span class="flag warn">Waitlist</span>');
+    if (e.rsvp && !e.members_only) f.push('<span class="flag">RSVP</span>');
+    if (e.format === "Online") f.push('<span class="flag">Online</span>');
+    if (e.format === "Hybrid") f.push('<span class="flag">Hybrid</span>');
+    if (e.recurring) f.push('<span class="flag">Repeats</span>');
+    return f.length ? `<span class="flags">${f.join("")}</span>` : "";
+  }
+  function rowHTML(e, o) {
+    o = o || {};
+    const key = `${o.ctx || "l"}:${e.id}`;
+    const open = S.open.has(key);
+    const saved = !!S.prefs.saved[e.id];
+    const hidden = (S.prefs.hidden || []).includes(e.id);
+    const score = fitScore(e, S.prefs), lvl = fitLevel(score);
+    const reasons = fitReasons(e, S.prefs);
+    const fitTitle = `${FIT_WORDS[lvl]}${reasons.length ? ": " + reasons.join(", ") : ""}`;
+    const where = whereText(e);
+    const price = e.price || "";
+    return `<article class="ev" data-key="${esc(key)}" data-id="${esc(e.id)}">
+      <div class="ev-when">${whenHTML(e, o)}</div>
+      <div class="ev-body">
+        <div class="kicker"><span class="cat">${esc(e.category)}</span>${e.org ? " · " + esc(e.org) : ""}</div>
+        <h3 class="ev-title"><button type="button" data-act="toggle" aria-expanded="${open}">${esc(e.title)}</button></h3>
+        <p class="meta">${esc(where)}${where && price ? " · " : ""}${esc(price)} ${flagsHTML(e)}</p>
+        ${o.why ? `<p class="why"><b>WHY</b>${esc(o.why)}</p>` : ""}
+        <div class="tags">${e.themes.slice(0, 4).map(t => `<span>${esc(THEME_SHORT[t])}</span>`).join("")}</div>
+      </div>
+      <div class="ev-side">
+        <span class="fit" role="img" title="${esc(fitTitle)}" aria-label="${esc(fitTitle)}">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= lvl ? "on" : ""}"></i>`).join("")}</span>
+        <div class="acts">
+          <button type="button" class="icon" data-act="save" aria-pressed="${saved}" aria-label="${saved ? "Remove from saved" : "Save"}" title="${saved ? "Saved" : "Save"}">${saved ? ICON_STAR : ICON_STAR_O}</button>
+          <button type="button" class="icon" data-act="hide" aria-label="${hidden ? "Unhide" : "Hide this event"}" title="${hidden ? "Unhide" : "Hide"}">${hidden ? ICON_SHOW : ICON_HIDE}</button>
+        </div>
+      </div>
+      ${open ? detailHTML(e) : ""}
+    </article>`;
+  }
+  function detailHTML(e) {
+    const url = safeUrl(e.url), surl = safeUrl(e.source_url);
+    const where = [e.venue, e.address, e.neighborhood, e.borough].filter((x, i, a) => x && a.indexOf(x) === i).join(", ");
+    const src = e.source ? (surl ? `<a href="${esc(surl)}" target="_blank" rel="noopener">${esc(e.source)}</a>` : esc(e.source)) : "Added by hand";
+    return `<div class="detail">
+      ${e.desc ? `<p>${esc(e.desc)}</p>` : ""}
+      <dl>
+        <dt>When</dt><dd>${esc(whenLong(e))}</dd>
+        <dt>Where</dt><dd>${esc(where || "See the listing")}</dd>
+        <dt>Price</dt><dd>${esc(e.price || "See the listing")}</dd>
+        <dt>Format</dt><dd>${esc(e.format)}${e.rsvp ? " · registration or tickets needed" : ""}${e.qa ? " · Q&amp;A, talkback or guest in person" : ""}${e.indie ? " · independent venue" : ""}</dd>
+        ${e.recurring ? `<dt>Repeats</dt><dd>${esc(e.recurring)}</dd>` : ""}
+        ${e.note ? `<dt>Note</dt><dd>${esc(e.note)}</dd>` : ""}
+        <dt>Found via</dt><dd>${src} <span class="kind">${esc(STYPE_LABEL[e.source_type] || "Source")}</span>${e.added ? ` · added ${esc(fmtDate(e.added))}` : ""}</dd>
+      </dl>
+      <div class="row">
+        ${url ? `<a class="btn quiet" href="${esc(url)}" target="_blank" rel="noopener">Open listing ↗</a>` : ""}
+        <a class="btn quiet" href="${esc(gcalUrl(e))}" target="_blank" rel="noopener">Add to Google Calendar ↗</a>
+        <button type="button" class="btn quiet" data-act="copy">Copy details</button>
+      </div>
+    </div>`;
+  }
+  function eventFor(id) {
+    if (S.byId.has(id)) return S.byId.get(id);
+    const snap = S.prefs.saved[id];
+    return snap && typeof snap === "object" ? normEvent(id, snap) : null;
+  }
+
+  // ------------------------------------------------------------ row actions (shared by every list)
+  function onRowClick(ev) {
+    const btn = ev.target.closest("[data-act]");
+    if (!btn) return;
+    const art = btn.closest("article.ev");
+    if (!art) return;
+    const id = art.dataset.id, key = art.dataset.key, e = eventFor(id);
+    const act = btn.dataset.act;
+    if (act === "toggle") {
+      const willOpen = !S.open.has(key);
+      if (willOpen && e) { S.open.add(key); art.insertAdjacentHTML("beforeend", detailHTML(e)); }
+      else { S.open.delete(key); const d = art.querySelector(".detail"); if (d) d.remove(); }
+      btn.setAttribute("aria-expanded", String(willOpen));
+    } else if (act === "save") toggleSave(id, e);
+    else if (act === "hide") toggleHide(id);
+    else if (act === "copy" && e) copyText(`${e.title}\n${whenLong(e)}\n${[e.venue, e.address, e.borough].filter(Boolean).join(", ")}\n${e.url || ""}`.trim());
+  }
+  function toggleSave(id, e) {
+    if (S.prefs.saved[id]) delete S.prefs.saved[id];
+    else if (e) S.prefs.saved[id] = snapshotOf(e);
+    const on = !!S.prefs.saved[id];
+    for (const b of $$(`article.ev[data-id="${CSS.escape(id)}"] [data-act="save"]`)) {
+      b.setAttribute("aria-pressed", String(on)); b.innerHTML = on ? ICON_STAR : ICON_STAR_O;
+      b.setAttribute("aria-label", on ? "Remove from saved" : "Save"); b.title = on ? "Saved" : "Save";
+    }
+    renderSavedCount(); prefsChanged();
+    if (S.tab === "saved") renderSaved();
+    toast(on ? "Saved. Find it under Saved." : "Removed from saved.");
+  }
+  function toggleHide(id) {
+    const list = S.prefs.hidden || (S.prefs.hidden = []);
+    const i = list.indexOf(id);
+    if (i >= 0) { list.splice(i, 1); toast("Unhidden."); }
+    else {
+      list.push(id);
+      toast("Hidden from your results.", { label: "Undo", run: () => toggleHide(id) });
+    }
+    prefsChanged(); renderTab();
+  }
+  function copyText(text) {
+    const done = () => toast("Copied to clipboard.");
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      ta.remove(); ok ? done() : toast("Couldn't copy here. Open the listing instead.");
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  }
+
+  // ------------------------------------------------------------ search tab
+  function chipGroup(el, items, isOn, onPick) {
+    el.innerHTML = items.map(([v, l]) => `<button type="button" class="chip" data-v="${esc(v)}" aria-pressed="${!!isOn(v)}">${esc(l)}</button>`).join("");
+    el.onclick = ev => { const b = ev.target.closest("button[data-v]"); if (b) onPick(b.dataset.v); };
+  }
+  function syncChips(el, isOn) { for (const b of el.querySelectorAll("button[data-v]")) b.setAttribute("aria-pressed", String(!!isOn(b.dataset.v))); }
+  function toggleIn(arr, v) { const i = arr.indexOf(v); if (i >= 0) arr.splice(i, 1); else arr.push(v); }
+  const FACETS = [
+    ["#f-cats", "cats", CATEGORIES.map(c => [c, c])],
+    ["#f-themes", "themes", THEMES.map(([k]) => [k, THEME_SHORT[k]])],
+    ["#f-boroughs", "boroughs", BOROUGHS.map(b => [b, b])],
+    ["#f-tod", "tod", TOD],
+    ["#f-dur", "dur", DUR],
+    ["#f-format", "format", FORMATS.map(x => [x, x])],
+    ["#f-extras", "extras", EXTRAS],
+    ["#f-stype", "stype", [["website", "Websites"], ["newsletter", "Newsletters"], ["listings", "Listings"], ["government", "Government"]]],
+  ];
+  function buildSearchControls() {
+    chipGroup($("#when"), WHEN, v => S.f.range === v, v => { S.f.range = v; syncSearchControls(); renderResults(); });
+    for (const [sel, key, items] of FACETS) chipGroup($(sel), items, v => S.f[key].includes(v), v => { toggleIn(S.f[key], v); syncSearchControls(); renderResults(); });
+    chipGroup($("#f-price"), PRICE, v => S.f.price === v, v => { S.f.price = v; syncSearchControls(); renderResults(); });
+    let qTimer = null;
+    $("#q").addEventListener("input", () => { clearTimeout(qTimer); qTimer = setTimeout(() => { S.f.q = $("#q").value; renderResults(); }, 120); });
+    $("#from").addEventListener("change", () => { S.f.from = $("#from").value; renderResults(); });
+    $("#to").addEventListener("change", () => { S.f.to = $("#to").value; renderResults(); });
+    $("#f-org").addEventListener("change", () => { S.f.org = $("#f-org").value; syncSearchControls(); renderResults(); });
+    $("#f-running").addEventListener("change", () => { S.f.includeRunning = $("#f-running").checked; syncSearchControls(); renderResults(); });
+    $("#f-hidden").addEventListener("change", () => { S.f.showHidden = $("#f-hidden").checked; syncSearchControls(); renderResults(); });
+    $("#clear-filters").addEventListener("click", () => {
+      S.f = Object.assign(defaultFilters(), { q: S.f.q, range: S.f.range, from: S.f.from, to: S.f.to, sort: S.f.sort });
+      syncSearchControls(); renderResults();
+    });
+    $(".sortbox").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-sort]"); if (!b) return;
+      S.f.sort = b.dataset.sort; syncSearchControls(); renderResults();
+    });
+    $("#filters-toggle").addEventListener("click", () => {
+      const rail = $("#rail"), open = rail.classList.toggle("closed") === false;
+      $("#filters-toggle").setAttribute("aria-expanded", String(open));
+    });
+    for (const sel of ["#results", "#picks", "#saved-list", "#ask-thread"]) $(sel).addEventListener("click", onRowClick);
+    $("#results").addEventListener("toggle", ev => { if (ev.target.matches && ev.target.matches("details.running")) S.runOpen = ev.target.open; }, true);
+  }
+  function syncSearchControls() {
+    syncChips($("#when"), v => S.f.range === v);
+    for (const [sel, key] of FACETS) syncChips($(sel), v => S.f[key].includes(v));
+    syncChips($("#f-price"), v => S.f.price === v);
+    for (const b of $$(".sortbox button")) b.setAttribute("aria-pressed", String(b.dataset.sort === S.f.sort));
+    $("#custom-range").hidden = S.f.range !== "custom";
+    if (S.f.range === "custom") {
+      const r = rangeFor("custom", nowNY(), S.f.from, S.f.to);
+      $("#from").value = S.f.from || r.from; $("#to").value = S.f.to || r.to;
+    }
+    $("#f-org").value = S.f.org;
+    $("#f-running").checked = S.f.includeRunning;
+    $("#f-hidden").checked = S.f.showHidden;
+    const n = facetCount(S.f);
+    $("#filter-n").hidden = !n; $("#filter-n").textContent = n || "";
+    persistUI();
+  }
+  function refreshOrgOptions() {
+    const counts = new Map();
+    const now = nowNY();
+    for (const e of S.events) if (e.org && e.overKey >= now) counts.set(e.org, (counts.get(e.org) || 0) + 1);
+    const orgs = Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1));
+    if (S.f.org && !counts.has(S.f.org)) orgs.push([S.f.org, 0]);
+    $("#f-org").innerHTML = `<option value="">Any organizer</option>` + orgs.map(([o, n]) => `<option value="${esc(o)}">${esc(o)} (${n})</option>`).join("");
+    $("#f-org").value = S.f.org;
+  }
+  function dayHeader(d, today) {
+    const [, m, dd] = d.split("-").map(Number);
+    const rel = relDay(d, today);
+    return `<h2 class="day"><span class="dnum">${pad(dd)}</span><span class="dmeta"><b>${esc(DOW_LONG[dow(d)])}</b>${esc(MON[m - 1])} ${esc(d.slice(0, 4))}</span>${rel ? `<span class="rel${rel === "Today" || rel === "Tomorrow" ? " hot" : ""}">${esc(rel)}</span>` : ""}</h2>`;
+  }
+  function stateMessage() {
+    if (S.dbState === "loading") return `<div class="empty"><strong>Loading the docket</strong>One moment.</div>`;
+    if (S.dbState === "absent") return `<div class="empty"><strong>Open City Docket in Claude to see events</strong>This page keeps its events in a database that only loads inside Claude. Open it from your artifacts on claude.ai or in the Claude app.</div>`;
+    if (S.dbState === "error") return `<div class="empty"><strong>Couldn't load the event list</strong>Check your connection, then reload the page.</div>`;
+    return "";
+  }
+  function renderResults() {
+    const now = nowNY(), today = now.slice(0, 10);
+    const summary = $("#summary"), picks = $("#picks"), results = $("#results");
+    const msg = stateMessage();
+    if (msg) { summary.textContent = S.dbState === "loading" ? "Loading…" : ""; picks.innerHTML = ""; results.innerHTML = msg; return; }
+    if (!S.events.length) {
+      summary.textContent = ""; picks.innerHTML = "";
+      results.innerHTML = `<div class="empty"><strong>No events yet</strong>The list refreshes every Sunday evening.</div>`;
+      return;
+    }
+    const res = search(S.events, S.f, S.prefs, now);
+    const r = res.range;
+    const span = r.to === "9999-12-31" ? `from ${fmtDate(r.from)}` : r.from === r.to ? fmtDate(r.from) : `${fmtDate(r.from)} – ${fmtDate(r.to)}`;
+    summary.innerHTML = `<b>${res.single.length}</b> event${res.single.length === 1 ? "" : "s"}${res.running.length ? ` + <b>${res.running.length}</b> running` : ""} · ${esc(span)}${r.minTime ? " · 5 PM on" : ""}${r.friEvening ? " · Friday from 5 PM" : ""}`;
+    const plain = !S.f.q && facetCount(S.f) === 0 && S.f.sort === "soonest";
+    if (plain && res.single.length > 6) {
+      const top = res.single.slice().sort((a, b) => b.score - a.score || (a.startKey < b.startKey ? -1 : 1)).filter(e => e.level >= 4).slice(0, 3);
+      picks.innerHTML = top.length ? `<section class="picks" aria-label="Best fits"><div class="picks-head"><span class="notice-tag">For you</span><p>Best fits in this range, by your interests</p></div>${top.map(e => rowHTML(e, { flat: true, ctx: "p" })).join("")}</section>` : "";
+    } else picks.innerHTML = "";
+    let html = "";
+    if (!res.single.length && !res.running.length) {
+      html = `<div class="empty"><strong>Nothing matches</strong>Try a longer date range, fewer filters, or ${S.prefs.hideMuted ? "check whether a topic is switched off under Interests." : "a different search."}</div>`;
+    } else {
+      if (!res.single.length) html += `<div class="empty"><strong>No one-off events match</strong>Exhibitions, festivals and series running in this window are listed below.</div>`;
+      else if (S.f.sort === "fit") html += res.single.map(e => rowHTML(e, { flat: true })).join("");
+      else for (const g of groupByDay(res.single)) html += dayHeader(g.day, today) + g.items.map(e => rowHTML(e)).join("");
+      if (res.running.length) {
+        const open = S.runOpen == null ? (res.single.length < 8) : S.runOpen;
+        html += `<details class="running"${open ? " open" : ""}><summary><h3>Running during these dates</h3><span class="dmeta">${res.running.length} exhibitions, festivals and series</span></summary>${res.running.map(e => rowHTML(e, { ctx: "r" })).join("")}</details>`;
+      }
+    }
+    results.innerHTML = html;
+  }
+
+  // ------------------------------------------------------------ ask tab
+  function buildAsk() {
+    $("#ask-examples").innerHTML = EXAMPLES.map(x => `<button type="button" class="chip" data-q="${esc(x)}">${esc(x)}</button>`).join("");
+    $("#ask-examples").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-q]"); if (!b) return;
+      if (S.ask.busy) return;
+      resetAsk(); $("#ask-q").value = b.dataset.q; askSubmit();
+    });
+    $("#ask-go").addEventListener("click", askSubmit);
+    $("#ask-q").addEventListener("keydown", ev => { if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) { ev.preventDefault(); askSubmit(); } });
+    $("#ask-stop").addEventListener("click", () => { if (S.ask.ctl) S.ask.ctl.abort(); });
+    $("#ask-reset").addEventListener("click", () => { resetAsk(); renderAsk(); $("#ask-q").focus(); });
+  }
+  function resetAsk() { S.ask.turns = []; S.ask.blocks = []; S.ask.refs = null; }
+  function setAskBusy(on) {
+    S.ask.busy = on;
+    $("#ask-go").disabled = on; $("#ask-stop").hidden = !on;
+    $("#ask-reset").hidden = on || !S.ask.blocks.length;
+    $("#ask-q").placeholder = S.ask.turns.length ? "Ask a follow-up, e.g. “only free ones” or “what about Saturday?”" : "What's going on this Friday evening I might want to check out?";
+  }
+  function askError(e) {
+    const c = e && e.code;
+    if (c === "cancelled") return "Stopped.";
+    if (c === "not_granted") return "Claude access wasn't allowed for this page. Reload the page to be asked again.";
+    if (["sampling_disabled", "not_declared", "capability_disabled", "capability_removed"].includes(c)) return "Ask isn't available in this view.";
+    if (c === "rate_limited") return "Too many requests right now. Wait a minute, then try again.";
+    if (c === "session_expired") return "Your Claude session expired. Sign in again, then retry.";
+    if (c === "refused") return "Claude couldn't answer that one. Try wording it differently.";
+    if (c === "prompt_too_large") return "Too many events to send at once. Try a narrower question.";
+    if (c === "invalid_json" || c === "empty_completion") return "The answer came back garbled. Try again.";
+    return "Couldn't reach Claude. Try again in a moment.";
+  }
+  async function askSubmit() {
+    const q = $("#ask-q").value.trim();
+    if (!q || S.ask.busy) return;
+    if (S.sample === undefined) { toast("Still connecting to Claude. Try again in a few seconds."); return; }
+    if (!S.sample) { toast("Ask only works when City Docket is open in Claude."); return; }
+    if (S.dbState !== "ready") { toast("Events are still loading."); return; }
+    const now = nowNY();
+    let input, first = !S.ask.turns.length;
+    if (first) {
+      const built = buildAskPrompt(q, askPool(S.events, S.prefs, now), S.prefs, now);
+      S.ask.refs = built.refs;
+      input = [{ role: "user", content: built.text }];
+    } else {
+      const keep = S.ask.turns.slice(0, 1).concat(S.ask.turns.slice(1).slice(-6));
+      input = keep.concat([{ role: "user", content: `Follow-up: ${q}\nRight now it is still ${nowPhrase(now)}. Answer in the same JSON shape, using the same event list.` }]);
+    }
+    const block = { n: ++S.ask.n, q, status: "thinking", data: null, error: "" };
+    S.ask.blocks.push(block);
+    $("#ask-q").value = "";
+    const ctl = new AbortController();
+    S.ask.ctl = ctl; setAskBusy(true); renderAsk();
+    $("#ask-status").className = "ask-status live"; $("#ask-status").textContent = "Reading the docket…";
+    try {
+      const opts = { signal: ctl.signal, onText: () => { if (block.status === "thinking") { block.status = "writing"; $("#ask-status").textContent = "Writing the answer…"; renderAsk(); } } };
+      if (!first) opts.cache = false;
+      const data = await S.sample.json(input, opts);
+      block.data = cleanAsk(data, S.ask.refs);
+      block.status = "done";
+      S.ask.turns = input.concat([{ role: "assistant", content: JSON.stringify(data) }]);
+    } catch (e) {
+      block.status = "error"; block.error = askError(e);
+      if (e && ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"].includes(e.code)) S.sample = null;
+      if (first) S.ask.turns = [];
+    } finally {
+      S.ask.ctl = null; setAskBusy(false);
+      $("#ask-status").className = "ask-status"; $("#ask-status").textContent = "";
+      renderAsk();
+    }
+  }
+  function renderAsk() {
+    const blocks = S.ask.blocks.slice().reverse();
+    $("#ask-thread").innerHTML = blocks.map(b => {
+      let inner = "";
+      if (b.status === "thinking" || b.status === "writing") inner = `<p class="qa-int">${b.status === "writing" ? "Writing the answer…" : "Reading the docket…"}</p>`;
+      else if (b.status === "error") inner = `<p class="qa-err">${esc(b.error)}</p>`;
+      else if (b.data) {
+        const d = b.data;
+        const rows = list => list.map(p => { const e = S.byId.get(p.id); return e ? rowHTML(e, { flat: true, ctx: "a" + b.n, why: p.why }) : ""; }).join("");
+        inner = `${d.interpretation ? `<p class="qa-int">${esc(d.interpretation)}</p>` : ""}${rows(d.picks)}${d.also.length ? `<p class="qa-sub">Also worth a look</p>${rows(d.also)}` : ""}${d.note ? `<p class="qa-note">${esc(d.note)}</p>` : ""}${!d.picks.length && !d.also.length && !d.note ? `<p class="qa-note">Nothing in the docket fits that. Try a wider date range or fewer conditions.</p>` : ""}`;
+      }
+      return `<section class="qa"><h3 class="qa-q">${esc(b.q)}</h3>${inner}</section>`;
+    }).join("");
+    $("#ask-reset").hidden = S.ask.busy || !S.ask.blocks.length;
+    $("#ask-go").disabled = S.ask.busy || S.sample === null;
+    if (S.sample === null) {
+      $("#ask-fine").textContent = "Ask needs City Docket open in Claude, where it can use your Claude account. Search works everywhere.";
+    }
+  }
+
+  // ------------------------------------------------------------ saved tab
+  function renderSavedCount() {
+    const n = Object.keys(S.prefs.saved || {}).length;
+    const c = $("#saved-count"); c.hidden = !n; c.textContent = n || "";
+  }
+  function savedLists() {
+    const now = nowNY();
+    const list = Object.keys(S.prefs.saved || {}).map(eventFor).filter(Boolean);
+    const upcoming = list.filter(e => e.overKey >= now).sort((a, b) => (a.startKey < b.startKey ? -1 : 1));
+    const past = list.filter(e => e.overKey < now).sort((a, b) => (a.startKey > b.startKey ? -1 : 1));
+    return { upcoming, past };
+  }
+  function renderSaved() {
+    const { upcoming, past } = savedLists();
+    let html = "";
+    if (!upcoming.length && !past.length) html = `<div class="empty"><strong>Nothing saved yet</strong>Tap the star on any event to keep it here, then export the list to Google Calendar.</div>`;
+    else {
+      html += upcoming.length ? upcoming.map(e => rowHTML(e, { flat: true, ctx: "s" })).join("") : `<div class="empty"><strong>No upcoming saved events</strong>Everything you saved has already happened.</div>`;
+      if (past.length) html += `<details class="running"><summary><h3>Already happened</h3><span class="dmeta">${past.length}</span></summary>${past.map(e => rowHTML(e, { flat: true, ctx: "sp" })).join("")}</details>`;
+    }
+    $("#saved-list").innerHTML = html;
+  }
+  async function exportCSV() {
+    const { upcoming } = savedLists();
+    if (!upcoming.length) { toast("Save some upcoming events first."); return; }
+    if (!S.downloads) { toast("Downloads only work when City Docket is open in Claude. Use “Add to Google Calendar” on each event instead."); return; }
+    try {
+      await S.downloads.save({ filename: "city-docket-saved.csv", data: buildCSV(upcoming) });
+      toast("Saved. In Google Calendar, go to Settings, then Import & export.");
+    } catch (e) {
+      if (e && e.code === "declined") return;
+      toast(e && e.code === "rate_limited" ? "A download prompt is already open." : "Couldn't save the file here.");
+    }
+  }
+
+  // ------------------------------------------------------------ sources tab
+  function host(u) { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } }
+  function renderSources() {
+    const cal = S.sources.filter(s => s.kind === "Calendar").length;
+    const news = S.sources.filter(s => s.kind === "Newsletter" || s.kind === "Mailing list").length;
+    const gov = S.sources.filter(s => s.kind === "Government" || s.kind === "Listings").length;
+    $("#pipeline").innerHTML = `
+      <div class="pipe"><div class="n">${cal}</div><div class="l">Calendars &amp; websites</div><p>Organizers' own event pages: indie bookstores, cinemas and theaters, universities, museums, community spaces, left groups and tenant organizations.</p></div>
+      <div class="pipe"><div class="n">${news}</div><div class="l">Newsletters &amp; mailing lists</div><p>Email-first sources. The weekly refresh reads their latest issues.</p></div>
+      <div class="pipe"><div class="n">${gov}</div><div class="l">Government &amp; listings</div><p>Council hearings, community boards, election dates and citywide roundups.</p></div>`;
+    const m = S.meta;
+    const newSince = addDays(nowNY().slice(0, 10), -21);
+    const isNew = src => typeof src.added === "string" && src.added >= newSince;
+    const nNew = S.sources.filter(isNew).length;
+    if (S.dirKind === "new" && !nNew) S.dirKind = "All";
+    const bySrc = {};
+    for (const e of S.events) { const k = e.source_type || "website"; bySrc[k] = (bySrc[k] || 0) + 1; }
+    const mix = Object.entries(bySrc).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n} ${String(STYPE_LABEL[k] || k).toLowerCase()}`).join(" · ");
+    $("#refresh-note").innerHTML = S.dbState === "ready"
+      ? `<span>${m && m.updated ? `Last pulled <b>${esc(fmtDate(String(m.updated).slice(0, 10)))}</b> · ` : ""}${m && m.last_inbox_check ? `inbox checked <b>${esc(fmtDate(String(m.last_inbox_check).slice(0, 10)))}</b> · ` : ""}${S.events.length} events (${esc(mix)})${nNew ? ` · <b>${nNew}</b> new source${nNew === 1 ? "" : "s"} in the last 3 weeks` : ""}</span><span>Refreshed every Sunday evening, when it also looks for new sources and marks them New.</span>`
+      : "";
+    // directory
+    const kinds = ["All", "Calendar", "Newsletter", "Mailing list", "Government", "Listings"];
+    const vtypes = [["Bookstore", "Bookstores"], ["Cinema", "Cinemas"], ["Theater", "Theaters"], ["Indie space", "Indie spaces"]];
+    const dirChips = [["All", "All"]].concat(nNew ? [["new", `New (${nNew})`]] : []).concat([["Calendar", "Calendars"], ["Newsletter", "Newsletters"], ["Mailing list", "Mailing lists"],
+      ["Government", "Government"], ["Listings", "Listings"]]).concat(vtypes.map(([v, l]) => ["v:" + v, l]));
+    chipGroup($("#dir-kinds"), dirChips, v => S.dirKind === v, v => { S.dirKind = v; renderSources(); });
+    // Count by name (source or organizer) first; fall back to the link's host only when no other source shares it,
+    // so listing sites like bookevents.nyc don't credit every shop they cover.
+    const byName = new Map(), byHost = new Map(), hostOwners = new Map();
+    for (const s of S.sources) { const h = host(s.url); if (h) hostOwners.set(h, (hostOwners.get(h) || 0) + 1); }
+    for (const e of S.events) {
+      for (const k of new Set([e.source, e.org].filter(Boolean))) byName.set(k, (byName.get(k) || 0) + 1);
+      const h = host(e.source_url); if (h) byHost.set(h, (byHost.get(h) || 0) + 1);
+    }
+    const countFor = s => byName.get(s.name) || (hostOwners.get(host(s.url)) === 1 ? byHost.get(host(s.url)) || 0 : 0);
+    const dk = String(S.dirKind || "All");
+    const rows = S.sources.filter(s => dk === "All" || (dk === "new" ? isNew(s) : dk.startsWith("v:") ? s.venue_type === dk.slice(2) : s.kind === dk))
+      .sort(dk === "new"
+        ? (a, b) => (a.added === b.added ? (a.name < b.name ? -1 : 1) : a.added < b.added ? 1 : -1)
+        : (a, b) => (a.kind === b.kind ? (a.name < b.name ? -1 : 1) : kinds.indexOf(a.kind) - kinds.indexOf(b.kind)));
+    $("#directory").innerHTML = rows.length ? rows.map(s => {
+      const url = safeUrl(s.url), signup = safeUrl(s.signup);
+      const n = countFor(s);
+      const news = s.kind === "Newsletter" || s.kind === "Mailing list";
+      return `<div class="src"><div style="min-width:0"><span class="src-name">${esc(s.name)}</span>${isNew(s) ? `<span class="kind new" title="Added ${esc(fmtDate(s.added))}">New</span>` : ""}<span class="kind${news ? " news" : ""}">${esc(s.kind)}</span>${s.venue_type ? `<span class="kind">${esc(s.venue_type)}</span>` : ""}${s.cadence ? `<span class="kind">${esc(s.cadence)}</span>` : ""}${s.inbox ? `<span class="kind news">In your inbox</span>` : ""}
+          <p>${esc(s.notes || "")}</p>
+          <div class="tags">${(s.themes || []).filter(t => THEME_SHORT[t]).map(t => `<span>${esc(THEME_SHORT[t])}</span>`).join("")}${n ? `<span style="color:var(--ink)">${n} in the docket</span>` : ""}</div></div>
+        <div class="src-links">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">Open ↗</a>` : ""}${signup && signup !== url ? `<a href="${esc(signup)}" target="_blank" rel="noopener">Sign up ↗</a>` : (news && signup ? `<span class="fine" style="margin:0">Sign up on site</span>` : "")}</div></div>`;
+    }).join("") : `<div class="empty"><strong>No sources yet</strong>Add one below.</div>`;
+    $("#intake-source-list").innerHTML = S.sources.filter(s => s.kind === "Newsletter" || s.kind === "Mailing list").map(s => `<option value="${esc(s.name)}"></option>`).join("");
+    const canWrite = !!S.db && S.canWrite !== false;
+    $("#add-source-panel").hidden = !canWrite;
+    renderIntake();
+    renderMaintenance();
+  }
+  function renderIntake() {
+    const noSample = S.sample === null, canWrite = !!S.db && S.canWrite !== false;
+    $("#intake").hidden = noSample || !canWrite;
+    const box = $("#intake-review");
+    const items = S.intake.items;
+    if (!items.length) { box.innerHTML = ""; return; }
+    const chosen = items.filter(i => i.pick).length;
+    box.innerHTML = `<p class="fine" style="margin:0 0 6px">Found ${items.length} event${items.length === 1 ? "" : "s"}. Uncheck anything you don't want.</p>` +
+      items.map((it, i) => {
+        const e = normEvent("x", it);
+        return `<label class="review-item"><input type="checkbox" data-i="${i}" ${it.pick ? "checked" : ""}>
+          <span style="min-width:0"><span class="kicker"><span class="cat">${esc(e.category)}</span>${e.org ? " · " + esc(e.org) : ""}</span>
+          <span style="display:block;font-weight:650">${esc(e.title)}</span>
+          <span class="meta">${esc(whenLong(e))}${whereText(e) ? " · " + esc(whereText(e)) : ""}${e.price ? " · " + esc(e.price) : ""}</span>
+          ${it.dup ? `<span class="flags"><span class="flag warn">Already in City Docket</span></span>` : ""}</span></label>`;
+      }).join("") +
+      `<div class="ask-actions"><button class="btn primary" type="button" id="intake-save"${chosen ? "" : " disabled"}>Add ${chosen} event${chosen === 1 ? "" : "s"}</button><button class="btn quiet" type="button" id="intake-discard">Discard</button></div>`;
+  }
+  async function intakeSubmit() {
+    const text = $("#intake-text").value.trim();
+    if (!text) { toast("Paste a newsletter or event page first."); return; }
+    if (S.sample === undefined) { toast("Still connecting to Claude. Try again in a few seconds."); return; }
+    if (!S.sample) { toast("Finding events needs City Docket open in Claude."); return; }
+    if (S.intake.busy) return;
+    const source = $("#intake-source").value.trim() || "Pasted text";
+    const type = $("#intake-type").value;
+    const ctl = new AbortController();
+    Object.assign(S.intake, { busy: true, ctl, source, type, items: [] });
+    renderIntake();
+    $("#intake-go").disabled = true; $("#intake-stop").hidden = false;
+    const st = $("#intake-status"); st.className = "ask-status live"; st.textContent = "Reading the text…";
+    try {
+      const now = nowNY();
+      const data = await S.sample.json(buildExtractPrompt(text.slice(0, 45000), source, now), {
+        signal: ctl.signal, onText: () => { st.textContent = "Pulling out events…"; },
+      });
+      const arr = Array.isArray(data) ? data : (data && Array.isArray(data.events) ? data.events : []);
+      const items = normalizeExtracted(arr, now);
+      const keys = new Set(S.events.map(e => eventKey(e.title, e.sd)));
+      S.intake.items = items.map(it => { const dup = keys.has(eventKey(it.title, it.start.slice(0, 10))); return Object.assign(it, { dup, pick: !dup }); });
+      st.className = "ask-status";
+      st.textContent = items.length ? "" : "No upcoming events found in that text.";
+    } catch (e) {
+      st.className = "ask-status"; st.textContent = askError(e);
+      if (e && ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"].includes(e.code)) S.sample = null;
+    } finally {
+      S.intake.busy = false; S.intake.ctl = null;
+      $("#intake-go").disabled = false; $("#intake-stop").hidden = true;
+      renderIntake();
+    }
+  }
+  async function intakeSave() {
+    const chosen = S.intake.items.filter(i => i.pick);
+    if (!chosen.length || !S.db) return;
+    const btn = $("#intake-save"); if (btn) { btn.disabled = true; btn.textContent = "Adding…"; }
+    const taken = new Set(S.events.map(e => e.id));
+    const today = nowNY().slice(0, 10);
+    let added = 0, stop = "";
+    for (const it of chosen) {
+      const doc = Object.assign({}, it, { source: S.intake.source, source_type: S.intake.type, source_url: "", added: today, status: "active" });
+      delete doc.dup; delete doc.pick;
+      const id = makeId(doc, taken); taken.add(id);
+      try { await S.db.doc("events/" + id).set(doc); added++; }
+      catch (e) {
+        if (e && e.code === "quota_exceeded") { stop = "The database is full. Clear out past events under Housekeeping, then try again."; break; }
+        if (e && e.code === "invalid_argument") { S.canWrite = false; stop = "You can view City Docket but not add to it."; break; }
+        stop = "Some events couldn't be added. Try again."; break;
+      }
+    }
+    toast(stop || `Added ${added} event${added === 1 ? "" : "s"} to City Docket.`);
+    if (added) { S.intake.items = []; $("#intake-text").value = ""; }
+    renderIntake();
+  }
+  async function addSource(ev) {
+    ev.preventDefault();
+    if (!S.db) return;
+    const name = $("#src-name").value.trim(), url = safeUrl($("#src-url").value);
+    if (!name || !url) { toast("Give the source a name and a full link starting with https://"); return; }
+    const kind = $("#src-kind").value;
+    const vtype = $("#src-vtype").value;
+    const doc = { name: name.slice(0, 120), kind, themes: [], url, notes: $("#src-notes").value.trim().slice(0, 300), signup: "", cadence: "", tracked: true, added_by_viewer: true };
+    if (["Bookstore", "Cinema", "Theater", "Indie space"].includes(vtype)) doc.venue_type = vtype;
+    doc.added = nowNY().slice(0, 10);
+    let id = slugify(name) || "source";
+    const taken = new Set(S.sources.map(s => s.id));
+    let i = 2; const base = id; while (taken.has(id)) id = `${base}-${i++}`;
+    $("#src-save").disabled = true;
+    try { await S.db.doc("sources/" + id).set(doc); toast(`Added ${name} to your sources.`); $("#add-source").reset(); }
+    catch (e) { toast(e && e.code === "invalid_argument" ? "You can view City Docket but not add to it." : "Couldn't add that source. Try again."); }
+    $("#src-save").disabled = false;
+  }
+  function renderMaintenance() {
+    const show = !!S.db && (S.isOwner || S.canWrite === true);
+    $("#maintenance").hidden = !show;
+    if (!show) return;
+    const cutoff = addDays(nowNY().slice(0, 10), -14) + "T00:00";
+    const old = S.events.filter(e => e.overKey < cutoff);
+    const box = $("#prune-box");
+    if (S.pruning) { box.innerHTML = `<span class="ask-status live">Clearing out past events…</span>`; return; }
+    if (!old.length) { box.innerHTML = `<span class="fine" style="margin:0">Nothing to clear: no events ended more than two weeks ago.</span>`; return; }
+    box.innerHTML = S.pruneAsk
+      ? `<span>Remove ${old.length} event${old.length === 1 ? "" : "s"} that ended before ${esc(fmtDate(cutoff.slice(0, 10)))}? Saved copies stay in your Saved tab.</span><button class="btn" type="button" data-prune="yes">Remove them</button><button class="btn quiet" type="button" data-prune="no">Cancel</button>`
+      : `<button class="btn quiet" type="button" data-prune="ask">Clear out ${old.length} past event${old.length === 1 ? "" : "s"}</button>`;
+  }
+  async function prune() {
+    const cutoff = addDays(nowNY().slice(0, 10), -14) + "T00:00";
+    const old = S.events.filter(e => e.overKey < cutoff);
+    S.pruning = true; S.pruneAsk = false; renderMaintenance();
+    let n = 0;
+    for (const e of old) { try { await S.db.doc("events/" + e.id).delete(); n++; } catch (err) { break; } }
+    S.pruning = false; renderMaintenance();
+    toast(`Cleared ${n} past event${n === 1 ? "" : "s"}.`);
+  }
+
+  // ------------------------------------------------------------ interests tab
+  function buildInterests() {
+    const LV = ["Off", "Low", "Med", "High"];
+    $("#weights").innerHTML = THEMES.map(([k, l]) => `<div class="wrow"><span class="lab">${esc(l)}</span><span class="seg" role="group" aria-label="${esc(l)}" data-theme="${k}">${LV.map((x, i) => `<button type="button" data-w="${i}">${x}</button>`).join("")}</span></div>`).join("");
+    $("#weights").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-w]"); if (!b) return;
+      const k = b.closest("[data-theme]").dataset.theme;
+      S.prefs.weights[k] = Number(b.dataset.w); prefsChanged(); syncInterests(); renderResultsIfVisible();
+    });
+    const CV = [["-1", "Mute"], ["0", "Normal"], ["1", "Boost"]];
+    $("#catweights").innerHTML = CATEGORIES.map(c => `<div class="wrow"><span class="lab">${esc(c)}</span><span class="seg" role="group" aria-label="${esc(c)}" data-cat="${esc(c)}">${CV.map(([v, l]) => `<button type="button" data-c="${v}">${l}</button>`).join("")}</span></div>`).join("");
+    $("#catweights").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-c]"); if (!b) return;
+      const c = b.closest("[data-cat]").dataset.cat, v = Number(b.dataset.c);
+      if (v) S.prefs.cats[c] = v; else delete S.prefs.cats[c];
+      prefsChanged(); syncInterests(); renderResultsIfVisible();
+    });
+    $("#p-home").innerHTML = `<option value="">Anywhere</option>` + BOROUGHS.filter(b => b !== "Online" && b !== "Citywide").map(b => `<option>${b}</option>`).join("");
+    $("#p-home").addEventListener("change", () => { S.prefs.home = $("#p-home").value; prefsChanged(); renderResultsIfVisible(); });
+    for (const [sel, key] of [["#p-free", "preferFree"], ["#p-muted", "hideMuted"], ["#p-members", "hideMembers"], ["#p-qa", "favorQA"], ["#p-indie", "favorIndie"]]) {
+      $(sel).addEventListener("change", () => { S.prefs[key] = $(sel).checked; prefsChanged(); renderResultsIfVisible(); });
+    }
+    $("#reset-prefs").addEventListener("click", () => {
+      const keep = { saved: S.prefs.saved, hidden: S.prefs.hidden };
+      S.prefs = Object.assign(defaultPrefs(), keep); prefsChanged(); syncInterests(); renderResultsIfVisible();
+      toast("Interests reset. Saved and hidden events kept.");
+    });
+  }
+  function syncInterests() {
+    for (const seg of $$("#weights [data-theme]")) {
+      const w = S.prefs.weights[seg.dataset.theme];
+      for (const b of seg.querySelectorAll("button")) b.setAttribute("aria-pressed", String(Number(b.dataset.w) === w));
+    }
+    for (const seg of $$("#catweights [data-cat]")) {
+      const v = S.prefs.cats[seg.dataset.cat] || 0;
+      for (const b of seg.querySelectorAll("button")) b.setAttribute("aria-pressed", String(Number(b.dataset.c) === v));
+    }
+    $("#p-home").value = S.prefs.home || "";
+    $("#p-free").checked = !!S.prefs.preferFree;
+    $("#p-muted").checked = !!S.prefs.hideMuted;
+    $("#p-members").checked = !!S.prefs.hideMembers;
+    $("#p-qa").checked = !!S.prefs.favorQA;
+    $("#p-indie").checked = !!S.prefs.favorIndie;
+  }
+  function renderResultsIfVisible() { if (S.tab === "search") renderResults(); }
+
+  // ------------------------------------------------------------ tabs + status
+  function setTab(t, focus) {
+    if (!TABS.includes(t)) t = "search";
+    S.tab = t;
+    for (const b of $$(".tab")) {
+      const on = b.dataset.tab === t;
+      b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1;
+      if (on && focus) b.focus();
+    }
+    for (const id of TABS) $("#panel-" + id).hidden = id !== t;
+    persistUI();
+    try { history.replaceState(null, "", "#" + t); } catch (e) { /* not allowed here */ }
+    renderTab();
+  }
+  function renderTab() {
+    if (S.tab === "search") renderResults();
+    else if (S.tab === "ask") renderAsk();
+    else if (S.tab === "saved") renderSaved();
+    else if (S.tab === "sources") renderSources();
+    else if (S.tab === "interests") syncInterests();
+  }
+  function renderStatus() {
+    const line = $("#status-line"), plate = $("#sign-plate");
+    if (S.dbState === "loading") line.textContent = "Loading events…";
+    else if (S.dbState === "absent") line.textContent = "Open City Docket in Claude to load events.";
+    else if (S.dbState === "error") line.textContent = "Couldn't load the event list. Reload to try again.";
+    else {
+      const now = nowNY();
+      const up = S.events.filter(e => e.overKey >= now);
+      line.textContent = `${up.length} upcoming events · ${S.sources.length} sources${S.meta && S.meta.updated ? " · last pulled " + fmtDate(String(S.meta.updated).slice(0, 10)) : ""}`;
+      const last = up.filter(e => !e.multi).reduce((m, e) => (e.sd > m ? e.sd : m), now.slice(0, 10));
+      plate.innerHTML = `${esc(shortDate(now.slice(0, 10)))}<br>– ${esc(shortDate(last))}`;
+    }
+  }
+  function renderAll() { renderStatus(); renderSavedCount(); renderTab(); }
+
+  // ------------------------------------------------------------ wiring
+  function wire() {
+    buildSearchControls(); buildAsk(); buildInterests();
+    $(".tabs").addEventListener("click", ev => { const b = ev.target.closest(".tab"); if (b) setTab(b.dataset.tab); });
+    $(".tabs").addEventListener("keydown", ev => {
+      if (ev.key !== "ArrowRight" && ev.key !== "ArrowLeft") return;
+      const i = TABS.indexOf(S.tab), n = ev.key === "ArrowRight" ? (i + 1) % TABS.length : (i - 1 + TABS.length) % TABS.length;
+      ev.preventDefault(); setTab(TABS[n], true);
+    });
+    $("#export-csv").addEventListener("click", exportCSV);
+    $("#intake-go").addEventListener("click", intakeSubmit);
+    $("#intake-stop").addEventListener("click", () => { if (S.intake.ctl) S.intake.ctl.abort(); });
+    $("#intake-review").addEventListener("change", ev => {
+      const cb = ev.target.closest("input[data-i]"); if (!cb) return;
+      const it = S.intake.items[Number(cb.dataset.i)]; if (it) it.pick = cb.checked;
+      const n = S.intake.items.filter(i => i.pick).length, btn = $("#intake-save");
+      if (btn) { btn.disabled = !n; btn.textContent = `Add ${n} event${n === 1 ? "" : "s"}`; }
+    });
+    $("#intake-review").addEventListener("click", ev => {
+      if (ev.target.closest("#intake-save")) intakeSave();
+      else if (ev.target.closest("#intake-discard")) { S.intake.items = []; renderIntake(); }
+    });
+    $("#add-source").addEventListener("submit", addSource);
+    $("#prune-box").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-prune]"); if (!b) return;
+      if (b.dataset.prune === "ask") { S.pruneAsk = true; renderMaintenance(); }
+      else if (b.dataset.prune === "no") { S.pruneAsk = false; renderMaintenance(); }
+      else prune();
+    });
+    syncSearchControls(); syncInterests(); renderPrefsWhere();
+    setTab(S.tab);
+    renderStatus(); renderSavedCount();
+  }
+
+  // ------------------------------------------------------------ capabilities
+  async function connect() {
+    const [db, user] = await Promise.all([use("db"), use("user")]);
+    S.db = db; S.user = user;
+    if (user) {
+      try {
+        const [id, owner, can] = await Promise.all([user.id(), user.isOwner(), user.can("data.write")]);
+        S.uid = id; S.isOwner = !!owner; S.canWrite = can;
+      } catch (e) { /* reads never reject, but stay safe */ }
+    }
+    if (!db) { S.dbState = "absent"; renderAll(); return; }
+    db.collection("events").onSnapshot(snap => {
+      S.events = snap.docs.map(d => normEvent(d.id, d.data()));
+      S.byId = new Map(S.events.map(e => [e.id, e]));
+      S.dbState = "ready"; refreshOrgOptions(); renderAll();
+    }, err => { S.dbState = "error"; renderAll(); });
+    db.collection("sources").onSnapshot(snap => {
+      S.sources = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
+      renderStatus(); if (S.tab === "sources") renderSources();
+    }, () => {});
+    db.doc("meta/status").onSnapshot(snap => {
+      S.meta = snap.exists ? snap.data() : null;
+      renderStatus(); if (S.tab === "sources") renderSources();
+    }, () => {});
+    loadPrefs();
+  }
+
+  wire();
+  connect();
+  use("sample").then(s => { S.sample = s; if (S.tab === "ask") renderAsk(); if (S.tab === "sources") renderIntake(); });
+  use("downloads").then(d => { S.downloads = d; });
+  // Keep "tonight"/"today" honest if the page stays open across hours.
+  setInterval(() => { if (S.dbState === "ready" && !document.hidden) { renderStatus(); if (S.tab === "search") renderResults(); } }, 5 * 60 * 1000);
+})();
+
+</script>
+</body>
+</html>

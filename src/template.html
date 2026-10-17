@@ -1,0 +1,441 @@
+<title>City Docket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@600;800;900&family=Overpass+Mono:wght@400;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a municipal docket. Street-sign masthead, sticky tab bar, filter rail on the left,
+   a day-by-day agenda on the right; the rail folds into a panel under 980px. */
+:root {
+  --ground: #E9EDE8;      /* poured-concrete grey, a touch of green */
+  --surface: #F7F9F5;
+  --ink: #13201A;
+  --muted: #55625B;
+  --rule: #CBD4CC;
+  --sign: #0A6746;        /* street-name-sign green */
+  --sign-ink: #FFFFFF;
+  --accent: #0A6746;      /* links and fit bars */
+  --notice: #F2C12E;      /* public-notice yellow */
+  --notice-ink: #1C1600;
+  --alert: #A3302A;
+  --chip-on: #13201A;
+  --chip-on-ink: #F7F9F5;
+  --shadow: 0 1px 0 rgba(19, 32, 26, .10);
+  --font-display: "Overpass", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Overpass Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0D1310; --surface: #151D18; --ink: #E3EAE5; --muted: #9AA79F; --rule: #28332D;
+    --sign: #16734F; --sign-ink: #F4FBF7; --accent: #62C89C; --notice: #E6B82A; --notice-ink: #1C1600;
+    --alert: #E2857B; --chip-on: #E3EAE5; --chip-on-ink: #0D1310; --shadow: 0 1px 0 rgba(0, 0, 0, .4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0D1310; --surface: #151D18; --ink: #E3EAE5; --muted: #9AA79F; --rule: #28332D;
+  --sign: #16734F; --sign-ink: #F4FBF7; --accent: #62C89C; --notice: #E6B82A; --notice-ink: #1C1600;
+  --alert: #E2857B; --chip-on: #E3EAE5; --chip-on-ink: #0D1310; --shadow: 0 1px 0 rgba(0, 0, 0, .4);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+a { color: var(--accent); text-underline-offset: 2px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.app { max-width: 1200px; margin: 0 auto; padding-inline: 16px; padding-block: 18px 72px; }
+@media (min-width: 720px) { .app { padding-inline: 28px; } }
+
+/* ---------- masthead */
+.masthead { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; padding-block: 6px 16px; }
+.signpost { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 0; font-size: inherit; font-weight: inherit; }
+.sign { display: block; background: var(--sign); color: var(--sign-ink); border-radius: 7px; padding: 4px; box-shadow: var(--shadow); }
+.sign > span { display: block; border: 2px solid var(--sign-ink); border-radius: 4px; }
+.sign-name { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.9rem, 5vw, 2.8rem); line-height: 1; padding: 9px 16px 4px; letter-spacing: .01em; }
+.sign-plate { font-family: var(--font-display); font-weight: 800; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px 3px; line-height: 1.15; text-align: center; }
+.sign.small { border-radius: 5px; padding: 3px; }
+.mast-copy { flex: 1 1 320px; min-width: 0; }
+.tagline { margin: 0; font-size: 1.02rem; max-width: 56ch; text-wrap: balance; }
+.status { margin: 4px 0 0; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); letter-spacing: .02em; }
+
+/* ---------- tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ground); display: flex; gap: 2px; overflow-x: auto; border-bottom: 2px solid var(--ink); margin-bottom: 18px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { font-family: var(--font-display); font-weight: 800; font-size: .98rem; letter-spacing: .04em; text-transform: uppercase; background: none; border: 0; color: var(--muted); padding: 12px 12px 7px; border-bottom: 5px solid transparent; margin-bottom: -2px; cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--notice); }
+.tab .count { font-family: var(--font-mono); font-weight: 600; font-size: .72rem; background: var(--ink); color: var(--ground); border-radius: 3px; padding: 1px 5px; margin-left: 4px; vertical-align: 2px; }
+
+/* ---------- shared controls */
+.btn { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: .86rem; padding: 10px 15px 7px; border-radius: var(--radius); border: 2px solid var(--ink); background: var(--surface); color: var(--ink); cursor: pointer; line-height: 1.2; white-space: nowrap; }
+.btn:hover { background: var(--ground); }
+a.btn { text-decoration: none; display: inline-block; }
+.btn.primary { background: var(--sign); border-color: var(--sign); color: var(--sign-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.quiet { border-color: var(--rule); font-size: .78rem; padding: 7px 11px 5px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.linkish { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; font-size: inherit; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-mono); font-size: .76rem; letter-spacing: .01em; padding: 5px 9px 4px; border-radius: 3px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); cursor: pointer; line-height: 1.25; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); border-color: var(--chip-on); }
+.field-label { display: block; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+input[type="text"], input[type="search"], input[type="url"], input[type="date"], select, textarea { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 8px 10px; min-width: 0; max-width: 100%; }
+input:focus, select:focus, textarea:focus { border-color: var(--ink); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--sign); }
+.fine { font-size: .84rem; color: var(--muted); margin: 8px 0 0; }
+.empty { padding: 28px 18px; border: 1px dashed var(--rule); border-radius: var(--radius); background: var(--surface); color: var(--muted); }
+.empty strong { display: block; color: var(--ink); font-size: 1.05rem; margin-bottom: 4px; }
+h2.section { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; line-height: 1.1; margin: 0 0 6px; text-wrap: balance; }
+h3.sub { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 8px; }
+
+/* ---------- search */
+.searchbar { display: flex; gap: 8px; }
+#q { flex: 1; font-size: 1.05rem; padding: 12px 14px; border: 2px solid var(--ink); }
+.when { margin-top: 12px; }
+.custom-range { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; font-size: .9rem; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 16px; }
+.rail { display: flex; flex-direction: column; gap: 18px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; }
+.rail.closed { display: none; }
+.rail fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.rail legend { padding: 0; }
+.rail select { width: 100%; }
+#filters-toggle .n { font-family: var(--font-mono); background: var(--notice); color: var(--notice-ink); border-radius: 3px; padding: 0 5px; margin-left: 4px; }
+@media (min-width: 980px) {
+  .layout { grid-template-columns: 272px minmax(0, 1fr); }
+  .rail, .rail.closed { display: flex; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 60px); max-height: calc(100vh - 80px); overflow: auto; align-self: start; }
+  #filters-toggle { display: none; }
+}
+.results-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; padding-bottom: 8px; }
+.summary { margin: 0; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+.summary b { color: var(--ink); font-weight: 600; }
+.sortbox { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: .76rem; color: var(--muted); }
+
+/* ---------- picks strip */
+.picks { border: 2px solid var(--ink); border-radius: var(--radius); background: var(--surface); padding: 12px 14px 4px; margin-bottom: 8px; }
+.picks-head { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
+.notice-tag { font-family: var(--font-display); font-weight: 900; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; background: var(--notice); color: var(--notice-ink); padding: 3px 7px 1px; border-radius: 2px; }
+.picks-head p { margin: 0; font-size: .86rem; color: var(--muted); }
+.picks .ev:last-child { border-bottom: 0; }
+
+/* ---------- agenda */
+.day { display: flex; align-items: flex-end; gap: 12px; margin: 26px 0 0; padding-bottom: 7px; border-bottom: 2px solid var(--ink); }
+.day:first-child { margin-top: 6px; }
+.dnum { font-family: var(--font-display); font-weight: 900; font-size: 2.3rem; line-height: .82; letter-spacing: -.01em; }
+.dmeta { font-family: var(--font-mono); font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); line-height: 1.25; }
+.dmeta b { display: block; color: var(--ink); font-weight: 600; }
+.rel { margin-left: auto; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.rel.hot { background: var(--notice); color: var(--notice-ink); padding: 2px 6px; border-radius: 2px; }
+.ev { display: grid; grid-template-columns: 5.6rem minmax(0, 1fr) auto; gap: 2px 14px; padding: 13px 0 12px; border-bottom: 1px solid var(--rule); }
+.ev-when { font-family: var(--font-mono); font-weight: 600; font-size: .88rem; line-height: 1.3; padding-top: 1px; }
+.ev-when small { display: block; font-weight: 400; color: var(--muted); font-size: .72rem; letter-spacing: .02em; }
+.ev-body { min-width: 0; }
+.kicker { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); overflow-wrap: anywhere; }
+.kicker .cat { color: var(--accent); font-weight: 600; }
+.ev-title { margin: 2px 0 2px; font-size: 1.06rem; font-weight: 650; line-height: 1.3; text-wrap: pretty; }
+.ev-title button { all: unset; cursor: pointer; }
+.ev-title button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ev-title button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.meta { margin: 0; color: var(--muted); font-size: .88rem; overflow-wrap: anywhere; }
+.flags { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-left: 2px; vertical-align: 1px; }
+.flag { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--rule); color: var(--muted); padding: 0 5px; border-radius: 2px; line-height: 1.5; }
+.flag.warn { border-color: var(--alert); color: var(--alert); }
+.flag.free, .flag.hi { border-color: var(--accent); color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 5px; font-family: var(--font-mono); font-size: .7rem; color: var(--muted); }
+.tags span::before { content: "#"; opacity: .55; }
+.why { margin: 7px 0 0; font-size: .92rem; }
+.why b { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; color: var(--accent); margin-right: 6px; }
+.ev-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.fit { display: inline-flex; align-items: flex-end; gap: 2px; height: 15px; }
+.fit i { display: block; width: 4px; background: var(--rule); border-radius: 1px; }
+.fit i:nth-child(1) { height: 5px; } .fit i:nth-child(2) { height: 7px; } .fit i:nth-child(3) { height: 10px; } .fit i:nth-child(4) { height: 12px; } .fit i:nth-child(5) { height: 15px; }
+.fit i.on { background: var(--accent); }
+.acts { display: flex; gap: 4px; }
+.icon { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--rule); background: var(--surface); border-radius: var(--radius); color: var(--muted); cursor: pointer; padding: 0; }
+.icon:hover { color: var(--ink); border-color: var(--ink); }
+.icon[aria-pressed="true"] { background: var(--notice); border-color: var(--notice); color: var(--notice-ink); }
+.icon svg { width: 16px; height: 16px; }
+.detail { grid-column: 2 / -1; margin-top: 8px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
+.detail p { margin: 0 0 8px; max-width: 68ch; }
+.detail dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 14px; margin: 8px 0 12px; font-size: .88rem; }
+.detail dt { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.detail dd { margin: 0; overflow-wrap: anywhere; }
+.detail .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.running { margin-top: 30px; }
+.running > summary { cursor: pointer; list-style: none; display: flex; align-items: flex-end; gap: 12px; padding-bottom: 7px; border-bottom: 2px solid var(--ink); }
+.running > summary::-webkit-details-marker { display: none; }
+.running > summary h3 { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; line-height: 1; }
+.running > summary .dmeta { margin-left: auto; }
+.running > summary::after { content: "Show"; font-family: var(--font-mono); font-size: .72rem; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+.running[open] > summary::after { content: "Hide"; }
+@media (max-width: 560px) {
+  .ev { grid-template-columns: 4.6rem minmax(0, 1fr); }
+  .ev-side { grid-column: 2; flex-direction: row; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .detail { grid-column: 1 / -1; }
+  .dnum { font-size: 2rem; }
+}
+
+/* ---------- ask */
+.ask-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+@media (min-width: 980px) { .ask-grid { grid-template-columns: minmax(0, 1fr) 300px; } }
+.ask-box textarea { width: 100%; font-size: 1.12rem; line-height: 1.4; padding: 14px; border: 2px solid var(--ink); resize: vertical; min-height: 96px; }
+.ask-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 10px; }
+.ask-status { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+.ask-status.live::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--notice); margin-right: 7px; animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.ask-aside { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 14px; align-self: start; }
+.ask-aside .chips { flex-direction: column; align-items: stretch; }
+.ask-aside .chip { text-align: left; font-family: var(--font-body); font-size: .88rem; letter-spacing: 0; padding: 8px 10px; }
+.qa { margin-top: 26px; }
+.qa-q { font-family: var(--font-display); font-weight: 900; font-size: 1.3rem; line-height: 1.2; margin: 0; padding-bottom: 7px; border-bottom: 2px solid var(--ink); text-wrap: balance; }
+.qa-int { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); margin: 8px 0 0; }
+.qa-note { margin: 12px 0 0; padding: 10px 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); font-size: .92rem; }
+.qa-sub { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 18px 0 0; }
+.qa-err { color: var(--alert); margin: 10px 0 0; }
+
+/* ---------- saved */
+.saved-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+
+/* ---------- sources */
+.pipeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 14px 0 10px; }
+.pipe { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 14px 16px; }
+.pipe .n { font-family: var(--font-display); font-weight: 900; font-size: 2.2rem; line-height: 1; }
+.pipe .l { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: .86rem; margin-top: 4px; }
+.pipe p { margin: 6px 0 0; font-size: .86rem; color: var(--muted); }
+.refresh { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; font-size: .9rem; padding: 10px 0 18px; }
+.refresh code { font-family: var(--font-mono); font-size: .85rem; background: var(--surface); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 3px; }
+.panel { background: var(--surface); border: 2px solid var(--ink); border-radius: var(--radius); padding: 16px; margin: 8px 0 26px; }
+.panel textarea { width: 100%; min-height: 140px; resize: vertical; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+.form-grid label { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.review { margin-top: 14px; }
+.review-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; padding: 10px 0; border-top: 1px solid var(--rule); }
+.review-item input { margin-top: 4px; accent-color: var(--sign); width: 18px; height: 18px; }
+.review-item .meta { font-size: .84rem; }
+.dir-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: 8px; }
+.src { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.src-name { font-weight: 650; }
+.kind { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .07em; text-transform: uppercase; border: 1px solid var(--rule); padding: 1px 6px; border-radius: 2px; color: var(--muted); margin-left: 6px; vertical-align: 2px; white-space: nowrap; }
+.kind.news { border-color: var(--accent); color: var(--accent); }
+.kind.new { background: var(--notice); border-color: var(--notice); color: var(--notice-ink); }
+.src p { margin: 2px 0 0; font-size: .88rem; color: var(--muted); }
+.src-links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: .86rem; white-space: nowrap; }
+.confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+
+/* ---------- interests */
+.int-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; }
+@media (min-width: 980px) { .int-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.wrow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.wrow .lab { min-width: 0; }
+.seg { display: inline-flex; border: 1px solid var(--ink); border-radius: var(--radius); overflow: hidden; }
+.seg button { font-family: var(--font-mono); font-size: .72rem; padding: 6px 9px 5px; background: var(--surface); color: var(--ink); border: 0; border-left: 1px solid var(--rule); cursor: pointer; }
+.seg button:first-child { border-left: 0; }
+.seg button[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); }
+.prefs-box { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; }
+
+/* ---------- toast */
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 12px); background: var(--ink); color: var(--surface); padding: 10px 14px; border-radius: var(--radius); font-size: .9rem; display: flex; gap: 12px; align-items: center; opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s; max-width: calc(100vw - 32px); z-index: 30; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.toast button { background: none; border: 0; color: var(--notice); font-weight: 700; cursor: pointer; padding: 0; }
+@media (prefers-reduced-motion: reduce) { *, *::before { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="app">
+  <header class="masthead">
+    <h1 class="signpost">
+      <span class="sign"><span class="sign-name">City Docket</span></span>
+      <span class="sign small" aria-hidden="true"><span class="sign-plate" id="sign-plate">NYC<br>Events</span></span>
+    </h1>
+    <div class="mast-copy">
+      <p class="tagline">Talks, hearings, readings, screenings and actions around New York, ranked by what you care about.</p>
+      <p class="status" id="status-line">Connecting to the event database…</p>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="tab-search" data-tab="search" aria-controls="panel-search" aria-selected="true">Search</button>
+    <button class="tab" role="tab" id="tab-ask" data-tab="ask" aria-controls="panel-ask" aria-selected="false" tabindex="-1">Ask</button>
+    <button class="tab" role="tab" id="tab-saved" data-tab="saved" aria-controls="panel-saved" aria-selected="false" tabindex="-1">Saved<span class="count" id="saved-count" hidden></span></button>
+    <button class="tab" role="tab" id="tab-sources" data-tab="sources" aria-controls="panel-sources" aria-selected="false" tabindex="-1">Sources</button>
+    <button class="tab" role="tab" id="tab-interests" data-tab="interests" aria-controls="panel-interests" aria-selected="false" tabindex="-1">Interests</button>
+  </nav>
+
+  <main>
+    <!-- SEARCH -->
+    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search">
+      <div class="searchbar">
+        <label class="sr" for="q">Search events</label>
+        <input id="q" type="search" placeholder="Search titles, venues, organizers, topics…" autocomplete="off">
+        <button class="btn" id="filters-toggle" aria-expanded="false" aria-controls="rail">Filters<span class="n" id="filter-n" hidden></span></button>
+      </div>
+      <div class="when chips" id="when" role="group" aria-label="When"></div>
+      <div class="custom-range" id="custom-range" hidden>
+        <label for="from">From</label><input type="date" id="from">
+        <label for="to">to</label><input type="date" id="to">
+      </div>
+      <div class="layout">
+        <aside class="rail closed" id="rail" aria-label="Filters">
+          <fieldset><legend class="field-label">Type of event</legend><div class="chips" id="f-cats"></div></fieldset>
+          <fieldset><legend class="field-label">Extras</legend><div class="chips" id="f-extras"></div></fieldset>
+          <fieldset><legend class="field-label">Topic</legend><div class="chips" id="f-themes"></div></fieldset>
+          <fieldset><legend class="field-label">Borough</legend><div class="chips" id="f-boroughs"></div></fieldset>
+          <fieldset><legend class="field-label">Time of day</legend><div class="chips" id="f-tod"></div></fieldset>
+          <fieldset><legend class="field-label">Length</legend><div class="chips" id="f-dur"></div></fieldset>
+          <fieldset><legend class="field-label">Price</legend><div class="chips" id="f-price"></div></fieldset>
+          <fieldset><legend class="field-label">Format</legend><div class="chips" id="f-format"></div></fieldset>
+          <label><span class="field-label">Organizer</span><select id="f-org"><option value="">Any organizer</option></select></label>
+          <fieldset><legend class="field-label">Found via</legend><div class="chips" id="f-stype"></div></fieldset>
+          <label class="check"><input type="checkbox" id="f-running" checked> Include exhibitions, festivals and film series</label>
+          <label class="check"><input type="checkbox" id="f-hidden"> Show events I've hidden</label>
+          <button class="btn quiet" id="clear-filters" type="button">Clear filters</button>
+        </aside>
+        <div class="results" aria-live="polite">
+          <div class="results-head">
+            <p class="summary" id="summary">Loading…</p>
+            <div class="sortbox" role="group" aria-label="Sort">Sort
+              <button class="chip" data-sort="soonest" aria-pressed="true">Soonest</button>
+              <button class="chip" data-sort="fit" aria-pressed="false">Best fit</button>
+            </div>
+          </div>
+          <div id="picks"></div>
+          <div id="results">
+            <div class="empty"><strong>Loading the docket</strong>Events live in this page's database and appear here once it connects. If nothing shows up, open City Docket from Claude.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASK -->
+    <section id="panel-ask" role="tabpanel" aria-labelledby="tab-ask" hidden>
+      <div class="ask-grid">
+        <div>
+          <div class="ask-box">
+            <h2 class="section"><label for="ask-q">Ask the docket</label></h2>
+            <p class="fine" style="margin:0 0 10px">Describe what you're after in plain words. Claude reads the next three months of City Docket (your best fits first when it's busy) and picks the ones that fit.</p>
+            <textarea id="ask-q" placeholder="What's going on this Friday evening I might want to check out?"></textarea>
+            <div class="ask-actions">
+              <button class="btn primary" id="ask-go" type="button">Ask</button>
+              <button class="btn" id="ask-stop" type="button" hidden>Stop</button>
+              <button class="btn quiet" id="ask-reset" type="button" hidden>New question</button>
+              <span class="ask-status" id="ask-status" aria-live="polite"></span>
+            </div>
+            <p class="fine" id="ask-fine">Uses your Claude account; the first question asks for your permission. Follow-up questions keep the context.</p>
+          </div>
+          <div id="ask-thread"></div>
+        </div>
+        <aside class="ask-aside">
+          <h3 class="sub">Try asking</h3>
+          <div class="chips" id="ask-examples"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SAVED -->
+    <section id="panel-saved" role="tabpanel" aria-labelledby="tab-saved" hidden>
+      <div class="saved-head">
+        <div>
+          <h2 class="section">Saved</h2>
+          <p class="fine" style="margin:0">Star events anywhere in City Docket to keep them here.</p>
+        </div>
+        <button class="btn" id="export-csv" type="button">Export for Google Calendar (.csv)</button>
+      </div>
+      <div id="saved-list"></div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" hidden>
+      <h2 class="section">Where events come from</h2>
+      <p class="fine" style="margin:0;max-width:70ch">City Docket pulls from three kinds of places. Every event links back to the page or email it came from.</p>
+      <div class="pipeline" id="pipeline"></div>
+      <div class="refresh" id="refresh-note"></div>
+
+      <div class="panel" id="intake">
+        <h3 class="sub">Add events from a newsletter</h3>
+        <p class="fine" style="margin-top:0">Paste a newsletter, mailing-list email or event page. Claude pulls out the events, you check them, then they're added to the docket.</p>
+        <label class="sr" for="intake-text">Newsletter text</label>
+        <textarea id="intake-text" placeholder="Paste the email or page text here…"></textarea>
+        <div class="form-grid">
+          <label><span class="field-label">Where it came from</span><input type="text" id="intake-source" list="intake-source-list" placeholder="e.g. Nonsense NYC, Oct 1 issue"></label>
+          <label><span class="field-label">Kind of source</span>
+            <select id="intake-type"><option value="newsletter">Newsletter</option><option value="mailing list">Mailing list</option><option value="website">Website</option><option value="you">Something else</option></select>
+          </label>
+        </div>
+        <datalist id="intake-source-list"></datalist>
+        <div class="ask-actions" style="margin-top:0">
+          <button class="btn primary" id="intake-go" type="button">Find events</button>
+          <button class="btn" id="intake-stop" type="button" hidden>Stop</button>
+          <span class="ask-status" id="intake-status" aria-live="polite"></span>
+        </div>
+        <div class="review" id="intake-review"></div>
+      </div>
+
+      <div class="dir-head">
+        <h3 class="sub" style="margin:0">Source directory</h3>
+        <div class="chips" id="dir-kinds" role="group" aria-label="Filter sources"></div>
+      </div>
+      <div id="directory"></div>
+
+      <div class="panel" id="add-source-panel">
+        <h3 class="sub">Track another source</h3>
+        <form id="add-source">
+          <div class="form-grid">
+            <label><span class="field-label">Name</span><input type="text" id="src-name" required placeholder="e.g. Woodbine"></label>
+            <label><span class="field-label">Link</span><input type="url" id="src-url" required placeholder="https://…"></label>
+            <label><span class="field-label">Kind</span>
+              <select id="src-kind"><option>Calendar</option><option>Newsletter</option><option>Mailing list</option><option>Listings</option><option>Government</option></select>
+            </label>
+            <label><span class="field-label">Venue type</span>
+              <select id="src-vtype"><option value="">Not a venue</option><option>Bookstore</option><option>Cinema</option><option>Theater</option><option>Indie space</option></select>
+            </label>
+          </div>
+          <label><span class="field-label">Notes</span><input type="text" id="src-notes" style="width:100%" placeholder="What it covers, how to subscribe"></label>
+          <div style="margin-top:12px"><button class="btn" type="submit" id="src-save">Add source</button></div>
+        </form>
+      </div>
+
+      <div id="maintenance" hidden>
+        <h3 class="sub">Housekeeping</h3>
+        <p class="fine" style="margin-top:0">Old events stay in the database until you clear them. Clearing them keeps searches quick and Ask focused.</p>
+        <div class="confirm" id="prune-box"></div>
+      </div>
+    </section>
+
+    <!-- INTERESTS -->
+    <section id="panel-interests" role="tabpanel" aria-labelledby="tab-interests" hidden>
+      <h2 class="section">What you care about</h2>
+      <p class="fine" style="margin:0 0 14px;max-width:70ch">These weights set the fit bars, the order of “Best fit” and what Ask recommends. Topics set to Off drop out of results unless you search for them.</p>
+      <div class="int-grid">
+        <div>
+          <h3 class="sub">Topics</h3>
+          <div id="weights"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div class="prefs-box">
+            <label><span class="field-label">Home base</span><select id="p-home"></select></label>
+            <label class="check"><input type="checkbox" id="p-free"> Favor free and cheap events</label>
+            <label class="check"><input type="checkbox" id="p-muted"> Hide topics and event types I've turned off</label>
+            <label class="check"><input type="checkbox" id="p-members"> Hide members-only events</label>
+            <label class="check"><input type="checkbox" id="p-qa"> Favor screenings and shows with a Q&amp;A or talkback</label>
+            <label class="check"><input type="checkbox" id="p-indie"> Favor independent bookstores, cinemas and spaces</label>
+            <p class="fine" id="prefs-where" style="margin:0"></p>
+          </div>
+          <div>
+            <h3 class="sub">Event types</h3>
+            <div id="catweights"></div>
+          </div>
+          <div><button class="btn quiet" id="reset-prefs" type="button">Reset to my defaults</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/*__LOGIC__*/
+/*__APP__*/
+</script>
