@@ -19,7 +19,7 @@ in the Claude version.
 | `data/events.json`, `data/sources.json`, `data/meta.json` | The public event list, source directory and refresh status, rewritten every Sunday. |
 | `calendar/picks.ics` | Subscribable feed of the strongest fits plus deadlines such as voter registration. |
 | `src/` | Page source shared with the Claude artifact: `template.html`, `logic.js`, `app.js`, plus `static.js` for this copy. |
-| `tools/export.js` | Turns a database dump into the files in `data/` and `calendar/`, leaving out anything private. |
+| `tools/publish.py` | Turns a database dump into the files in `data/` and `calendar/`, leaving out anything private. Standard-library Python. The Sunday task carries an identical copy in its instructions. |
 | `tools/build_page.py` | Builds `index.html` (`site`) or the artifact page (`artifact`) from `src/`. |
 
 ## What stays private
@@ -30,11 +30,12 @@ Nothing from anyone's interests or saved events is ever uploaded.
 
 ## Weekly update
 
-    node tools/export.js <dump-dir>      # dump-dir holds events/, sources/ and meta/status.json
+    python3 tools/publish.py <dump-dir> .     # dump-dir holds events/, sources/ and meta/status.json
     git add data calendar && git commit -m "Weekly refresh YYYY-MM-DD" && git push
 
 The export refuses to publish if the event count drops by more than half from the last run, which usually means an
-incomplete dump.
+incomplete dump. If you change `tools/publish.py`, paste the same script into the Sunday task's instructions too:
+the task runs its own copy and checks it against this file before publishing.
 
 ## Rebuilding the page
 
