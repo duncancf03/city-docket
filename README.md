@@ -25,8 +25,9 @@ in the Claude version.
 ## What stays private
 
 The export publishes public listings only. Events that came from member mailing lists, or that exist only inside a
-subscriber email, stay out. So do private group lists, inbox and sender details, and redirect or tracking links.
-Nothing from anyone's interests or saved events is ever uploaded.
+subscriber email, stay out. So do private group lists, inbox and sender details, redirect or tracking links, and any
+sentence in a description or note that mentions Gmail, an inbox or a passcode. Nothing from anyone's interests or
+saved events is ever uploaded.
 
 ## Weekly update
 
@@ -34,8 +35,11 @@ Nothing from anyone's interests or saved events is ever uploaded.
     git add data calendar && git commit -m "Weekly refresh YYYY-MM-DD" && git push
 
 The export refuses to publish if the event count drops by more than half from the last run, which usually means an
-incomplete dump. If you change `tools/publish.py`, paste the same script into the Sunday task's instructions too:
-the task runs its own copy and checks it against this file before publishing.
+incomplete dump.
+
+Scheduled runs can't execute code from a cloned repository, so the Sunday task carries its own copy of
+`tools/publish.py` in its instructions and verifies that copy by SHA-256 before running it. It also compares this file
+with its copy and says so in its report if they differ. If you change `tools/publish.py`, update the task's copy too.
 
 ## Rebuilding the page
 

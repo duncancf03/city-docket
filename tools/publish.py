@@ -6,8 +6,9 @@ usage: python3 publish.py <dump-dir> <site-dir> [--force]
 Reads <dump-dir>/events/*.json, <dump-dir>/sources/*.json and <dump-dir>/meta/status.json (what ArtifactData writes
 with out_dir) and writes data/events.json, data/sources.json, data/meta.json and calendar/picks.ics under <site-dir>.
 Public listings only: no mailing-list events, no subscriber-only listings, no private group sources, no inbox or
-sender details, no redirect or tracking links. Refuses to write if the event count falls below half of the last
-export (an incomplete dump) unless --force is given. Python standard library only.
+sender details, no redirect or tracking links, and no sentence that mentions Gmail, an inbox or a passcode. Refuses to
+write if the event count falls below half of the last export (an incomplete dump) unless --force is given. Python
+standard library only.
 """
 import datetime, glob, json, math, os, re, sys
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -20,8 +21,10 @@ SOURCE_FIELDS = ["name", "kind", "venue_type", "themes", "url", "signup", "caden
 META_FIELDS = ["updated", "window_start", "window_end", "last_discovery", "new_sources"]
 SUBSCRIBER_ONLY_HOSTS = {"nonsensenyc.com"}
 REDIRECT_HOSTS = {"bit.ly", "tinyurl.com", "t.co", "ow.ly", "buff.ly", "lnkd.in", "rebrand.ly", "shorturl.at", "cutt.ly",
-                  "mailchi.mp", "list-manage.com", "click.convertkit-mail.com"}
-TRACKING = re.compile(r"^(utm_|mc_|fbclid$|gclid$|_hsenc$|_hsmi$|mkt_tok$|ck_subscriber_id$|vero_|oly_|rb_clickid$|s_cid$)", re.I)
+                  "mailchi.mp", "list-manage.com", "click.convertkit-mail.com", "mail.google.com", "mlsend.com",
+                  "safelinks.protection.outlook.com"}
+TRACKING = re.compile(r"^(utm_|mc_|fbclid$|gclid$|_hsenc$|_hsmi$|mkt_tok$|ck_subscriber_id$|vero_|oly_|rb_clickid$|s_cid$|pwd$)", re.I)
+PRIVATE = re.compile(r"gmail|inbox|\bpaste|pass ?code|password|meeting id", re.I)
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$")
 # Default interests, the same as the page's (src/logic.js).
 WEIGHTS = {"urban": 3, "housing": 3, "policy": 3, "left": 3, "civic": 2, "labor": 2, "solidarity": 2, "rights": 2,
@@ -55,7 +58,8 @@ def clean_url(u, dropped):
     if not re.match(r"^https?://\S+$", u, re.I):
         return ""
     h, parts = host(u), urlsplit(u)
-    if h in REDIRECT_HOSTS or any(h.endswith("." + r) for r in REDIRECT_HOSTS) or re.search(r"/redirect\b", parts.path):
+    if h in REDIRECT_HOSTS or any(h.endswith("." + r) for r in REDIRECT_HOSTS) or re.match(r"sendib\w*\.com$", h) \
+            or re.search(r"/redirect\b", parts.path):
         dropped.append(u)
         return ""
     query = parse_qsl(parts.query, keep_blank_values=True)
@@ -63,9 +67,12 @@ def clean_url(u, dropped):
     return u if len(kept) == len(query) else urlunsplit(parts._replace(query=urlencode(kept)))
 
 
-def scrub(text):
-    parts = re.split(r"(?<=[.!?])\s+", str(text or ""))
-    return " ".join(p for p in parts if p and not re.search(r"gmail|inbox|\bpaste", p, re.I)).strip()
+def scrub(text, hits=None):
+    parts = [p for p in re.split(r"(?<=[.!?])\s+", str(text or "")) if p]
+    keep = [p for p in parts if not PRIVATE.search(p)]
+    if hits is not None and len(keep) < len(parts):
+        hits.append(1)
+    return " ".join(keep).strip()
 
 
 def number(v):
@@ -161,7 +168,7 @@ def main():
     if not raw_events:
         sys.exit(f"publish: no events under {os.path.join(dump, 'events')}")
     now = datetime.datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%dT%H:%M")
-    dropped_links, private_names, left_out = [], set(), 0
+    dropped_links, scrubbed, private_names, left_out = [], [], set(), 0
 
     sources = []
     for s in raw_sources:
@@ -188,6 +195,9 @@ def main():
             continue
         o = {"id": e["id"], **{k: e[k] for k in EVENT_FIELDS if k in e}}
         o["url"], o["source_url"] = clean_url(o.get("url"), dropped_links), clean_url(o.get("source_url"), dropped_links)
+        for k in ("desc", "note", "recurring"):
+            if k in o:
+                o[k] = scrub(o[k], scrubbed)
         events.append(o)
     events.sort(key=lambda o: (o["start"], o["id"]))
 
@@ -261,6 +271,8 @@ def main():
     print(f"publish: left out {left_out} private-list events and {len(private_names)} private source(s).")
     if dropped_links:
         print(f"publish: removed {len(dropped_links)} redirect link(s): {' '.join(dropped_links)}")
+    if scrubbed:
+        print(f"publish: dropped private-looking sentences (Gmail, inbox, passcode) from {len(scrubbed)} event field(s)")
 
 
 if __name__ == "__main__":
